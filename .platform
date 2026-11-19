@@ -1,11 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "Report",
+    "type": "SemanticModel",
     "displayName": "Daily Tonnage Account Descktop Auto Refresh by Shift Prototype upload"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "938ff2ec-d2f0-4960-bf54-533af5441ca5"
+    "logicalId": "8c9ccd8b-e1f8-4b5b-b765-d21d5b968187"
   }
 }
