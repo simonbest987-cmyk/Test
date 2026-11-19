@@ -116,7 +116,7 @@ table Shift_Dates
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    Shift_Dates_Table = Source{[Item="Shift_Dates",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(Shift_Dates_Table,{{"Time at Saw1 Start", type text}, {"Time at Saw1 End", type datetime}, {"Shift", type text}, {"Week", type number}, {"Date", type date}, {"Days/Nights", type text}, {"Date_Days/Nights", type text}, {"Shift2", type text}, {"Week2", Int64.Type}})
 				in

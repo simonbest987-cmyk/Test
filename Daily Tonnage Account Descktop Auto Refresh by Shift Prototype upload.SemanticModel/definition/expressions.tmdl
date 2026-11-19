@@ -1,28 +1,15 @@
-expression 'Errors in Operating_Costs' =
+expression SourceWorkbookUrl = "https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e5f86159-0e01-4d5d-af90-da43813043bf
+
+	annotation PBI_ResultType = Text
+
+/// Shared navigation table for the Daily Tonnage Account workbook; every table partition starts from this query.
+expression DTA_Workbook =
 		let
-		Source = Operating_Costs,
-		#"Added Index" = Table.AddIndexColumn(Source, "Row Number" ,1),
-		  #"Kept Errors" = Table.SelectRowsWithErrors(#"Added Index", {"Cost Centre", "Description", "Tonne", "Time", "Fixed", "Depn", "tonne var", "time man hr", "fixed man hr", "depn man hr", "time wkd hr", "fixed wkd hr", "depn wkd hr", "Tonnes", "Manned hr", "worked hour", "year", "Availabiity", "Daily Manned Hours"}),
-		#"Reordered Columns" = Table.ReorderColumns(#"Kept Errors", {"Row Number", "Cost Centre", "Description", "Tonne", "Time", "Fixed", "Depn", "tonne var", "time man hr", "fixed man hr", "depn man hr", "time wkd hr", "fixed wkd hr", "depn wkd hr", "Tonnes", "Manned hr", "worked hour", "year", "Availabiity", "Daily Manned Hours"})
+		    Source = Excel.Workbook(Web.Contents(SourceWorkbookUrl), null, true)
 		in
-		  #"Reordered Columns"
-	lineageTag: d58afc10-5601-4484-a912-27a38817be6d
-	queryGroup: 'Query Errors - 06/11/2023 11:03:04'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'Errors in Operating_Costs (2)' =
-		let
-		Source = Operating_Costs,
-		#"Added Index" = Table.AddIndexColumn(Source, "Row Number" ,1),
-		  #"Kept Errors" = Table.SelectRowsWithErrors(#"Added Index", {"Cost Centre", "Description", "Tonne", "Time", "Fixed", "Depn", "tonne var", "time man hr", "fixed man hr", "depn man hr", "time wkd hr", "fixed wkd hr", "depn wkd hr", "Tonnes", "Manned hr", "worked hour", "year", "Availabiity", "Daily Manned Hours"}),
-		#"Reordered Columns" = Table.ReorderColumns(#"Kept Errors", {"Row Number", "Cost Centre", "Description", "Tonne", "Time", "Fixed", "Depn", "tonne var", "time man hr", "fixed man hr", "depn man hr", "time wkd hr", "fixed wkd hr", "depn wkd hr", "Tonnes", "Manned hr", "worked hour", "year", "Availabiity", "Daily Manned Hours"})
-		in
-		  #"Reordered Columns"
-	lineageTag: 99fc46fd-c1ce-4fbe-ada5-a79bb03eb7bd
-	queryGroup: 'Query Errors - 06/11/2023 12:47:07'
+		    Source
+	lineageTag: 0da7984b-a5e9-47b9-bd15-b4ca4785de8b
 
 	annotation PBI_NavigationStepName = Navigation
 

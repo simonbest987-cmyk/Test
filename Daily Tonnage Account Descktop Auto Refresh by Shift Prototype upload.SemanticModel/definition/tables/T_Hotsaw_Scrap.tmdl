@@ -90,7 +90,7 @@ table T_Hotsaw_Scrap
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    T_Hotsaw_Scrap_Table = Source{[Item="T_Hotsaw_Scrap",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(T_Hotsaw_Scrap_Table,{{"TIME", type datetime}, {"BAR", type text}, {" ODERED LENGTH", Int64.Type}, {"BAR LENGTH", Int64.Type}, {"PRODUCT", type text}, {"ROLLING", type text}, {"SCRAP REASON", type text}})
 				in

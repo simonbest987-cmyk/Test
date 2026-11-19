@@ -44,7 +44,7 @@ table T_Annual_Plan_Matrix
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    T_Annual_Plan_Matrix_Table = Source{[Item="T_Annual_Plan_Matrix",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(T_Annual_Plan_Matrix_Table,{{"Week", Int64.Type}, {"KPI", type text}, {"Yearly Budget", type number}, {"Weekly Budget", type number}})
 				in

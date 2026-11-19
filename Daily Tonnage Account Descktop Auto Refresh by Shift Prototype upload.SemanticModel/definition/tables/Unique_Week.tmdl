@@ -1,12 +1,8 @@
 table Unique_Week
 	lineageTag: 6ad9c16d-0cc6-417d-8fe1-109ae2485b7d
 
-	measure 'Worked Time' = ```
-			sumx (RELATEDTABLE('Summarised Rolling'),
-			[Summarised Rolling]) - sumx (RELATEDTABLE('Summarised Delays'),
-			[Summarised Delays])
-			
-			```
+	measure 'Worked Time' =
+			SUM ( 'Summarised Rolling'[Summarised Rolling] ) - SUM ( 'Summarised Delays'[Summarised Delays] )
 		lineageTag: c22de999-2170-4b8e-8f6c-1227438e895a
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -135,7 +131,7 @@ table Unique_Week
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    Unique_Week_Table = Source{[Item="Unique_Week",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(Unique_Week_Table,{{"Week No", Int64.Type}})
 				in

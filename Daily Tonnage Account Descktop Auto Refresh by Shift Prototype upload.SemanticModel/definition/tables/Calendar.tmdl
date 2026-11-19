@@ -2,13 +2,18 @@ table Calendar
 	lineageTag: 1b0d5a3f-93be-46ce-a96f-3ffbae60a33a
 
 	measure 'Pro Rata Cuts Wght1' =
-			
-			var _twogroupamount=
-			CALCULATE(SUM('Summarised Cuts Weight'[Summarised Cuts Wght]),FILTER(ALL('Summarised Cuts Weight'),'Summarised Cuts Weight'[WEEK_ABB Product]=MAX('Summarised Cuts Weight'[WEEK_ABB Product])))
-			var _singleamount=
-			SUM('Summarised Cuts Weight'[Summarised Cuts Wght])
-			return
-			DIVIDE(_singleamount,_twogroupamount)
+			VAR _currentWeekProduct =
+				MAX ( 'Summarised Cuts Weight'[WEEK_ABB Product] )
+			VAR _twogroupamount =
+				CALCULATE (
+					SUM ( 'Summarised Cuts Weight'[Summarised Cuts Wght] ),
+					REMOVEFILTERS ( 'Summarised Cuts Weight' ),
+					'Summarised Cuts Weight'[WEEK_ABB Product] = _currentWeekProduct
+				)
+			VAR _singleamount =
+				SUM ( 'Summarised Cuts Weight'[Summarised Cuts Wght] )
+			RETURN
+				DIVIDE ( _singleamount, _twogroupamount )
 		formatString: 0%;-0%;0%
 		lineageTag: 16d2b2b5-3d47-4c43-90af-1939775173c1
 
@@ -1181,7 +1186,10 @@ table Calendar
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Summarised Rolling' = [Rolling Time Related]
+	column 'Summarised Rolling' =
+			-- Same value as [Rolling Time Related]: no filter from a Calendar row reaches 'Summarised Rolling',
+			-- so the measure returned the grand total on every row. Written without context transition.
+			SUM ( 'Summarised Rolling'[Summarised Rolling] )
 		lineageTag: 7e6b2ce5-e0d4-4dc1-8acd-c4520285d01d
 		summarizeBy: sum
 
@@ -1483,7 +1491,7 @@ table Calendar
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    Calendar_Sheet = Source{[Item="Calendar",Kind="Sheet"]}[Data],
 				    #"Promoted Headers" = Table.PromoteHeaders(Calendar_Sheet, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Time at Saw1 Start", type text}, {"Time at Saw1 End", type datetime}, {"Shift", type text}, {"Week", type number}, {"Date", type date}, {"Days/Nights", type text}, {"Date_Days/Nights", type text}, {"Shift2", type text}, {"Week2", Int64.Type}, {"Column10", type any}, {"Week No", Int64.Type}})

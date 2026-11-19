@@ -286,7 +286,7 @@ table Operating_Costs
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    Operating_Costs_Table = Source{[Item="Operating_Costs",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(Operating_Costs_Table,{{"Cost Centre", Int64.Type}, {"Description", type text}, {"Tonne", type number}, {"Time", Int64.Type}, {"Fixed", type number}, {"Depn", type number}, {"tonne var", type number}, {"time man hr", Int64.Type}, {"fixed man hr", type number}, {"depn man hr", type number}, {"time wkd hr", Int64.Type}, {"fixed wkd hr", type number}, {"depn wkd hr", type number}, {"Tonnes", type number}, {"Manned hr", type number}, {"worked hour", type number}, {"year", Int64.Type}})
 				in

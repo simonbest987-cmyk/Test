@@ -132,7 +132,7 @@ table T_Rolling_Times
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    T_Rolling_Times_Table = Source{[Item="T_Rolling_Times",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(T_Rolling_Times_Table,{{"Week", Int64.Type}, {"ABB Week", type number}, {"product", type text}, {"Rolling", type text}, {"Start", type datetime}, {"End", type datetime}, {"Total Rolling Time", type number}, {"ABB Product", type text}, {"WEEK_ABB Product", type text}})
 				in

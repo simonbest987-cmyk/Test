@@ -178,7 +178,7 @@ table T_Summary_Utility_Charges
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    T_Summary_Utility_Charges_Table = Source{[Item="T_Summary_Utility_Charges",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(T_Summary_Utility_Charges_Table,{{"Area_Energy Bill", type text}, {"Gas Energy kwh ", Int64.Type}, {"Gas Cost", type number}, {"Gas Standing Charge", type number}, {"Gas Total Costs", type number}, {"Gas SAP", type number}, {"Gas Difference", type number}, {"Gas CCL", Int64.Type}, {"Gas £/KWH", type number}, {"Gas Energy GJ", type number}, {"Gas £/GJ", type number}, {"Elec Energy kwh ", type number}, {"Elec Cost", type number}, {"Elec SAP", type number}, {"Elec Difference", Int64.Type}, {"Elec CCL", type number}, {"Elec £/KWH", type number}, {"Elec £/GJ", type number}})
 				in

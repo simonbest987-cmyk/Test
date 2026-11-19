@@ -1083,7 +1083,14 @@ table T_Tracking_Account
 
 		annotation SummarizationSetBy = Automatic
 
-	column '36 Speed Total £' = -(T_Tracking_Account[PR Worked Time Total]-T_Tracking_Account[PR Worked Time Total Stnd])*[SOW Rate Total]
+	column '36 Speed Total £' =
+			-- Same value as [SOW Rate Total] (cost centre 303605: fixed + depn per worked hour), computed without
+			-- context transition. Operating_Costs has no relationships, so the measure was a constant on every row.
+			VAR _sowRateTotal =
+				SUMX ( FILTER ( Operating_Costs, Operating_Costs[Cost Centre] = 303605 ), Operating_Costs[fixed wkd hr] )
+					+ SUMX ( FILTER ( Operating_Costs, Operating_Costs[Cost Centre] = 303605 ), Operating_Costs[depn wkd hr] )
+			RETURN
+				-(T_Tracking_Account[PR Worked Time Total]-T_Tracking_Account[PR Worked Time Total Stnd])*_sowRateTotal
 		formatString: 0.00
 		lineageTag: a5ba4320-ab1e-433e-97a5-f9e568af0cc9
 		summarizeBy: sum
@@ -1245,7 +1252,7 @@ table T_Tracking_Account
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    T_Tracking_Account_Table = Source{[Item="T_Tracking_Account",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(T_Tracking_Account_Table,{{"Week", type number}, {"Week ABB", Int64.Type}, {"ABB Product", type text}, {"Product Code", type text}, {"Rolling", type text}, {"group descr", type text}, {"product", Int64.Type}, {"Cast", type text}, {"Strand", Int64.Type}, {"Cut", Int64.Type}, {"Quality", Int64.Type}, {"Sequence", Int64.Type}, {"Blm Wght", type number}, {"Piece1", type any}, {"Piece2", type any}, {"Piece3", type any}, {"Piece4", type any}, {"Part Cogged?", type text}, {"Part Cogged Reason", type text}, {"Cuts Wgt", type number}, {"Cuts1", type text}, {"Cuts2", type text}, {"Cuts3", type any}, {"Cuts4", type any}, {"Time at Saw1", type text}, {"Time at Saw2", type text}, {"Time at Saw3", type any}, {"Time at Saw4", type any}, {"Non prime", type any}, {"Saw Weight", type number}, {"Prime", type number}, {"Yield", type number}, {"PriYld", type number}, {"Cuts", Int64.Type}, {"Bloom_input", type number}, {"Billet_input", Int64.Type}, {"42_mill_throput", Int64.Type}, {"42_mill_percent_processed", Int64.Type}, {"42_mill_tot", type number}, {"42_mill_roll_run_tot", type number}, {"42_mill_Yield", type number}, {"42_mill_Scrap", type number}, {"scrap_cost_per_tonne", type number}, {"42_mill_Scale", type number}, {"Scale_cost_tonne", type number}, {"42_mill_run_tot", type number}, {"42_mill_roll_tarif", type number}, {"36_mill_throput", Int64.Type}, {"36_mill_percent_processed", Int64.Type}, {"36_mill_tot", type number}, {"36_mill_roll_run_tot", type number}, {"36_mill_yield", type number}, {"36_mill_scrap", type number}, {"36_mill_scale", type number}, {"36_mill_skull", type number}, {"36_yield_run_tot", type number}, {"36_mill_roll_tarif", type number}, {"test_fees", type number}, {"cathode_throput", Int64.Type}, {"cathode_percent_processed", Int64.Type}, {"cathode_tot", Int64.Type}, {"cathode_run_tot", type number}, {"fin_yield", type number}, {"defect", type number}, {"defect_run_tot", type number}, {"darlo_throput", Int64.Type}, {"darlo_percent_process", Int64.Type}, {"darlo_tot", type number}, {"cold_saw_throput", type number}, {"cold_saw_percent_process", type number}, {"cold_saw_tot", type number}, {"restraight_thrput", type number}, {"restraight_percent_process", Int64.Type}, {"restraight_tot", type number}, {"Total_cost_restaight_cost", type number}, {"crane_rail_thrput", Int64.Type}, {"crane_rail_percent_process", Int64.Type}, {"crane_rail_tot", Int64.Type}, {"Total_Cost", Int64.Type}, {"Windtower_thrput", Int64.Type}, {"Wind_Tower_percent_Process", Int64.Type}, {"Wind_Tower_Tot", Int64.Type}, {"Wind_tower_tot_cost", Int64.Type}, {"product_cost_total", type number}, {"Column1", type number}, {"Column2", type any}, {"Order", Int64.Type}, {"Item", Int64.Type}, {"Customer", type text}, {"Column3", type any}, {"WEEK_ABB Product", type text}})
 				in

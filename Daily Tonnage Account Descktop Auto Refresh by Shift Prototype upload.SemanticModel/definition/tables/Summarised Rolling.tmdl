@@ -2,8 +2,7 @@ table 'Summarised Rolling'
 	lineageTag: dad95827-580e-40c9-a7e7-66da19ab1315
 
 	measure 'Rolling Time Related' =
-			sumx (RELATEDTABLE('Summarised Rolling'),
-			[Summarised Rolling])
+			SUM ( 'Summarised Rolling'[Summarised Rolling] )
 		lineageTag: 3a3c7a74-9043-4125-9add-1038603c3c60
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}

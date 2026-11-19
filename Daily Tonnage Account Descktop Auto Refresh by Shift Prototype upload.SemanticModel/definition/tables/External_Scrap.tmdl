@@ -156,7 +156,7 @@ table External_Scrap
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    External_Scrap_Table = Source{[Item="External_Scrap",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(External_Scrap_Table,{{"Week", type number}, {"Time", type datetime}, {"PRODUCT_CODE", type text}, {"PRODUCT_CODE1", type number}, {"Site", type text}, {"Loc", type text}, {"Reason", type text}, {"ReasonCode", type text}, {"Bars", Int64.Type}, {"Length", Int64.Type}, {"WEIGHT", type number}, {"Kgm", type number}, {"Order/Item", type text}, {"User", type text}, {"Week2", Int64.Type}})
 				in

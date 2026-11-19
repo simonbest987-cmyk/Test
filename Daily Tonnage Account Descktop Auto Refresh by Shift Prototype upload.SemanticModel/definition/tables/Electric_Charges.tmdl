@@ -263,7 +263,7 @@ table Electric_Charges
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    Electric_Charges_Table = Source{[Item="Electric_Charges",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(Electric_Charges_Table,{{"Energy Bill", type text}, {"Energy", type number}, {"Distribution Use of System", Int64.Type}, {"Balancing Use of System", type number}, {"Capacity Mechanism", type number}, {"Renewable Obligation", type number}, {"Feed In Tariff", type number}, {"Contracts for Difference", type number}, {"Climate Change Levy", type number}, {"Column1", Int64.Type}, {"Distribution Use of System2", type number}, {"Transmission Use of System", type number}, {"Settlement and Agent ", Int64.Type}, {"Column3", Int64.Type}, {"Variable Sub-total ", type number}, {"Fixed Sub-total", type number}, {"Total", type number}, {"Column4", Int64.Type}, {"Consumption @ Meter (Clock)", type number}, {"Variable @ Meter (Clock)", type number}, {"Fixed @ Meter (Clock)", type number}, {"Column5", Int64.Type}, {"Variable @ Meter (Clock)6", type number}, {"Variable @ Meter (Clock)7", Int64.Type}, {"Variable @ Meter (Clock)8", Int64.Type}, {"Total (exVAT)", type number}, {"Area_Energy Bill", type text}})
 				in

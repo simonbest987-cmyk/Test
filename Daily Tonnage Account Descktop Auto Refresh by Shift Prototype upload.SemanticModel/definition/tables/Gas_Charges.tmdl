@@ -251,7 +251,7 @@ table Gas_Charges
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    Gas_Charges_Table = Source{[Item="Gas_Charges",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(Gas_Charges_Table,{{"Energy Bill", type text}, {"Invoice Type", type text}, {"Invoice Number", type text}, {"Invoice Date", type datetime}, {"Start Date", type datetime}, {"End Date", type datetime}, {"Meter Point", Int64.Type}, {"Site Ref Number", type text}, {"Energy kwh ", Int64.Type}, {"Unit Price £ / MWH", type number}, {"Gas Cost", type number}, {"Standing Charge", type number}, {"SC VAT", type number}, {"Commercial VAT Content", type number}, {"Domestic VAT Content", type number}, {"CCL", Int64.Type}, {"CCL Com VAT", Int64.Type}, {"Total", type number}, {"Area", type text}, {"Energy GJ", type number}, {"Charged Tonnes", type number}, {"KWH/t", type number}, {"GJ/t", type number}, {"Unit Price £/GJ", type number}, {"Area_Energy Bill", type text}})
 				in

@@ -272,7 +272,10 @@ table 'Summarised Cuts Weight'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Fin Scrap t' = [H/Saw Weight]-([Prime Output]*[fin_yield])
+	column 'Fin Scrap t' =
+			-- [Prime Output] = SUM([H/Saw Weight]) + SUM([Defects]). Under this row's context transition it returned the
+			-- current row's values (SUMMARIZE rows are unique), so it is written at row level to avoid context transition.
+			[H/Saw Weight]-(([H/Saw Weight]+[Defects])*[fin_yield])
 		formatString: 0.00
 		lineageTag: ad3b17f8-0583-45ee-a9f9-de06cd138213
 		summarizeBy: sum

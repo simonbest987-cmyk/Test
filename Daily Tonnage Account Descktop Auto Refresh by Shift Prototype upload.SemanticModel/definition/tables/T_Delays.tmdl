@@ -203,7 +203,7 @@ table T_Delays
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    T_Delays_Table = Source{[Item="T_Delays",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(T_Delays_Table,{{"Week", Int64.Type}, {"ABB Week", type number}, {"Start", type datetime}, {"End", type datetime}, {"type", type text}, {"prod", type text}, {"roll", type text}, {"area", type text}, {"subarea", type text}, {"location", type text}, {"cause", type text}, {"comments", type text}, {"Total Delays", type number}, {"ABB Prod", type text}, {"WEEK_ABB Product", type text}})
 				in

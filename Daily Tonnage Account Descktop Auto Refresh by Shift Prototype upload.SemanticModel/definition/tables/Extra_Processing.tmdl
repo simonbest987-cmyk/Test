@@ -224,7 +224,23 @@ table Extra_Processing
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Standard Worked' = if(Extra_Processing[Area]="Cold Saw", 'Extra_Processing'[Cold Saw Process Manned Hours], if(Extra_Processing[Area]="Crane Rail", 'Extra_Processing'[Crane Rail Process Manned Hours], if(Extra_Processing[Area]="Cathodes", 'Extra_Processing'[Cathode Process Manned Hours],if(Extra_Processing[Area]="Darlington", 'Extra_Processing'[Darlington Manned Hours],if(Extra_Processing[Area]="Sidepress", 'Extra_Processing'[Sidepress Process Manned Hours])))))
+	column 'Standard Worked' =
+			-- Same values as the original nested IF over the "... Manned Hours" measures, without calling
+			-- measures (context transition). Operating_Costs has no relationships, so each was a constant per cost centre.
+			VAR _costCentre =
+				SWITCH (
+					Extra_Processing[Area],
+					"Cold Saw", 303662,
+					"Crane Rail", 303646,
+					"Cathodes", 303648,
+					"Darlington", 303666,
+					"Sidepress", 303644
+				)
+			RETURN
+				IF (
+					NOT ISBLANK ( _costCentre ),
+					SUMX ( FILTER ( Operating_Costs, Operating_Costs[Cost Centre] = _costCentre ), Operating_Costs[Manned hr] )
+				)
 		lineageTag: e5f0e4f7-219a-4e90-baf3-f7ce3de05fd0
 		summarizeBy: sum
 
@@ -232,7 +248,23 @@ table Extra_Processing
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Standard Rate' = if(Extra_Processing[Area]="Cold Saw", 'Extra_Processing'[Cold Saw Process Rate], if(Extra_Processing[Area]="Crane Rail", 'Extra_Processing'[Crane Rail Process Rate], if(Extra_Processing[Area]="Cathodes", 'Extra_Processing'[Cathode Process Rate],if(Extra_Processing[Area]="Darlington", 'Extra_Processing'[Darlington Process Rate],if(Extra_Processing[Area]="Sidepress", 'Extra_Processing'[Sidepress Process Rate])))))
+	column 'Standard Rate' =
+			-- Same values as the original nested IF over the "... Process Rate" measures, without calling
+			-- measures (context transition). Operating_Costs has no relationships, so each was a constant per cost centre.
+			VAR _costCentre =
+				SWITCH (
+					Extra_Processing[Area],
+					"Cold Saw", 303662,
+					"Crane Rail", 303646,
+					"Cathodes", 303648,
+					"Darlington", 303666,
+					"Sidepress", 303644
+				)
+			RETURN
+				IF (
+					NOT ISBLANK ( _costCentre ),
+					SUMX ( FILTER ( Operating_Costs, Operating_Costs[Cost Centre] = _costCentre ), Operating_Costs[fixed wkd hr] )
+				)
 		lineageTag: d3a6bd94-c2db-424c-ada4-a4cd7550b418
 		summarizeBy: sum
 
@@ -269,7 +301,7 @@ table Extra_Processing
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    Extra_Processing_Table = Source{[Item="Extra_Processing",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(Extra_Processing_Table,{{"Area", type text}, {"Week", type number}, {"Month", Int64.Type}, {"Section", type text}, {"Product Code", Int64.Type}, {"Bars", type any}, {"Tonnes", Int64.Type}, {"tpr", type number}})
 				in

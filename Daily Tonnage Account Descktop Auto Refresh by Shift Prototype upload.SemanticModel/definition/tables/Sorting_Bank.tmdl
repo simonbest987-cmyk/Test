@@ -147,7 +147,7 @@ table Sorting_Bank
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Source = DTA_Workbook,
 				    Sorting_Bank_Table = Source{[Item="Sorting_Bank",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(Sorting_Bank_Table,{{"Week", type number}, {"CUT_TIME", type datetime}, {"SCRAP_TIME", type any}, {"BAR_NUMBER", type text}, {"PRODUCT_CODE", type text}, {"PRODUCT_CODE1", type number}, {"ROLLING_ID", type text}, {"BAR_LENGTH", Int64.Type}, {"WEIGHT", type number}, {"ORDER NUMBER", type text}, {"CAST", type text}, {"QUAL", Int64.Type}, {"SCRAP_REASON", type text}, {"Column1", type text}})
 				in

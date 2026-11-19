@@ -23,7 +23,7 @@ Removing, renaming, moving or retyping any model object could break visuals, so 
 ## 1. Model overview
 
 * **Source:** a single Excel workbook on SharePoint
-  (`.../upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx`), loaded by **14 separate
+  (`.../upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx`), loaded by **16 separate
   queries**, each calling `Excel.Workbook(Web.Contents(<hard-coded URL>))`.
 * **Imported tables (15):** T_Tracking_Account (large transaction table, about 90 source columns + 40 calculated
   columns), T_Delays, T_Rolling_Times, Shift_Dates, Calendar, Unique_Week, Operating_Costs,
@@ -130,7 +130,7 @@ trim Calendar to the columns it needs, or retire it once its measures have moved
 
 ### 2.7 Power Query / source
 
-* The same hard-coded URL is used 14 times. → **Phase 1:** a `SourceWorkbookUrl` parameter + a shared `DTA_Workbook` query.
+* The same hard-coded URL is used 16 times. → **Phase 1:** a `SourceWorkbookUrl` parameter + a shared `DTA_Workbook` query.
   This mainly helps maintenance (switching between test and production, one credential), and gives the mashup engine one shared source.
   The bigger refresh win is moving the source off a single large workbook (Dataflow / SharePoint list / SQL) → Phase 3.
 * `Errors in Operating_Costs` and `Errors in Operating_Costs (2)` are leftover, unloaded error-report queries
@@ -150,7 +150,7 @@ trim Calendar to the columns it needs, or retire it once its measures have moved
 | 4 | `Fin Scrap t`: replace `[Prime Output]` with the row-level `[H/Saw Weight] + [Defects]` | Summarised Cuts Weight.tmdl | Refresh |
 | 5 | `Pro Rata Cuts Wght1`: variable + REMOVEFILTERS instead of FILTER(ALL()) | Calendar.tmdl | Query time, for the Speed / Avail / Worked Time measures that depend on it |
 | 6 | `Rolling Time Related`, `Worked Time`, `42 Speed Stnd`: SUMX(RELATEDTABLE()) → SUM | 3 files | Query time (minor), readability |
-| 7 | URL parameter + shared workbook query, used by all 14 partitions | expressions.tmdl + 14 table files | Maintainability, one source |
+| 7 | URL parameter + shared workbook query, used by all 16 partitions | expressions.tmdl + 16 table files | Maintainability, one source |
 | 8 | Delete orphan `Errors in Operating_Costs` queries and their groups | expressions.tmdl, model.tmdl | Cleanup |
 
 No table, column, measure, hierarchy or relationship is renamed, removed or retyped, so the report keeps working.

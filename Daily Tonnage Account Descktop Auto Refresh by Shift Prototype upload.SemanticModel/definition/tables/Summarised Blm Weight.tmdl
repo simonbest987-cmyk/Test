@@ -2,9 +2,7 @@ table 'Summarised Blm Weight'
 	lineageTag: 11dcbfc5-e39a-42d2-b7ce-c3fe5fa4d3d7
 
 	measure '42 Speed Stnd' =
-			sumx (RELATEDTABLE('Summarised Blm Weight'),
-			[Summarised Blm Wght]) / sumx (RELATEDTABLE('Summarised Blm Weight'),
-			[42_mill_throput])
+			SUM ( 'Summarised Blm Weight'[Summarised Blm Wght] ) / SUM ( 'Summarised Blm Weight'[42_mill_throput] )
 		lineageTag: 037ff7ae-cf60-4155-a4fe-e01875159853
 
 		extendedProperty MeasureTemplate =
