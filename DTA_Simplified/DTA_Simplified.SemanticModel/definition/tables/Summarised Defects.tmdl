@@ -1,0 +1,137 @@
+table 'Summarised Defects'
+	isHidden
+
+	lineageTag: 2e0ef559-7cb5-4f96-824f-954a2cc36531
+
+	column 'WEEK_ABB Product'
+		isHidden
+		lineageTag: 6077dc4f-8f20-44c0-ae90-03936f865f91
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[WEEK_ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'ABB Product'
+		isHidden
+		lineageTag: 38ca8153-7538-40ec-a3f3-29e7dc5ae8b1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Week ABB'
+		isHidden
+		formatString: 0
+		lineageTag: c56aac29-2716-4131-b5a1-5796c1364995
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week ABB]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column Week
+		isHidden
+		lineageTag: e45b163a-da32-4516-8ed8-a11fe33e0513
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product
+		isHidden
+		formatString: 0
+		lineageTag: 5e1c6559-4ca8-4ec6-976d-0c4545dc2845
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[product]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Code'
+		isHidden
+		lineageTag: 6b101cd3-f81b-4733-965b-1862d3e6e012
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Product Code]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 42_mill_Yield
+		isHidden
+		lineageTag: 68975287-f2ec-4348-a3dc-4bfec7bc62e9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[42_mill_Yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_yield
+		isHidden
+		lineageTag: 47e4edf4-0d34-4384-8a2b-a57620a928fd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[36_mill_yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fin_yield
+		isHidden
+		lineageTag: 9a1b1436-0f80-45d7-ac19-647044c34ae9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[fin_yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_throput
+		isHidden
+		formatString: 0
+		lineageTag: fce537bd-4f1b-4f46-aeae-70cb3c9c9468
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[36_mill_throput]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Summarised Defects'
+		isHidden
+		dataType: double
+		formatString: 0.00
+		lineageTag: c84fe57b-5835-4bd5-ad30-9e4daf4eb0a2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Summarised Defects]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WEEK_ABB Product Cocde_Product' = [Week]&"_"&[Product Code]&"_"&[product]
+		isHidden
+		lineageTag: bfc33aae-1bcd-4d17-9e79-6ad20e4bb573
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition 'Summarised Defects-9745dd89-ecd4-4cd4-874f-71a5b123af33' = calculated
+		mode: import
+		source = SUMMARIZE(T_Tracking_Account, T_Tracking_Account[WEEK_ABB Product],T_Tracking_Account[ABB Product], T_Tracking_Account[Week ABB],T_Tracking_Account[Week],T_Tracking_Account[product],T_Tracking_Account[Product Code],T_Tracking_Account[42_mill_Yield],T_Tracking_Account[36_mill_yield],T_Tracking_Account[fin_yield],T_Tracking_Account[36_mill_throput],"Summarised Defects",sum(T_Tracking_Account[Column1]))

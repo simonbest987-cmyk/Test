@@ -1,0 +1,17 @@
+expression SourceWorkbookUrl = "https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e5f86159-0e01-4d5d-af90-da43813043bf
+
+	annotation PBI_ResultType = Text
+
+/// Shared navigation table for the Daily Tonnage Account workbook; every table partition starts from this query.
+expression DTA_Workbook =
+		let
+		    Source = Excel.Workbook(Web.Contents(SourceWorkbookUrl), null, true)
+		in
+		    Source
+	lineageTag: 0da7984b-a5e9-47b9-bd15-b4ca4785de8b
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

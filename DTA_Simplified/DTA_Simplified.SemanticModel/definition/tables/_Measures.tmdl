@@ -1,0 +1,536 @@
+table _Measures
+	lineageTag: 72d02b39-1530-421e-bf4e-5700d6418f8f
+
+	/// Bridge step 1 (= original [Thro Yield £]).
+	measure 'Thro Yield Variance £' =
+			[Thro Yield £]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: 5ec3256e-49e9-4748-948f-41d30c1be26a
+
+	/// Bridge step 2 (= original [Availabiilty £]).
+	measure 'Availability Variance £' =
+			[Availabiilty £]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: 439d538c-cd83-498f-9c41-b5351299d49f
+
+	/// Bridge step 3.
+	measure '42 Activity Variance £' =
+			[42 Activity £]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: d212b3f6-b018-4d50-b8be-b0c322fef2ae
+
+	/// Bridge step 4.
+	measure '36 Activity Variance £' =
+			[36 Activity £]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: ad6c86ba-d5cb-473d-8d65-631405971503
+
+	/// Bridge step 5.
+	measure '36 Speed Variance £' =
+			[36 Speed £]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: fff51157-5fb3-4bcb-87b8-179e12092c05
+
+	/// Bridge step 6.
+	measure '42 Speed Variance £' =
+			[42 Speed £]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: b40446d9-6e56-4b3b-981d-074081e7b983
+
+	/// Bridge step 7 (OSP term of the original [Total Vairance Calc]).
+	measure 'Outside Processing £' =
+			SUM ( 'T_Tracking_Account'[Total OSP] )
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: 7974207e-f1f4-4309-bcb3-64a6b0475d90
+
+	/// Bridge step 8 (Extra Processing term of the original [Total Vairance Calc]).
+	measure 'Extra Processing Activity £' =
+			SUM ( 'Extra_Processing'[Daily Activity] )
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: c828c7cc-dbaf-47a6-9bb4-67784a97a603
+
+	/// Sum of the eight bridge steps (= original [Total Vairance Calc]).
+	measure 'Total Variance (Bridge) £' =
+			[Total Vairance Calc]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: cf6a5a36-016b-4953-a90c-2c21466f41f7
+
+	/// = original [42 variance £].
+	measure '42 Mill Variance £' =
+			[42 variance £]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: 9437e8b5-686a-4010-868e-a462f10cc36d
+
+	/// = original [36 Variance £].
+	measure '36 Mill Variance £' =
+			[36 Variance £]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: b1cfcba8-a7d1-4dea-8be5-061e3a7eafa9
+
+	/// 42 + 36 mill variance (= original [Total Variance Calc1]).
+	measure 'Total Variance (Mill Accounts) £' =
+			[Total Variance Calc1]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: 20ca5a2f-21a9-496d-8507-26ba5204b1c9
+
+	/// Bridge minus Mill Accounts (= original [Difference]). Zero when the reconciliation balances.
+	measure 'Unexplained Difference £' =
+			[Difference]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: 7d504ea1-c34a-464b-9e2e-24f818c59eba
+
+	/// "Balanced" when the bridge and the mill accounts agree to within £1.
+	measure 'Reconciliation Status' =
+			VAR _diff = [Unexplained Difference £]
+			RETURN
+			    IF ( ABS ( _diff ) < 1, "Balanced", "Out of balance by " & FORMAT ( _diff, "£#,0" ) )
+		displayFolder: Variance Bridge
+		lineageTag: 3a59b88a-0c60-40ba-b26c-b570bf36d5fe
+
+	/// Value of the selected bridge step; the total of all steps when no single step is in context.
+	measure 'Bridge Step £' =
+			VAR _step = SELECTEDVALUE ( 'Variance Bridge Steps'[Step No] )
+			RETURN
+			    SWITCH (
+			        _step,
+			        1, [Thro Yield Variance £],
+			        2, [Availability Variance £],
+			        3, [42 Activity Variance £],
+			        4, [36 Activity Variance £],
+			        5, [36 Speed Variance £],
+			        6, [42 Speed Variance £],
+			        7, [Outside Processing £],
+			        8, [Extra Processing Activity £],
+			        [Total Variance (Bridge) £]
+			    )
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: Variance Bridge
+		lineageTag: 5fc01172-62b3-432e-8cab-a08657252339
+
+	measure '36 Activity Rate Total' =
+			
+			[36 Activity Rate1] + [36 Activity Rate2]
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 56edc947-737d-46bb-ac10-8ca324d14e2b
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Activity Rate1' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[fixed man hr]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: e88c88d3-f05b-4bf7-86bf-99d464adaef9
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Activity Rate2' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[depn man hr]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: d3611c72-2032-468a-a3af-32bb608d9bca
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Activity £' =
+			-
+			[Worked Time Delta] * [36 Activity Rate Total]
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 5dd2736c-6f4b-42e5-9636-d028e4dceade
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Flexed Fixed Costs for Period' = [Weekly 36 Flexed Fixed £]*[Count of Week No plus Count of Week No]
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 717b57fd-40e2-4bae-9829-fdecf0ffb568
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Speed Delta' =
+			
+			-SUM('Summarised Cuts Weight'[Worked 36 Stnd]) + [Worked Time]
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 7ebf50c1-24e3-4993-b124-9b6458925c4f
+		formatString: 0.00
+
+	measure '36 Speed £' =
+			-
+			[36 Speed Delta] * [SOW Rate Total]
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: ac7543f4-58f8-4d6c-b5c5-ff8e6de56225
+		formatString: 0.00
+
+	measure '36 Variance £' =
+			
+			SUM('T_Tracking_Account'[Production Value £]) - [Total 36 Flexed £]
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: ff5a5a24-5c41-4bbc-a4b6-2c28d3abc847
+		formatString: 0.00
+
+	measure '42 Activity Rate Total' =
+			
+			[42 Activity Rate1] + [42 Activity Rate2]
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: bc33aa9c-e03f-4a28-bb70-344fb52ee7a2
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Activity Rate1' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[fixed man hr]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 7df0cdbd-d043-48ec-ba25-a90afdae404f
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Activity Rate2' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[depn man hr]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 20e5e4bd-959d-4c8c-9d2a-c6837dbb2822
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Activity £' =
+			-
+			[Worked Time Delta] * [42 Activity Rate Total]
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 1a5f3ef4-069c-441e-b25d-0377e24a188c
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Flexed Fixed Costs for Period' = [Weekly 42 Flexed Fixed £]*[Count of Week No plus Count of Week No]
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: ed8eac36-ea95-41bf-8f7a-9099459cf664
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Speed Delta' =
+			
+			[Rolling Time Related] - SUM('T_Tracking_Account'[Worked 42 Stnd])
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: b93367ae-efac-466a-8c98-4b423cf3b7c2
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Speed £' =
+			-
+			[42 Speed Delta] * [42 Activity Rate Total]
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 8be1e227-a419-48fe-8f85-2c7fb314a444
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 variance £' =
+			
+			SUM('T_Tracking_Account'[42 Production Value £]) - [Total 42 Standard Costs £]
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 9cde8feb-976c-4b2d-a94c-50c991111a7e
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Availabiilty £' = -[Availability Time Delta]*[SOW Rate Total]
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 513af6ac-a711-4ea0-b618-506630cfe257
+		formatString: 0.00
+
+	measure 'Availability for 303605' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Availabiity]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 903f5c1f-b5d1-40ff-86c0-355864f8d3ae
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure 'Availability Time Delta' =
+			
+			SUM('T_Delays'[Total Delays]) - [Standard Waiting Calc]
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: ad4985b6-3b05-4dc8-a338-fba4c261346d
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Count of Week No plus Count of Week No' = ```
+			
+			COUNTA(Dim_Week[Week No]) 
+			```
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 126e0db7-bdcf-4d95-b342-a0e022bf3d73
+		formatString: 0
+
+	measure Difference =
+			
+			[Total Vairance Calc] - [Total Variance Calc1]
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: e77f8c9e-313f-46c0-954c-15aff8831928
+		formatString: 0.00
+
+	measure 'Rolling Time Related' =
+			SUM ( 'Summarised Rolling'[Summarised Rolling] )
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 4b9f478e-b99e-4846-bb0b-1ad459e616ae
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'SOW Rate 2' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[depn wkd hr]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 4d447fa5-dd77-436a-be18-be639e56dfd5
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'SOW Rate Total' =
+			
+			[SOW Rate1] + [SOW Rate 2]
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 1059f021-38f5-4280-8786-285e223126a2
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'SOW Rate1' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[fixed wkd hr]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 2b97475a-4a36-4cf9-b9a9-0cadb555a294
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Standard Manned Hours' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Manned hr]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 5da160e6-599c-4639-b4f7-62f2073e8d3b
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Standard Waiting Calc' = [Rolling Time Related] * [Availability for 303605]
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: a0c95994-398b-47a2-b3a5-5e0214132edb
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Thro Yield £' =
+			
+			SUM('Summarised Cuts Weight'[42 Mill Loss £]) + SUM('Summarised Cuts Weight'[36 Mill Loss £])+SUM('Summarised Cuts Weight'[Fin Loss £])
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 738463ee-0e2a-4f8c-818c-d1afc07979a2
+		formatString: 0.00
+
+	measure 'Total 36 Flexed £' =
+			
+			sum('T_Tracking_Account'[42 Production Value £])-SUM('T_Tracking_Account'[36 Scrap £]) - sum('T_Tracking_Account'[36 Scale £])-sum('T_Tracking_Account'[Defectives])+sum('T_Tracking_Account'[36 Test Fees £])+sum('T_Tracking_Account'[36 Roll Tariff £])+[Total 36 Flexed1]+sum('Extra_Processing'[Daily Activity])
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 3a74707f-a834-41dc-bce4-39a58d794316
+		formatString: 0.00
+
+	measure 'Total 36 Flexed1' =
+			
+			[36 Flexed Fixed Costs for Period] + [Weekly 36 Flexed Var £]
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: ab257732-f0d4-4a60-a66f-157818fbbe0d
+		formatString: 0.00
+
+	measure 'Total 42 Flexed Costs £' =
+			
+			[42 Flexed Fixed Costs for Period] + [Weekly 42 Flexed Var £]
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: dca17b42-2af1-493c-b04c-30e4c1fddcb3
+		formatString: 0.00
+
+	measure 'Total 42 Standard Costs £' =
+			
+			[Total 42 Flexed Costs £] + SUM('T_Tracking_Account'[Bloom Consumption])- SUM('T_Tracking_Account'[42 Scrap £])- SUM('T_Tracking_Account'[42 Scale £])+ SUM('T_Tracking_Account'[42 Roll Tariff £])
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: ff0da013-5b3e-4d03-bde8-a043b0fb68f0
+		formatString: 0.00
+
+	measure 'Total Vairance Calc' = [Thro Yield £]+[Availabiilty £]+[42 Activity £]+[36 Activity £]+[36 Speed £]+[42 Speed £]+SUM('T_Tracking_Account'[Total OSP])+SUM('Extra_Processing'[Daily Activity])
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: aa414b5b-d8d2-4214-9c11-23c3aa4b68ae
+		formatString: 0.00
+
+	measure 'Total Variance Calc1' =
+			
+			[42 variance £] + [36 Variance £]
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 1a4ea6b6-c4be-4d43-803b-b5385b367cb4
+		formatString: 0.00
+
+	measure 'Weekly 36 Flexed Fixed £' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Fixed])+SUM('Operating_Costs'[Depn]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 2eb0b956-01a0-4c64-ab03-7be515b58bff
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 36 Flexed Var £' =
+			
+			SUM('T_Tracking_Account'[Cuts Wgt]) * [Weekly 36 Flexed Variable £]
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 49a71244-1a5c-4af0-9d10-90f17f537ac1
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 36 Flexed Variable £' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[tonne var]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 47acf85b-6751-404b-9c5b-7f967c2afaa2
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 42 Flexed Fixed £' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Fixed])+SUM('Operating_Costs'[Depn]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 1d14154c-9849-41f9-9cc7-0c61e20cd1a2
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 42 Flexed Var £' =
+			
+			SUM('T_Tracking_Account'[Blm Wght]) * [Weekly 42 Flexed Variable £]
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 4715c37f-ee5a-49f6-b107-07bb4dd301e7
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 42 Flexed Variable £' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[tonne var]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 2ac83bbf-8579-40db-862e-78a460d0f1c4
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Worked Time' =
+			SUM ( 'Summarised Rolling'[Summarised Rolling] ) - SUM ( 'Summarised Delays'[Summarised Delays] )
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 5c23ab4c-725b-4f42-bf80-faa406447cd2
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Worked Time Delta' = ([Standard Manned Hours]*[Count of Week No plus Count of Week No]) -[Rolling Time Related]
+
+
+		isHidden
+		displayFolder: Calculation steps (original logic)
+		lineageTag: 9229c167-6288-45fb-a149-32565f24d181
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 677877f9-0870-4897-932a-4b006bae26d4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+	partition _Measures = calculated
+		mode: import
+		source = { 0 }
+
+	annotation PBI_Id = 2dd2b8e0386b42b9a6f8bb88835db2a2

@@ -1,0 +1,31 @@
+relationship 8ea322d5-f696-4aa6-ab21-6616abe4db0e
+	fromColumn: T_Tracking_Account.'Week ABB'
+	toColumn: Dim_Week.'Week No'
+
+relationship b8ffaa85-abbe-4901-bd79-74d4e07498f3
+	fromColumn: T_Delays.Week
+	toColumn: Dim_Week.'Week No'
+
+relationship a914dcd2-7317-4cb9-8433-69bafe4cc1ea
+	fromColumn: 'Summarised Delays'.Week
+	toColumn: Dim_Week.'Week No'
+
+relationship 18181f92-5255-4995-a3ad-7ada6bfeff50
+	fromColumn: Extra_Processing.'Week ABB'
+	toColumn: Dim_Week.'Week No'
+
+relationship a2f626a3-0cb8-483e-b769-1768fcbbf67d
+	fromColumn: 'Summarised Cuts Weight'.'WEEK_ABB Product'
+	toColumn: 'Summarised Delays'.'WEEK_ABB Product'
+
+relationship c2cfe709-0d79-4b5a-b3a8-cce36f93def1
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Summarised Delays'.'WEEK_ABB Product'
+	toColumn: 'Summarised Rolling'.'WEEK_ABB Product'
+
+relationship cffb16a3-eb99-48f7-b40f-3572f70e789e
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Summarised Cuts Weight'.'WEEK_ABB Product Cocde_Product'
+	toColumn: 'Summarised Defects'.'WEEK_ABB Product Cocde_Product'

@@ -1,0 +1,132 @@
+table Product_Costs
+	isHidden
+
+	lineageTag: 3be9f77b-9345-4abe-9aee-ca235f524b9a
+
+	column 'Product Code'
+		isHidden
+		dataType: double
+		formatString: 0.00
+		lineageTag: aedf78a5-3d53-4be3-841a-d7e790215e01
+		summarizeBy: count
+		sourceColumn: Product Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'cathode %processed'
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: 18b42339-11e6-4808-ba87-5a60254d1f9e
+		summarizeBy: sum
+		sourceColumn: cathode %processed
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'cathode tot'
+		isHidden
+		dataType: double
+		lineageTag: 9a7d78f7-737e-48cb-9fa4-85d38a020fbf
+		summarizeBy: sum
+		sourceColumn: cathode tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'darlo %process'
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: 443e8edb-9755-45c4-9414-7b980374f35e
+		summarizeBy: sum
+		sourceColumn: darlo %process
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'darlo tot'
+		isHidden
+		dataType: double
+		lineageTag: 86ad1016-8ac1-4665-b674-428044a9bb21
+		summarizeBy: sum
+		sourceColumn: darlo tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'cold saw %process'
+		isHidden
+		dataType: double
+		lineageTag: 71d44c70-231d-48b6-b15f-2239920e302a
+		summarizeBy: sum
+		sourceColumn: cold saw %process
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'cold saw tot'
+		isHidden
+		dataType: double
+		lineageTag: eaf3e6a4-9668-4bcc-b941-07596dcc4eef
+		summarizeBy: sum
+		sourceColumn: cold saw tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'restraight %process'
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: f03f1794-4c8d-4b76-a9a5-ac4ecf16d9ef
+		summarizeBy: sum
+		sourceColumn: restraight %process
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'restraight tot'
+		isHidden
+		dataType: double
+		lineageTag: a128ddb8-3fda-46cf-a49e-27a47e111649
+		summarizeBy: sum
+		sourceColumn: restraight tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'crane rail %process'
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: 1bfd8518-625a-4c62-842b-97bebbdef541
+		summarizeBy: sum
+		sourceColumn: crane rail %process
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'crane rail tot'
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: 9941a127-3841-4719-856e-93d1fa89b77c
+		summarizeBy: sum
+		sourceColumn: crane rail tot
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Product_Costs-20ba866e-6cd5-495f-a14a-f7b4e768de7a = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    Product_Costs_Table = Source{[Item="Product_Costs",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Product_Costs_Table,{{"year", Int64.Type}, {"plant", Int64.Type}, {"Product Code", type number}, {"group Descr", type text}, {"Product desc", type text}, {"bloom input", type number}, {"Billet input", Int64.Type}, {"42 mill throput22", Int64.Type}, {"42 mill %processed", Int64.Type}, {"42 mill tot", type number}, {"42 mill roll run tot", type number}, {"42 mill Yield", type number}, {"42 mill Scrap", type number}, {"scrap cost/tonne", type number}, {"42 mill Scale", type number}, {"Scale cost tonne", type number}, {"42 mill run tot", type number}, {"42 mill roll tarif", type number}, {"36 mill throput", Int64.Type}, {"36 mill %processed", Int64.Type}, {"36 mill tot", type number}, {"36 mill roll run tot", type number}, {"36 mill yield", type number}, {"36 mill scrap", type number}, {"36 mill scale", type number}, {"36 mill skull", type number}, {"36 yield run tot", type number}, {"36 mill roll tarif", type number}, {"test fees", Int64.Type}, {"cathode throput", type number}, {"cathode %processed", Int64.Type}, {"cathode tot", type number}, {"cathode run tot", type number}, {"fin yield", type number}, {"defect", type number}, {"defect run tot", type number}, {"darlo  throput", type number}, {"darlo %process", Int64.Type}, {"darlo tot", type number}, {"cold saw throput", type number}, {"cold saw %process", type number}, {"cold saw tot", type number}, {"restraight thrput", type number}, {"restraight %process", Int64.Type}, {"restraight tot", type number}, {"Total cost restaight cost", type number}, {"crane rail thrput", Int64.Type}, {"crane rail %process", Int64.Type}, {"crane rail tot", Int64.Type}, {"Total Cost", Int64.Type}, {"Windtower thrput", Int64.Type}, {"Wind Tower % Process", Int64.Type}, {"Wind Tower Tot", Int64.Type}, {"Wind tower tot cost", Int64.Type}, {"product cost total", type number}, {"SK Grade", Int64.Type}, {"PMC", type text}}),
+				    #"Kept Columns" = Table.SelectColumns(#"Changed Type", {"Product Code", "cathode %processed", "cathode tot", "darlo %process", "darlo tot", "cold saw %process", "cold saw tot", "restraight %process", "restraight tot", "crane rail %process", "crane rail tot"})
+				in
+				    #"Kept Columns"
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "p1bridge0000000000a1",
+    "p2weekly0000000000a2"
+  ],
+  "activePageName": "p1bridge0000000000a1"
+}
