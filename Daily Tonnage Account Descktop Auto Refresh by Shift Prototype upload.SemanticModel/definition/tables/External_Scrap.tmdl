@@ -1,0 +1,166 @@
+table External_Scrap
+	lineageTag: d6e68278-de41-4bbb-a904-9f2b3511d081
+
+	column Week
+		dataType: double
+		lineageTag: 0f0f2b03-2010-4a9b-9b6f-e92d209f72e4
+		summarizeBy: sum
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 80bd3bfb-0db0-4f66-ba4e-e40efcada16b
+		summarizeBy: none
+		sourceColumn: Time
+
+		variation Variation
+			isDefault
+			relationship: 96bda651-d9bb-4bcb-890a-cfaf7b1639cd
+			defaultHierarchy: LocalDateTable_a8ce5673-4e29-42b1-ba42-6897d8c52b3c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_CODE
+		dataType: string
+		lineageTag: f352fc42-f96d-4cef-880e-88bcdea5f147
+		summarizeBy: none
+		sourceColumn: PRODUCT_CODE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column PRODUCT_CODE1
+		dataType: double
+		lineageTag: b564ee44-3900-4707-b9f2-29fc1e85d983
+		summarizeBy: sum
+		sourceColumn: PRODUCT_CODE1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Site
+		dataType: string
+		lineageTag: 996c1173-4bba-4ce4-8483-160a97d2c747
+		summarizeBy: none
+		sourceColumn: Site
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Loc
+		dataType: string
+		lineageTag: ef311088-2747-4e25-a486-b15bb8f52426
+		summarizeBy: none
+		sourceColumn: Loc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Reason
+		dataType: string
+		lineageTag: ad4fc425-d0e2-4e66-9dde-37cab7010eef
+		summarizeBy: none
+		sourceColumn: Reason
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column ReasonCode
+		dataType: string
+		lineageTag: 3037287a-8874-4b46-ba94-d28c963198f8
+		summarizeBy: none
+		sourceColumn: ReasonCode
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Bars
+		dataType: int64
+		formatString: 0
+		lineageTag: e85331a0-accd-46c7-a9af-95ebca937d24
+		summarizeBy: sum
+		sourceColumn: Bars
+
+		annotation SummarizationSetBy = Automatic
+
+	column Length
+		dataType: int64
+		formatString: 0
+		lineageTag: d9264a06-004b-438e-9eaa-c0a60bc1a4cf
+		summarizeBy: sum
+		sourceColumn: Length
+
+		annotation SummarizationSetBy = Automatic
+
+	column WEIGHT
+		dataType: double
+		lineageTag: 7512643a-6f51-4046-a1bd-719691d6b8af
+		summarizeBy: sum
+		sourceColumn: WEIGHT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Kgm
+		dataType: double
+		lineageTag: 29ac8722-04d5-43a5-9028-d22481f8b6b8
+		summarizeBy: sum
+		sourceColumn: Kgm
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Order/Item
+		dataType: string
+		lineageTag: d1e3df57-1c33-4c37-bc64-7c6539650c6c
+		summarizeBy: none
+		sourceColumn: Order/Item
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column User
+		dataType: string
+		lineageTag: bbde7a58-9924-4c65-83c3-64b612855c23
+		summarizeBy: none
+		sourceColumn: User
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Week2
+		dataType: int64
+		formatString: 0
+		lineageTag: d623a495-b7b0-429c-bd82-ae77cb11ca6d
+		summarizeBy: none
+		sourceColumn: Week2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition External_Scrap-b086133b-1287-479b-9e9f-a1e826910c57 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    External_Scrap_Table = Source{[Item="External_Scrap",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(External_Scrap_Table,{{"Week", type number}, {"Time", type datetime}, {"PRODUCT_CODE", type text}, {"PRODUCT_CODE1", type number}, {"Site", type text}, {"Loc", type text}, {"Reason", type text}, {"ReasonCode", type text}, {"Bars", Int64.Type}, {"Length", Int64.Type}, {"WEIGHT", type number}, {"Kgm", type number}, {"Order/Item", type text}, {"User", type text}, {"Week2", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,321 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 50,
+            "y": 1004.938666862217
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "1b0d5a3f-93be-46ce-a96f-3ffbae60a33a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 689.62901381731047,
+            "y": 179.87293368903966
+          },
+          "nodeIndex": "External_Scrap",
+          "nodeLineageTag": "d6e68278-de41-4bbb-a904-9f2b3511d081",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1378.2057124477399,
+            "y": 456.34824827365173
+          },
+          "nodeIndex": "Extra_Processing",
+          "nodeLineageTag": "b53a8ebb-76b9-4533-90e7-9430f16983c6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1757.1895531115533,
+            "y": 828.65975485459535
+          },
+          "nodeIndex": "Operating_Costs",
+          "nodeLineageTag": "402bcd43-70c6-417c-9f16-a393b3f4ac66",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2041.1895531115533,
+            "y": 828.65975485459535
+          },
+          "nodeIndex": "Product_Costs",
+          "nodeLineageTag": "3be9f77b-9345-4abe-9aee-ca235f524b9a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1041.0381297884637,
+            "y": 179.90892430849385
+          },
+          "nodeIndex": "Shift_Dates",
+          "nodeLineageTag": "0d9a7a64-1e95-47ff-a179-dbdecc773e43",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 401.08808001100107,
+            "y": 263.71934600798022
+          },
+          "nodeIndex": "Sorting_Bank",
+          "nodeLineageTag": "cff5d914-6dbf-4b72-9af4-561f5a935129",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 456.66696238456672,
+            "y": 1251.5676556809867
+          },
+          "nodeIndex": "Summarised Blm Weight",
+          "nodeLineageTag": "11dcbfc5-e39a-42d2-b7ce-c3fe5fa4d3d7",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 661.87004347941274,
+            "y": 1607.3195097091912
+          },
+          "nodeIndex": "Summarised Cuts Weight",
+          "nodeLineageTag": "c76fc1f5-54ae-4322-a16d-9e657f181b64",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2325.1895531115533,
+            "y": 866.65975485459535
+          },
+          "nodeIndex": "Summarised Cuts Weight Total",
+          "nodeLineageTag": "27ad946b-69c9-4ab7-a5ad-cefb69e979f4",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 641.1637775314141,
+            "y": 894.44380287724
+          },
+          "nodeIndex": "Summarised Defects",
+          "nodeLineageTag": "2e0ef559-7cb5-4f96-824f-954a2cc36531",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1119.3926223668668,
+            "y": 1605.8843996776968
+          },
+          "nodeIndex": "Summarised Delays",
+          "nodeLineageTag": "2fb57e22-94af-4781-be02-94fb3fddaed1",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 897.42313123458314,
+            "y": 1251.5622378131566
+          },
+          "nodeIndex": "Summarised Prime Weight",
+          "nodeLineageTag": "c7e0e887-fc9a-40ba-93c4-2b88fc300a94",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1233.4921309862289,
+            "y": 1025.5301969299189
+          },
+          "nodeIndex": "Summarised Rolling",
+          "nodeLineageTag": "dad95827-580e-40c9-a7e7-66da19ab1315",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 868.76330915073277,
+            "y": -50
+          },
+          "nodeIndex": "T_Annual_Plan_Matrix",
+          "nodeLineageTag": "105f2310-3318-4dbc-bb8b-2cc8b98490b8",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1523.1895531115533,
+            "y": 813.54083516938317
+          },
+          "nodeIndex": "T_Delays",
+          "nodeLineageTag": "5675acae-54e6-4c94-8629-317916c43dd1",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 163.6350843173629,
+            "y": 620.89883290209332
+          },
+          "nodeIndex": "T_Rolling_Times",
+          "nodeLineageTag": "c6660278-7e27-405e-9f54-31e9e02ef439",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1405.7699937145712,
+            "y": 1280.4694973821072
+          },
+          "nodeIndex": "T_Tracking_Account",
+          "nodeLineageTag": "fe7697c1-a903-4216-a013-75a8411859a5",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 807.77880750536826,
+            "y": 537.22645856488
+          },
+          "nodeIndex": "Unique_Week",
+          "nodeLineageTag": "6ad9c16d-0cc6-417d-8fe1-109ae2485b7d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2893.1895531115533,
+            "y": 778.65975485459558
+          },
+          "nodeIndex": "Electric_Charges",
+          "nodeLineageTag": "d42acf4c-a683-4c8e-9ffc-731797c9f44e",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2891.1895531115533,
+            "y": 1109.6597548545956
+          },
+          "nodeIndex": "Gas_Charges",
+          "nodeLineageTag": "c315184a-ba2c-434f-aa60-4e088bb00356",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2606.1895531115533,
+            "y": 664.65975485459558
+          },
+          "nodeIndex": "T_Summary_Utility_Charges",
+          "nodeLineageTag": "f4f1f5ed-70f9-4108-8248-0305be005157",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 229.65975485459558
+          },
+          "nodeIndex": "T_Hotsaw_Scrap",
+          "nodeLineageTag": "00653248-cdfc-4cf5-b3b3-1341d88829c4",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

@@ -1,0 +1,66 @@
+table 'Summarised Cuts Weight Total'
+	lineageTag: 27ad946b-69c9-4ab7-a5ad-cefb69e979f4
+
+	column 'WEEK_ABB Product'
+		lineageTag: a6c54c94-17d6-426f-b031-b7310335c6d3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[WEEK_ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'ABB Product'
+		lineageTag: 5613e05d-47f6-4652-a23f-d9957208f56b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Lookup Shift'
+		lineageTag: d20bb09b-a595-48b9-a66a-c81c30008256
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Lookup Shift]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Week ABB'
+		formatString: 0
+		lineageTag: 9078519a-c719-4609-9465-0b08e178c414
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week ABB]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week
+		lineageTag: 990e2cf9-6e11-40d4-92c4-9d7d23cd86b7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Summarised Cuts Wght'
+		lineageTag: 14cfbcfd-9110-45be-8b90-81ff2e0be45e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Summarised Cuts Wght]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Summarised Cuts Weight Total-80d893cc-185c-4ca2-a7bd-7b0fef1b6fe5' = calculated
+		mode: import
+		source = SUMMARIZE(T_Tracking_Account, T_Tracking_Account[WEEK_ABB Product],T_Tracking_Account[ABB Product], T_Tracking_Account[Lookup Shift],T_Tracking_Account[Week ABB],T_Tracking_Account[Week],"Summarised Cuts Wght",sum(T_Tracking_Account[Cuts Wgt]))
+

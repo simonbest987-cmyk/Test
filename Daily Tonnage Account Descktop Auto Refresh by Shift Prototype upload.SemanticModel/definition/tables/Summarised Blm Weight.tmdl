@@ -1,0 +1,145 @@
+table 'Summarised Blm Weight'
+	lineageTag: 11dcbfc5-e39a-42d2-b7ce-c3fe5fa4d3d7
+
+	measure '42 Speed Stnd' =
+			sumx (RELATEDTABLE('Summarised Blm Weight'),
+			[Summarised Blm Wght]) / sumx (RELATEDTABLE('Summarised Blm Weight'),
+			[42_mill_throput])
+		lineageTag: 037ff7ae-cf60-4155-a4fe-e01875159853
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'WEEK_ABB Product'
+		lineageTag: 323a8431-72f7-460a-ad51-27d3b1f6714b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[WEEK_ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'ABB Product'
+		lineageTag: 8fa308fb-97a3-462e-a3e0-56d3d212f37c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Week ABB'
+		formatString: 0
+		lineageTag: 8ae46985-15ba-415b-a480-12ee988bcb7a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week ABB]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week
+		lineageTag: 014ec77e-64c3-4643-85be-6eeadcd03895
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product
+		formatString: 0
+		lineageTag: 2f73b0cb-9414-428a-8a85-037a91341ba6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[product]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Code'
+		lineageTag: 040d706f-00d0-4137-8084-18a446dc72f3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Product Code]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 42_mill_Yield
+		lineageTag: 1c123405-bf6f-49ff-8bbc-09a11813fd7b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[42_mill_Yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_yield
+		lineageTag: 21feab96-4f02-498a-9374-86345f748643
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[36_mill_yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fin_yield
+		lineageTag: 0c3029bd-a86f-47f4-b3d4-0c425396f327
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[fin_yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_throput
+		formatString: 0
+		lineageTag: 881b6901-6956-4e1e-9097-4aa0aca24387
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[36_mill_throput]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Summarised Blm Wght'
+		lineageTag: c046fa27-2c1b-4255-b1bf-b28e44790065
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Summarised Blm Wght]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'WEEK_ABB Product Cocde_Product' = [Week]&"_"&[Product Code]&"_"&[product]
+		lineageTag: 2f2c3910-b15d-4a0d-b8d5-aa8eef641b03
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 42_mill_throput
+		formatString: 0
+		lineageTag: 8681bd0d-dec2-40be-88a0-210cf16bae03
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[42_mill_throput]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Summarised Blm Weight-ac16ec96-c717-4d3d-a84e-6329a91dc8e6' = calculated
+		mode: import
+		source = SUMMARIZE(T_Tracking_Account, T_Tracking_Account[WEEK_ABB Product],T_Tracking_Account[ABB Product], T_Tracking_Account[Week ABB],T_Tracking_Account[Week],T_Tracking_Account[product],T_Tracking_Account[Product Code],T_Tracking_Account[42_mill_Yield],T_Tracking_Account[36_mill_yield],T_Tracking_Account[fin_yield],T_Tracking_Account[36_mill_throput],T_Tracking_Account[42_mill_throput],"Summarised Blm Wght",sum(T_Tracking_Account[Blm Wght]))
+

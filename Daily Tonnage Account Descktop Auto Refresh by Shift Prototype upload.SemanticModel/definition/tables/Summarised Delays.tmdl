@@ -1,0 +1,47 @@
+table 'Summarised Delays'
+	lineageTag: 2fb57e22-94af-4781-be02-94fb3fddaed1
+
+	column 'WEEK_ABB Product'
+		lineageTag: 32590871-cf23-41b8-9717-8d9cb91bec47
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Delays[WEEK_ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Week
+		formatString: 0
+		lineageTag: 31e66c47-2322-46eb-af9d-48c66c87e261
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Delays[Week]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ABB Prod'
+		lineageTag: cb795443-a76e-44b2-90a5-38df077e43a0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Delays[ABB Prod]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Summarised Delays'
+		formatString: 0.00
+		lineageTag: b724cb0a-00f5-495f-ba0d-b2bcb22b4c1f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Summarised Delays]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Summarised Delays-9f480767-7305-4d9c-af0b-9710732a623f' = calculated
+		mode: import
+		source =
+				SUMMARIZE(T_Delays,T_Delays[WEEK_ABB Product],T_Delays[Week],T_Delays[ABB Prod],"Summarised Delays",sum(T_Delays[Total Delays])
+				)
+

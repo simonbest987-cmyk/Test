@@ -1,0 +1,296 @@
+table Operating_Costs
+	lineageTag: 402bcd43-70c6-417c-9f16-a393b3f4ac66
+
+	measure 'Daily 42 Flexed £' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Daily Fixed])+SUM('Operating_Costs'[Daily Depn]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+		formatString: 0.00
+		lineageTag: 09adbe5e-0584-48ac-a5a9-99015da40958
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+	measure 'Weekly 42 Flexed Fixed £' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Fixed])+SUM('Operating_Costs'[Depn]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+		lineageTag: 76801296-41f8-4198-b806-874939ba8b24
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 42 Flexed Var £' =
+			
+			SUM('T_Tracking_Account'[Blm Wght]) * [Weekly 42 Flexed Variable £]
+		lineageTag: 5d0d1fe7-7d96-4ee7-9db6-8094999d4ac3
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalMultiplication"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 36 Flexed Fixed £' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Fixed])+SUM('Operating_Costs'[Depn]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+		lineageTag: 222caa08-9693-4626-8016-639a18969f6b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 36 Flexed Variable £' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[tonne var]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+		lineageTag: a126f5e8-382c-4e78-afa3-3bc9b032e708
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 36 Flexed Var £' =
+			
+			SUM('T_Tracking_Account'[Cuts Wgt]) * [Weekly 36 Flexed Variable £]
+		lineageTag: 04d5e903-d6cb-4251-9345-0d11616a7afa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Flexed Fixed Costs for Period' = [Weekly 42 Flexed Fixed £]*[Count of Week No plus Count of Week No]
+		lineageTag: 862c36b4-3db8-40e8-9f6e-63d2396b3964
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Flexed Fixed Costs for Period' = [Weekly 36 Flexed Fixed £]*[Count of Week No plus Count of Week No]
+		lineageTag: 109ad4ae-a1a2-4359-9347-88714cc6c92e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cost Centre'
+		dataType: int64
+		formatString: 0
+		lineageTag: c40df32e-4047-4b98-aa00-efddcc1b5552
+		summarizeBy: sum
+		sourceColumn: Cost Centre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 84b2bd55-d02d-4cff-a846-f8db92d974fb
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Tonne
+		dataType: double
+		lineageTag: 2687fd3f-eaed-46c7-aa77-51175a3ed965
+		summarizeBy: sum
+		sourceColumn: Tonne
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Time
+		dataType: int64
+		formatString: 0
+		lineageTag: 10c90292-149b-4d43-ad4b-91e675ce9711
+		summarizeBy: sum
+		sourceColumn: Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fixed
+		dataType: double
+		formatString: 0.00
+		lineageTag: 593dccfb-72d1-47fb-ac28-df29964e5c25
+		summarizeBy: sum
+		sourceColumn: Fixed
+
+		annotation SummarizationSetBy = Automatic
+
+	column Depn
+		dataType: double
+		formatString: 0.00
+		lineageTag: f0f25e16-72d6-4045-9ce9-8f3c7054fbd3
+		summarizeBy: sum
+		sourceColumn: Depn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'tonne var'
+		dataType: double
+		lineageTag: 083c36bd-ffae-45c2-80c9-0c9c712d8413
+		summarizeBy: sum
+		sourceColumn: tonne var
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'time man hr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 272f726a-321b-414e-b3d7-a7cce025b9f8
+		summarizeBy: sum
+		sourceColumn: time man hr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'fixed man hr'
+		dataType: double
+		lineageTag: 9fd04f13-03a9-4f2f-b420-4ef4b768996a
+		summarizeBy: sum
+		sourceColumn: fixed man hr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'depn man hr'
+		dataType: double
+		lineageTag: 25f32feb-4f61-42a6-a2f1-1935fa1b91af
+		summarizeBy: sum
+		sourceColumn: depn man hr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'time wkd hr'
+		dataType: int64
+		formatString: 0
+		lineageTag: f732e170-aed4-4932-8264-fef2a1667120
+		summarizeBy: sum
+		sourceColumn: time wkd hr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'fixed wkd hr'
+		dataType: double
+		lineageTag: 2d303a27-8b13-431d-a88a-3462b383ed9f
+		summarizeBy: sum
+		sourceColumn: fixed wkd hr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'depn wkd hr'
+		dataType: double
+		lineageTag: ab949a8e-a441-4670-876b-4578d22b3b8c
+		summarizeBy: sum
+		sourceColumn: depn wkd hr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Tonnes
+		dataType: double
+		lineageTag: b18f50c9-7b17-47fe-9a2c-0a951e132d34
+		summarizeBy: sum
+		sourceColumn: Tonnes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Manned hr'
+		dataType: double
+		lineageTag: 06ee5ba0-1c30-4628-b642-71bc695780a8
+		summarizeBy: sum
+		sourceColumn: Manned hr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'worked hour'
+		dataType: double
+		formatString: 0.00
+		lineageTag: 29f9078f-ef0f-4a6e-b3ef-130b3b2e74b4
+		summarizeBy: sum
+		sourceColumn: worked hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: e8b4c971-02d8-4d90-a94c-8a05eb19c70b
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Availabiity
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 936369f2-25f0-4d34-be01-14237f21e759
+		summarizeBy: sum
+		sourceColumn: Availabiity
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Daily Manned Hours'
+		dataType: double
+		formatString: 0.00
+		lineageTag: b97e22c1-97a7-4952-b5af-cc31b50898b8
+		summarizeBy: sum
+		sourceColumn: Daily Manned Hours
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Daily Fixed'
+		dataType: double
+		formatString: 0.00
+		lineageTag: 3ddfa13a-7715-4944-a7b8-ded2167814df
+		summarizeBy: sum
+		sourceColumn: Daily Fixed
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Daily Depn'
+		dataType: double
+		formatString: 0.00
+		lineageTag: 301d9e97-c6d9-45b3-a871-cb6f4322a913
+		summarizeBy: sum
+		sourceColumn: Daily Depn
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Operating_Costs-708e6511-b25f-4e3f-802e-fcc062d60c36 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Operating_Costs_Table = Source{[Item="Operating_Costs",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Operating_Costs_Table,{{"Cost Centre", Int64.Type}, {"Description", type text}, {"Tonne", type number}, {"Time", Int64.Type}, {"Fixed", type number}, {"Depn", type number}, {"tonne var", type number}, {"time man hr", Int64.Type}, {"fixed man hr", type number}, {"depn man hr", type number}, {"time wkd hr", Int64.Type}, {"fixed wkd hr", type number}, {"depn wkd hr", type number}, {"Tonnes", type number}, {"Manned hr", type number}, {"worked hour", type number}, {"year", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Exception
+

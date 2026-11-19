@@ -1,0 +1,157 @@
+table Sorting_Bank
+	lineageTag: cff5d914-6dbf-4b72-9af4-561f5a935129
+
+	column Week
+		dataType: double
+		lineageTag: 8fc0d6eb-2e14-48ac-a36a-e1db3d20a8fa
+		summarizeBy: sum
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUT_TIME
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d61d16f1-ed5e-4795-809d-bad647f6f5a1
+		summarizeBy: none
+		sourceColumn: CUT_TIME
+
+		variation Variation
+			isDefault
+			relationship: 2e098bdf-ee07-4110-b69c-cba31bad0868
+			defaultHierarchy: LocalDateTable_83c2235e-5cd9-4e51-8247-715bc8791e66.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column SCRAP_TIME
+		dataType: string
+		lineageTag: 0564903d-6a6e-4664-90bc-61456d6df89f
+		summarizeBy: none
+		sourceColumn: SCRAP_TIME
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column BAR_NUMBER
+		dataType: string
+		lineageTag: 97fd315b-8a94-4715-9023-63cd804344cd
+		summarizeBy: none
+		sourceColumn: BAR_NUMBER
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column PRODUCT_CODE
+		dataType: string
+		lineageTag: cb41e003-45d5-436b-9465-6dea5701249d
+		summarizeBy: none
+		sourceColumn: PRODUCT_CODE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column PRODUCT_CODE1
+		dataType: double
+		lineageTag: 326286a9-cacd-4443-b73d-34bda3478442
+		summarizeBy: sum
+		sourceColumn: PRODUCT_CODE1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ROLLING_ID
+		dataType: string
+		lineageTag: f73508ff-272e-4426-a4af-21b3c6802c8b
+		summarizeBy: none
+		sourceColumn: ROLLING_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column BAR_LENGTH
+		dataType: int64
+		formatString: 0
+		lineageTag: 225ed256-bb81-434d-948d-a3d3eccfa9a5
+		summarizeBy: sum
+		sourceColumn: BAR_LENGTH
+
+		annotation SummarizationSetBy = Automatic
+
+	column WEIGHT
+		dataType: double
+		lineageTag: 576f64be-8225-4947-b773-2b112c233510
+		summarizeBy: sum
+		sourceColumn: WEIGHT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'ORDER NUMBER'
+		dataType: string
+		lineageTag: c563a7f0-ae2d-48c8-a976-1121ed45ba7f
+		summarizeBy: none
+		sourceColumn: ORDER NUMBER
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column CAST
+		dataType: string
+		lineageTag: fbe94e49-f0cb-4402-a0a5-18adfa711d11
+		summarizeBy: none
+		sourceColumn: CAST
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column QUAL
+		dataType: int64
+		formatString: 0
+		lineageTag: a1e60ad2-d886-4f64-9d1f-8be8a2e09dbf
+		summarizeBy: sum
+		sourceColumn: QUAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column SCRAP_REASON
+		dataType: string
+		lineageTag: fcbfe8ea-2450-4752-8209-9f068aa007a7
+		summarizeBy: none
+		sourceColumn: SCRAP_REASON
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column1
+		dataType: string
+		lineageTag: fa3df561-f8d4-4bbe-8f82-42fa1f3e4045
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition Sorting_Bank-7f2c39f1-eb89-4e72-a894-1362a90e1194 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Sorting_Bank_Table = Source{[Item="Sorting_Bank",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Sorting_Bank_Table,{{"Week", type number}, {"CUT_TIME", type datetime}, {"SCRAP_TIME", type any}, {"BAR_NUMBER", type text}, {"PRODUCT_CODE", type text}, {"PRODUCT_CODE1", type number}, {"ROLLING_ID", type text}, {"BAR_LENGTH", Int64.Type}, {"WEIGHT", type number}, {"ORDER NUMBER", type text}, {"CAST", type text}, {"QUAL", Int64.Type}, {"SCRAP_REASON", type text}, {"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

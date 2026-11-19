@@ -1,0 +1,243 @@
+relationship 83e96249-1726-43d9-a89c-54566e0b7d82
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Shift_Dates.'Time at Saw1 End'
+	toColumn: LocalDateTable_2d82c15b-823f-49de-958d-68ed8b61652e.Date
+
+relationship 84d7600f-f95d-43ad-90d6-c77d0fb2c438
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Shift_Dates.Date
+	toColumn: LocalDateTable_b970f468-dce5-4466-b142-6c5ad008ec5f.Date
+
+relationship af9a0f6e-3df9-4810-bce2-8e356343daa0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: T_Delays.Start
+	toColumn: LocalDateTable_e8fbaa9f-7511-4195-affa-789827e57019.Date
+
+relationship 1bd025d6-0a7d-4d8b-a494-2ab716b1efbe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: T_Delays.End
+	toColumn: LocalDateTable_36442eb2-e117-46eb-8731-8b92b025a49e.Date
+
+relationship caeb459e-8445-45b6-914a-4ea5b0ad0bb9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: T_Rolling_Times.Start
+	toColumn: LocalDateTable_a7568368-a952-4cad-bc19-65c2e788329d.Date
+
+relationship d4e2fee6-bdb2-4b75-89c6-0d7f8899d8f6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: T_Rolling_Times.End
+	toColumn: LocalDateTable_5e3b50de-5284-471b-93d6-303e3a0d6f5a.Date
+
+relationship 9a7a7e56-3876-4f35-8264-d43d5e091c6c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.'Time at Saw1 End'
+	toColumn: LocalDateTable_e37811be-c80b-4124-8763-06ef582677bc.Date
+
+relationship 9acdc622-1edd-4d01-8bdf-460723685a5b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.Date
+	toColumn: LocalDateTable_bfc5e9ec-9609-43f1-9d52-a1c8ac156997.Date
+
+relationship 8015f927-9bf5-407b-87ab-75c478bf4972
+	fromColumn: T_Delays.Week
+	toColumn: Unique_Week.'Week No'
+
+relationship cb38e1ed-3449-4be5-8dac-23c728358756
+	fromColumn: T_Rolling_Times.Week
+	toColumn: Unique_Week.'Week No'
+
+relationship a56a7275-9a45-49c0-81e8-910d7ff3fe45
+	fromColumn: T_Tracking_Account.'Week ABB'
+	toColumn: Unique_Week.'Week No'
+
+relationship b7b0dae3-050b-4941-af58-2aa81a3ba781
+	fromColumn: Calendar.Week2
+	toColumn: Unique_Week.'Week No'
+
+relationship 3ee8f285-6773-4731-ab81-05a6419b632f
+	fromColumn: 'Summarised Delays'.Week
+	toColumn: Unique_Week.'Week No'
+
+relationship 86a59b93-40a1-4d96-aeca-1c8548b0a162
+	isActive: false
+	fromColumn: T_Tracking_Account.'WEEK_ABB Product'
+	toColumn: 'Summarised Delays'.'WEEK_ABB Product'
+
+relationship b6f76476-35a9-4928-b0f6-8c9048496c1b
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Summarised Blm Weight'.'WEEK_ABB Product Cocde_Product'
+	toColumn: 'Summarised Cuts Weight'.'WEEK_ABB Product Cocde_Product'
+
+relationship 910c54a3-1b98-4c95-a875-819272a7b5a0
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Summarised Prime Weight'.'WEEK_ABB Product Cocde_Product'
+	toColumn: 'Summarised Blm Weight'.'WEEK_ABB Product Cocde_Product'
+
+relationship 90cb9f08-0862-4780-b80f-51219888252c
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Summarised Prime Weight'.'WEEK_ABB Product Cocde_Product'
+	toColumn: 'Summarised Cuts Weight'.'WEEK_ABB Product Cocde_Product'
+
+relationship 5d3e6fdb-cdbc-4ed1-b9a3-07b8597ace53
+	isActive: false
+	fromColumn: 'Summarised Prime Weight'.'Week ABB'
+	toColumn: Unique_Week.'Week No'
+
+relationship 52b5bd18-39c8-41bf-99cd-cf6dae771d67
+	isActive: false
+	fromColumn: 'Summarised Prime Weight'.'WEEK_ABB Product'
+	toColumn: 'Summarised Delays'.'WEEK_ABB Product'
+
+relationship 652171ac-0eeb-4e10-8cc8-01bd774f7b81
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Summarised Cuts Weight'.'WEEK_ABB Product Cocde_Product'
+	toColumn: 'Summarised Defects'.'WEEK_ABB Product Cocde_Product'
+
+relationship 792f4403-1813-43b1-b36c-5f5f244f1c20
+	isActive: false
+	fromColumn: 'Summarised Blm Weight'.'WEEK_ABB Product'
+	toColumn: 'Summarised Delays'.'WEEK_ABB Product'
+
+relationship f5f42b97-e2c8-47aa-903b-e8202545868e
+	fromColumn: 'Summarised Blm Weight'.'Week ABB'
+	toColumn: Unique_Week.'Week No'
+
+relationship 0697594b-c4e8-43f9-bd03-7edde46834dd
+	isActive: false
+	fromColumn: 'Summarised Defects'.'WEEK_ABB Product'
+	toColumn: 'Summarised Delays'.'WEEK_ABB Product'
+
+relationship 7af57aa4-6df1-428c-886b-43c1c39e532d
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Summarised Defects'.'WEEK_ABB Product Cocde_Product'
+	toColumn: 'Summarised Blm Weight'.'WEEK_ABB Product Cocde_Product'
+
+relationship a36822fc-ff01-40b4-a078-02cff362086e
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Summarised Defects'.'WEEK_ABB Product Cocde_Product'
+	toColumn: 'Summarised Prime Weight'.'WEEK_ABB Product Cocde_Product'
+
+relationship 4eadab8a-1817-4fbc-b458-112549bc3523
+	isActive: false
+	fromColumn: 'Summarised Defects'.'Week ABB'
+	toColumn: Unique_Week.'Week No'
+
+relationship cb329acf-afd6-48fc-8939-4cc9371e6508
+	fromColumn: Extra_Processing.'Week ABB'
+	toColumn: Unique_Week.'Week No'
+
+relationship a051ee3b-b56f-4572-8177-78452700aed8
+	fromColumn: Shift_Dates.Week2
+	toColumn: Unique_Week.'Week No'
+
+relationship 1d9fdaca-74be-4004-899a-0d840f996c46
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Summarised Delays'.'WEEK_ABB Product'
+	toColumn: 'Summarised Rolling'.'WEEK_ABB Product'
+
+relationship 369da411-0323-45d7-a2ea-de9a6955c8a2
+	isActive: false
+	fromColumn: 'Summarised Prime Weight'.'WEEK_ABB Product'
+	toColumn: 'Summarised Rolling'.'WEEK_ABB Product'
+
+relationship d49532ee-afb0-4e76-92c0-e8fa4b078809
+	isActive: false
+	fromColumn: 'Summarised Blm Weight'.'WEEK_ABB Product'
+	toColumn: 'Summarised Rolling'.'WEEK_ABB Product'
+
+relationship 13db54b8-e383-44a0-a0fa-8dcba0ed8e24
+	isActive: false
+	fromColumn: 'Summarised Defects'.'WEEK_ABB Product'
+	toColumn: 'Summarised Rolling'.'WEEK_ABB Product'
+
+relationship 2661fbab-8bcb-4aba-ba5a-d7764e291b42
+	isActive: false
+	fromColumn: 'Summarised Rolling'.Week
+	toColumn: Unique_Week.'Week No'
+
+relationship d65ba161-538e-4956-a481-0e789541a290
+	isActive: false
+	fromColumn: T_Tracking_Account.'WEEK_ABB Product'
+	toColumn: 'Summarised Rolling'.'WEEK_ABB Product'
+
+relationship 2e098bdf-ee07-4110-b69c-cba31bad0868
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Sorting_Bank.CUT_TIME
+	toColumn: LocalDateTable_83c2235e-5cd9-4e51-8247-715bc8791e66.Date
+
+relationship 1d4da5d4-19b8-4d63-97f3-88ddfe5ad866
+	fromColumn: Sorting_Bank.Column1
+	toColumn: Unique_Week.'Week No'
+
+relationship 96bda651-d9bb-4bcb-890a-cfaf7b1639cd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: External_Scrap.Time
+	toColumn: LocalDateTable_a8ce5673-4e29-42b1-ba42-6897d8c52b3c.Date
+
+relationship a3640ccf-d29b-4d4c-acfa-59ae49cdbbc5
+	fromColumn: External_Scrap.Week2
+	toColumn: Unique_Week.'Week No'
+
+relationship 556d695e-7056-4769-8c7f-1b966b50d772
+	fromColumn: T_Annual_Plan_Matrix.Week
+	toColumn: Unique_Week.'Week No'
+
+relationship f3af0449-6054-4942-831a-0d7a38b991a4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Gas_Charges.'Invoice Date'
+	toColumn: LocalDateTable_247ef67a-ad27-4c9a-8795-b46db0c28275.Date
+
+relationship 811b3fa4-d64f-4a50-b397-e75f6e6ff89d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Gas_Charges.'Start Date'
+	toColumn: LocalDateTable_c3206507-4762-489d-a27f-664d4ee3e4bb.Date
+
+relationship 524dfd84-ae19-4ec5-ae73-377c5080beaf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Gas_Charges.'End Date'
+	toColumn: LocalDateTable_c734e465-d928-434b-ac18-2ff40799111a.Date
+
+relationship AutoDetected_68edca73-b9e3-443f-b326-c67e85ff6d55
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: T_Summary_Utility_Charges.'Area_Energy Bill'
+	toColumn: Electric_Charges.'Area_Energy Bill'
+
+relationship f31d3ff5-2775-23c6-8802-574c0693641c
+	fromColumn: Gas_Charges.'Area_Energy Bill'
+	toColumn: T_Summary_Utility_Charges.'Area_Energy Bill'
+
+relationship f4eb4583-66e5-4dc6-878f-06d887f4afaa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: T_Hotsaw_Scrap.TIME
+	toColumn: LocalDateTable_39049293-1258-4270-8c4d-2ddaf63060c0.Date
+
+relationship 771bbacf-90bd-5e51-1e31-44bd06ceb769
+	fromColumn: T_Hotsaw_Scrap.'Week No'
+	toColumn: Unique_Week.'Week No'
+
+relationship d9cbeac5-54e0-4dd8-9c67-03ac9f5b3ba2
+	fromColumn: 'Summarised Cuts Weight'.'WEEK_ABB Product'
+	toColumn: 'Summarised Delays'.'WEEK_ABB Product'
+
+relationship 201d2388-c652-4bef-aa6f-5e6f5fae9519
+	isActive: false
+	fromColumn: 'Summarised Cuts Weight'.'WEEK_ABB Product'
+	toColumn: 'Summarised Rolling'.'WEEK_ABB Product'
+
+relationship 531ff5a1-bf17-4ea8-9fd2-fbdb51b1506d
+	isActive: false
+	fromColumn: 'Summarised Cuts Weight'.'Week ABB'
+	toColumn: Unique_Week.'Week No'
+

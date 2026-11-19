@@ -1,0 +1,604 @@
+table Product_Costs
+	lineageTag: 3be9f77b-9345-4abe-9aee-ca235f524b9a
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: b3623fcb-db07-4d06-a03e-88625d71711a
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column plant
+		dataType: int64
+		formatString: 0
+		lineageTag: c742855c-8892-44ae-9d99-5a655c8f334c
+		summarizeBy: sum
+		sourceColumn: plant
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Code'
+		dataType: double
+		formatString: 0.00
+		lineageTag: aedf78a5-3d53-4be3-841a-d7e790215e01
+		summarizeBy: count
+		sourceColumn: Product Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'group Descr'
+		dataType: string
+		lineageTag: 19652796-b446-463e-8faa-8a6ef9d767de
+		summarizeBy: none
+		sourceColumn: group Descr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Product desc'
+		dataType: string
+		lineageTag: eab4b0cd-91ac-4523-9f92-0a6d2bed6991
+		summarizeBy: none
+		sourceColumn: Product desc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'bloom input'
+		dataType: double
+		lineageTag: 371f03fd-c90e-4de4-ace9-cae7c3f825e5
+		summarizeBy: sum
+		sourceColumn: bloom input
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Billet input'
+		dataType: int64
+		formatString: 0
+		lineageTag: b9e34263-0531-4361-9837-e593cdc3c03e
+		summarizeBy: sum
+		sourceColumn: Billet input
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42 mill throput22'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5692f954-1bcd-4405-92ed-96cbb03669d3
+		summarizeBy: sum
+		sourceColumn: 42 mill throput22
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42 mill %processed'
+		dataType: int64
+		formatString: 0
+		lineageTag: aa0ae412-5c55-4314-a0a4-af665d897ddc
+		summarizeBy: sum
+		sourceColumn: 42 mill %processed
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42 mill tot'
+		dataType: double
+		lineageTag: 221373ce-7d68-4a9c-9894-856df452f460
+		summarizeBy: sum
+		sourceColumn: 42 mill tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '42 mill roll run tot'
+		dataType: double
+		lineageTag: d8a7dc49-7ae1-4a83-82cc-79af667d3f3a
+		summarizeBy: sum
+		sourceColumn: 42 mill roll run tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '42 mill Yield'
+		dataType: double
+		lineageTag: 03a13ccb-f352-42f9-9879-00de245a1a43
+		summarizeBy: sum
+		sourceColumn: 42 mill Yield
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '42 mill Scrap'
+		dataType: double
+		lineageTag: c7971411-a5c3-4e21-8a1f-0efdc1262375
+		summarizeBy: sum
+		sourceColumn: 42 mill Scrap
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'scrap cost/tonne'
+		dataType: double
+		lineageTag: 610b1e57-b611-4a6c-9b25-c59925b84ed3
+		summarizeBy: sum
+		sourceColumn: scrap cost/tonne
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '42 mill Scale'
+		dataType: double
+		lineageTag: 1eb6c19b-d751-408c-b7b3-e5b13d65fbe7
+		summarizeBy: sum
+		sourceColumn: 42 mill Scale
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Scale cost tonne'
+		dataType: double
+		lineageTag: 7be69924-c6d6-45bd-8764-a83a148759e5
+		summarizeBy: sum
+		sourceColumn: Scale cost tonne
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '42 mill run tot'
+		dataType: double
+		lineageTag: 5edffc55-833c-40f7-8308-69403f229a60
+		summarizeBy: sum
+		sourceColumn: 42 mill run tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '42 mill roll tarif'
+		dataType: double
+		lineageTag: 92aaaa47-c697-4343-a6dc-5ae8bdece680
+		summarizeBy: sum
+		sourceColumn: 42 mill roll tarif
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 mill throput'
+		dataType: int64
+		formatString: 0
+		lineageTag: 56c29299-1787-47f1-b2ad-75de9f6506e7
+		summarizeBy: sum
+		sourceColumn: 36 mill throput
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36 mill %processed'
+		dataType: int64
+		formatString: 0
+		lineageTag: 047d7e4c-9352-4aa8-baff-e9c2777fe016
+		summarizeBy: sum
+		sourceColumn: 36 mill %processed
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36 mill tot'
+		dataType: double
+		lineageTag: c7fdb72d-439f-4725-9b35-7f847e56cedb
+		summarizeBy: sum
+		sourceColumn: 36 mill tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 mill roll run tot'
+		dataType: double
+		lineageTag: 3c2c0d00-5307-45c3-918f-f96681c38503
+		summarizeBy: sum
+		sourceColumn: 36 mill roll run tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 mill yield'
+		dataType: double
+		lineageTag: cce8c96d-0607-478a-a010-7a4bf87cfcc5
+		summarizeBy: sum
+		sourceColumn: 36 mill yield
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 mill scrap'
+		dataType: double
+		lineageTag: d60c9e88-a6be-4d0d-8562-431b4f046ef9
+		summarizeBy: sum
+		sourceColumn: 36 mill scrap
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 mill scale'
+		dataType: double
+		lineageTag: 6a673f62-94a6-4ff2-9bf2-46a7630357e3
+		summarizeBy: sum
+		sourceColumn: 36 mill scale
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 mill skull'
+		dataType: double
+		lineageTag: 7f2b39bd-0f41-4121-99f2-2cdbb63c8045
+		summarizeBy: sum
+		sourceColumn: 36 mill skull
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 yield run tot'
+		dataType: double
+		lineageTag: 483326f9-1cc4-4e19-8a97-58d1ef1a3f3e
+		summarizeBy: sum
+		sourceColumn: 36 yield run tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 mill roll tarif'
+		dataType: double
+		lineageTag: 3bedd8d4-1570-4023-9619-8e792e197668
+		summarizeBy: sum
+		sourceColumn: 36 mill roll tarif
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'test fees'
+		dataType: int64
+		formatString: 0
+		lineageTag: a66bde28-9336-4074-a9ec-223b42323fd5
+		summarizeBy: sum
+		sourceColumn: test fees
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'cathode throput'
+		dataType: double
+		lineageTag: a6f65e78-59c7-4c82-b561-32f42af2d52f
+		summarizeBy: sum
+		sourceColumn: cathode throput
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'cathode %processed'
+		dataType: int64
+		formatString: 0
+		lineageTag: 18b42339-11e6-4808-ba87-5a60254d1f9e
+		summarizeBy: sum
+		sourceColumn: cathode %processed
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'cathode tot'
+		dataType: double
+		lineageTag: 9a7d78f7-737e-48cb-9fa4-85d38a020fbf
+		summarizeBy: sum
+		sourceColumn: cathode tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'cathode run tot'
+		dataType: double
+		lineageTag: c5f2877e-460f-4c36-b7c6-06caa23740d9
+		summarizeBy: sum
+		sourceColumn: cathode run tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'fin yield'
+		dataType: double
+		lineageTag: d55d54fd-88ec-4a0f-ae71-403fceb6c18a
+		summarizeBy: sum
+		sourceColumn: fin yield
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column defect
+		dataType: double
+		lineageTag: c7c09794-d6e0-4b1e-ac35-20f08da366b6
+		summarizeBy: sum
+		sourceColumn: defect
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'defect run tot'
+		dataType: double
+		lineageTag: 22907ed0-e948-4cf1-8168-06357d1a45e0
+		summarizeBy: sum
+		sourceColumn: defect run tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'darlo  throput'
+		dataType: double
+		lineageTag: ec9ebe7b-d37a-4bd0-b724-23fb74c182ae
+		summarizeBy: sum
+		sourceColumn: darlo  throput
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'darlo %process'
+		dataType: int64
+		formatString: 0
+		lineageTag: 443e8edb-9755-45c4-9414-7b980374f35e
+		summarizeBy: sum
+		sourceColumn: darlo %process
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'darlo tot'
+		dataType: double
+		lineageTag: 86ad1016-8ac1-4665-b674-428044a9bb21
+		summarizeBy: sum
+		sourceColumn: darlo tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'cold saw throput'
+		dataType: double
+		lineageTag: 1013a996-ed77-4b42-8361-2f96f9c1b0e3
+		summarizeBy: sum
+		sourceColumn: cold saw throput
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'cold saw %process'
+		dataType: double
+		lineageTag: 71d44c70-231d-48b6-b15f-2239920e302a
+		summarizeBy: sum
+		sourceColumn: cold saw %process
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'cold saw tot'
+		dataType: double
+		lineageTag: eaf3e6a4-9668-4bcc-b941-07596dcc4eef
+		summarizeBy: sum
+		sourceColumn: cold saw tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'restraight thrput'
+		dataType: double
+		lineageTag: 2b621e5f-e37f-4a39-9141-57eca235fe90
+		summarizeBy: sum
+		sourceColumn: restraight thrput
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'restraight %process'
+		dataType: int64
+		formatString: 0
+		lineageTag: f03f1794-4c8d-4b76-a9a5-ac4ecf16d9ef
+		summarizeBy: sum
+		sourceColumn: restraight %process
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'restraight tot'
+		dataType: double
+		lineageTag: a128ddb8-3fda-46cf-a49e-27a47e111649
+		summarizeBy: sum
+		sourceColumn: restraight tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total cost restaight cost'
+		dataType: double
+		lineageTag: a1f8eda3-2e61-404f-8480-cde822d918e7
+		summarizeBy: sum
+		sourceColumn: Total cost restaight cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'crane rail thrput'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c1b50b3-47d3-4c53-9db8-c00400dd1f70
+		summarizeBy: sum
+		sourceColumn: crane rail thrput
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'crane rail %process'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1bfd8518-625a-4c62-842b-97bebbdef541
+		summarizeBy: sum
+		sourceColumn: crane rail %process
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'crane rail tot'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9941a127-3841-4719-856e-93d1fa89b77c
+		summarizeBy: sum
+		sourceColumn: crane rail tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Cost'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e94b026-8b09-458a-907f-abfb2452196a
+		summarizeBy: sum
+		sourceColumn: Total Cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Windtower thrput'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0395fa43-32e8-4157-91db-2256e517286d
+		summarizeBy: sum
+		sourceColumn: Windtower thrput
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Wind Tower % Process'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6f521ad3-ff16-4661-92d0-f6fafb8976a6
+		summarizeBy: sum
+		sourceColumn: Wind Tower % Process
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Wind Tower Tot'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8cbe8e1f-d0a5-45b1-b144-acf6c4d2d2fc
+		summarizeBy: sum
+		sourceColumn: Wind Tower Tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Wind tower tot cost'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8375b061-6b3a-4949-883e-47bf0c211784
+		summarizeBy: sum
+		sourceColumn: Wind tower tot cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'product cost total'
+		dataType: double
+		lineageTag: 3a09ab2d-4243-4671-a73d-9327390e884f
+		summarizeBy: sum
+		sourceColumn: product cost total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'SK Grade'
+		dataType: int64
+		formatString: 0
+		lineageTag: bea263c1-0a07-4693-a6a4-1b214acd1dfd
+		summarizeBy: sum
+		sourceColumn: SK Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column PMC
+		dataType: string
+		lineageTag: 6a29c3be-c2ce-4a72-b04f-2c456e839e21
+		summarizeBy: none
+		sourceColumn: PMC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column1
+		dataType: string
+		lineageTag: 0b47e25d-3578-4667-a1a7-d2ab7c5a3d14
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'group Descr2'
+		dataType: string
+		lineageTag: eeb7720d-11f3-4421-b982-b13d65b17bb6
+		summarizeBy: none
+		sourceColumn: group Descr2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column2
+		dataType: string
+		lineageTag: a0ad6394-07a7-49c0-82f6-bb6277d8cc70
+		summarizeBy: none
+		sourceColumn: Column2
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42 mill roll tarif2'
+		dataType: string
+		lineageTag: 58e4d936-83c8-440f-8ec7-66d8cced370c
+		summarizeBy: none
+		sourceColumn: 42 mill roll tarif2
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36 mill roll tarif2'
+		dataType: string
+		lineageTag: 05fffb2c-6f00-4358-af30-70eb9b584c3b
+		summarizeBy: none
+		sourceColumn: 36 mill roll tarif2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Product_Costs-20ba866e-6cd5-495f-a14a-f7b4e768de7a = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Product_Costs_Table = Source{[Item="Product_Costs",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Product_Costs_Table,{{"year", Int64.Type}, {"plant", Int64.Type}, {"Product Code", type number}, {"group Descr", type text}, {"Product desc", type text}, {"bloom input", type number}, {"Billet input", Int64.Type}, {"42 mill throput22", Int64.Type}, {"42 mill %processed", Int64.Type}, {"42 mill tot", type number}, {"42 mill roll run tot", type number}, {"42 mill Yield", type number}, {"42 mill Scrap", type number}, {"scrap cost/tonne", type number}, {"42 mill Scale", type number}, {"Scale cost tonne", type number}, {"42 mill run tot", type number}, {"42 mill roll tarif", type number}, {"36 mill throput", Int64.Type}, {"36 mill %processed", Int64.Type}, {"36 mill tot", type number}, {"36 mill roll run tot", type number}, {"36 mill yield", type number}, {"36 mill scrap", type number}, {"36 mill scale", type number}, {"36 mill skull", type number}, {"36 yield run tot", type number}, {"36 mill roll tarif", type number}, {"test fees", Int64.Type}, {"cathode throput", type number}, {"cathode %processed", Int64.Type}, {"cathode tot", type number}, {"cathode run tot", type number}, {"fin yield", type number}, {"defect", type number}, {"defect run tot", type number}, {"darlo  throput", type number}, {"darlo %process", Int64.Type}, {"darlo tot", type number}, {"cold saw throput", type number}, {"cold saw %process", type number}, {"cold saw tot", type number}, {"restraight thrput", type number}, {"restraight %process", Int64.Type}, {"restraight tot", type number}, {"Total cost restaight cost", type number}, {"crane rail thrput", Int64.Type}, {"crane rail %process", Int64.Type}, {"crane rail tot", Int64.Type}, {"Total Cost", Int64.Type}, {"Windtower thrput", Int64.Type}, {"Wind Tower % Process", Int64.Type}, {"Wind Tower Tot", Int64.Type}, {"Wind tower tot cost", Int64.Type}, {"product cost total", type number}, {"SK Grade", Int64.Type}, {"PMC", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,122 @@
+table 'Summarised Prime Weight'
+	lineageTag: c7e0e887-fc9a-40ba-93c4-2b88fc300a94
+
+	column 'WEEK_ABB Product'
+		lineageTag: b8a6dcd4-e5e3-4941-a3d3-b4a8479be8d4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[WEEK_ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'ABB Product'
+		lineageTag: 6ff5b8aa-e7db-450a-bbc5-e84a31b77333
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Week ABB'
+		formatString: 0
+		lineageTag: ffe7f34a-2082-4a48-9404-2a7ece85823d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week ABB]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week
+		lineageTag: 3d270dd3-8c1e-46c8-bf70-4bf99371ac8a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product
+		formatString: 0
+		lineageTag: 59686d49-f43b-40dd-b6b4-74a69893efeb
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[product]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Code'
+		lineageTag: 9492233a-70cf-4a6a-8f12-e50f59a459df
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Product Code]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 42_mill_Yield
+		lineageTag: 47b3f80a-8d6d-43d3-bfda-da7ab5a6e9ec
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[42_mill_Yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_yield
+		lineageTag: 235e8b2e-bfaf-4599-9a43-f5c5c199028b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[36_mill_yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fin_yield
+		lineageTag: 6665645a-d396-4a95-b29b-7d35f174f8a4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[fin_yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_throput
+		formatString: 0
+		lineageTag: cc9fc0c1-1606-43d0-a610-38bb7447a065
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[36_mill_throput]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Summarised Prime Wght'
+		lineageTag: 33bad511-eb0c-4fa9-964e-88640b7f31c6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Summarised Prime Wght]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'WEEK_ABB Product Cocde_Product' = [Week]&"_"&[Product Code]&"_"&[product]
+		lineageTag: ffc4cf9c-4755-4db3-b7a3-a9187db8c315
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition 'Summarised Prime Weight-78b1c835-8299-4818-bd39-570f2ef8595d' = calculated
+		mode: import
+		source = SUMMARIZE(T_Tracking_Account, T_Tracking_Account[WEEK_ABB Product],T_Tracking_Account[ABB Product], T_Tracking_Account[Week ABB],T_Tracking_Account[Week],T_Tracking_Account[product],T_Tracking_Account[Product Code],T_Tracking_Account[42_mill_Yield],T_Tracking_Account[36_mill_yield],T_Tracking_Account[fin_yield],T_Tracking_Account[36_mill_throput],"Summarised Prime Wght",sum(T_Tracking_Account[Prime]))
+

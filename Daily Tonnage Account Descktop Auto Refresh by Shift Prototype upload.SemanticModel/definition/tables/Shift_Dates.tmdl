@@ -1,0 +1,128 @@
+table Shift_Dates
+	lineageTag: 0d9a7a64-1e95-47ff-a179-dbdecc773e43
+
+	measure 'Avail (A)' =
+			
+			DIVIDE([Worked Time1], [PR Rolling])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 238c1b21-e6eb-492f-8ff6-b01a8cdd2432
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	column 'Time at Saw1 Start'
+		dataType: string
+		lineageTag: 94b0994e-f3c1-4c78-9b88-fd6d860f98fe
+		summarizeBy: none
+		sourceColumn: Time at Saw1 Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Time at Saw1 End'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 83c33cd6-9801-49f2-a1c8-bbed4fb8efc5
+		summarizeBy: none
+		sourceColumn: Time at Saw1 End
+
+		variation Variation
+			isDefault
+			relationship: 83e96249-1726-43d9-a89c-54566e0b7d82
+			defaultHierarchy: LocalDateTable_2d82c15b-823f-49de-958d-68ed8b61652e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shift
+		dataType: string
+		lineageTag: 114c9283-7abd-4a7b-b5c3-bc6c80c5abc2
+		summarizeBy: none
+		sourceColumn: Shift
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Week
+		dataType: double
+		lineageTag: 4dfef516-58f2-4a10-94b3-ad6791e9b30f
+		summarizeBy: sum
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a6abc877-37a1-472a-a2db-5b831fdf01ad
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 84d7600f-f95d-43ad-90d6-c77d0fb2c438
+			defaultHierarchy: LocalDateTable_b970f468-dce5-4466-b142-6c5ad008ec5f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Days/Nights
+		dataType: string
+		lineageTag: 76d6e77e-61da-415b-95db-3d8055ed3cee
+		summarizeBy: none
+		sourceColumn: Days/Nights
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Date_Days/Nights
+		dataType: string
+		lineageTag: 6d070e0a-c073-455c-90d2-12685ca2c977
+		summarizeBy: none
+		sourceColumn: Date_Days/Nights
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Shift2
+		dataType: string
+		lineageTag: 44ceb8d6-47d7-4b82-85cc-38302b67a1f6
+		summarizeBy: none
+		sourceColumn: Shift2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Week2
+		dataType: int64
+		formatString: 0
+		lineageTag: aafdd60d-46b7-4fa1-afbb-f088fc4e1bbb
+		summarizeBy: none
+		sourceColumn: Week2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Shift_Dates-9e81b772-ae2d-405c-94b2-76fbaf365d8c = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance/Shared Documents/upload data/\daily_tonnage_account by Shift Prototype 2026 v2.xlsx"), null, true),
+				    Shift_Dates_Table = Source{[Item="Shift_Dates",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Shift_Dates_Table,{{"Time at Saw1 Start", type text}, {"Time at Saw1 End", type datetime}, {"Shift", type text}, {"Week", type number}, {"Date", type date}, {"Days/Nights", type text}, {"Date_Days/Nights", type text}, {"Shift2", type text}, {"Week2", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
