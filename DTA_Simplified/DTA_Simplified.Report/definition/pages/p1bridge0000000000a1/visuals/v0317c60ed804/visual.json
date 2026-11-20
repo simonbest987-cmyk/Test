@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v0317c60ed804",
+  "position": {
+    "x": 20,
+    "y": 76,
+    "z": 3000,
+    "width": 245,
+    "height": 110,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Variance (Bridge) £"
+                }
+              },
+              "queryRef": "_Measures.Total Variance (Bridge) £",
+              "nativeQueryRef": "Total Variance (Bridge) £"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

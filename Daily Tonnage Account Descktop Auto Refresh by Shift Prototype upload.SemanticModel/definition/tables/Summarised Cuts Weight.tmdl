@@ -1,0 +1,374 @@
+table 'Summarised Cuts Weight'
+	lineageTag: c76fc1f5-54ae-4322-a16d-9e657f181b64
+
+	column 'WEEK_ABB Product'
+		lineageTag: b96986b4-94fb-4167-b9c6-d47f822f9587
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[WEEK_ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Week
+		lineageTag: 2a708564-c93e-46d8-b765-bf235be99822
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Summarised Cuts Wght'
+		formatString: 0.00
+		lineageTag: c9e58001-265b-4263-aa08-02125e415abc
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Summarised Cuts Wght]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ABB Product'
+		lineageTag: eec72355-d170-4631-941e-0fd15fb08751
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column product
+		formatString: 0
+		lineageTag: ae6a80f1-c5e9-47d4-9ae0-5b1cfb59cc1a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[product]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Code'
+		lineageTag: b9a5fba4-60ff-4801-be4e-c1dad4b3f893
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Product Code]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Total Delays For Week_ABB Product' = LOOKUPVALUE('Summarised Delays'[Summarised Delays],'Summarised Delays'[WEEK_ABB Product], 'Summarised Cuts Weight'[WEEK_ABB Product])
+		formatString: 0.00
+		lineageTag: 1222c6a6-875e-4d1a-aebb-3542e04bd50c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Rolling For Week_ABB Product' = LOOKUPVALUE('Summarised Rolling'[Summarised Rolling],'Summarised Rolling'[WEEK_ABB Product], 'Summarised Cuts Weight'[WEEK_ABB Product])
+		formatString: 0.00
+		lineageTag: 4a54c65c-8c8e-475e-b709-df88e8bdc953
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 42_mill_Yield
+		lineageTag: 69e989c1-3765-48dd-9acc-f00bfdee9763
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[42_mill_Yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_yield
+		lineageTag: 29614ef5-1e4e-4308-9288-bcf7b6c62f50
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[36_mill_yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fin_yield
+		lineageTag: eb997977-ef94-4b2e-b19e-6ca59f5467be
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[fin_yield]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_throput
+		dataType: double
+		formatString: 0.00
+		lineageTag: fb2e976a-36c3-4f82-821c-fdda3af4880d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[36_mill_throput]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week ABB'
+		formatString: 0
+		lineageTag: fb67fac6-18a4-4dc7-94b5-0a4bcde74ba4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Week ABB]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WEEK_ABB Product Cocde_Product' = [Week]&"_"&[Product Code]&"_"&[product]
+		lineageTag: 1f28c5ec-9a3e-45bb-a9bd-80fa27ded9c5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Bloom Weight' = LOOKUPVALUE('Summarised Blm Weight'[Summarised Blm Wght],'Summarised Blm Weight'[WEEK_ABB Product Cocde_Product],'Summarised Cuts Weight'[WEEK_ABB Product Cocde_Product])
+		formatString: 0.00
+		lineageTag: b44c69e5-154d-477e-9a89-34cabdbdd62f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'H/Saw Weight' = LOOKUPVALUE('Summarised Prime Weight'[Summarised Prime Wght],'Summarised prime Weight'[WEEK_ABB Product Cocde_Product],'Summarised Cuts Weight'[WEEK_ABB Product Cocde_Product])
+		lineageTag: 84787812-6f35-40db-bf13-d0521da8e7f6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '42_Yield (S)' = 1/[42_mill_Yield]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 26f61fc5-8df2-4c99-b973-0819ce93386e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36_Yield (S)' = 1/[36_mill_Yield]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cc3a2bb7-66e5-4424-a535-f31eb4b2619b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fin_Yield (S)' = 1/[fin_Yield]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 67c88316-69d7-4736-a34e-59c15727ba2e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Defects = LOOKUPVALUE('Summarised Defects'[Summarised Defects],'Summarised Defects'[WEEK_ABB Product Cocde_Product],'Summarised Cuts Weight'[WEEK_ABB Product Cocde_Product])
+		formatString: 0.00
+		lineageTag: 0b516530-f38f-4e76-9259-79a0d4587d53
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Standard Cuts Wgt' = if('Summarised Cuts Weight'[Bloom Weight]=0,0,[Bloom Weight]/[42_mill_Yield])
+		formatString: 0.00
+		lineageTag: f4f60a18-d642-4999-9b36-e3bcd9cdea7e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Standard H/Saw Weight' = IF([Summarised Cuts Wght]=0,0,[Summarised Cuts Wght]/[36_mill_yield])
+		formatString: 0.00
+		lineageTag: e0fd501e-5c86-45c3-aeac-5ab66806c656
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Standard PrimeWeight' = IF([Summarised Cuts Wght]=0,0,[H/Saw Weight]/[fin_yield])
+		formatString: 0.00
+		lineageTag: d5ed230d-f9c7-49f1-a95a-205f88f7763d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 42_mill_roll_run_tot
+		lineageTag: 85db3467-7168-44e4-8fc4-22adb0a37ee3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[42_mill_roll_run_tot]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column scrap_cost_per_tonne
+		lineageTag: f45769a8-8e57-4a7d-9d6e-16cc81560011
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[scrap_cost_per_tonne]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '42 Mill Scrap t' = [Bloom Weight]-([Summarised Cuts Wght]*[42_mill_Yield])
+		formatString: 0.00
+		lineageTag: a77c36b3-97a5-46eb-8354-6f47bb5367d8
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42 Mill Loss £' = -[42 Mill Scrap t]*([42_mill_roll_run_tot]-[scrap_cost_per_tonne])
+		formatString: 0.00
+		lineageTag: 504a1b02-6fde-47ad-a7a7-7bef762cf258
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36 Mill Scrap t' = [Summarised Cuts Wght]-([H/Saw Weight]*[36_mill_yield])
+		formatString: 0.00
+		lineageTag: 889fae1b-66c3-4d4a-83a2-575f8da6ef56
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 42_mill_roll_tarif
+		lineageTag: dbdd1f71-57d1-41fc-8b39-5a2e3d51f946
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[42_mill_roll_tarif]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_tot
+		lineageTag: dd3d0fe2-f489-456a-84ef-9a1721f8fdde
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[36_mill_tot]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 Mill Loss £' = -[36 Mill Scrap t]*([42_mill_run_tot]+[42_mill_roll_tarif]+[36_mill_tot]-[scrap_cost_per_tonne])
+		formatString: 0.00
+		lineageTag: c686afb3-133a-485d-8122-42e6be5b8c49
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 42_mill_run_tot
+		lineageTag: 4f32c034-e01d-410e-bc06-33f8e552db01
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[42_mill_run_tot]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Fin Scrap t' =
+			-- [Prime Output] = SUM([H/Saw Weight]) + SUM([Defects]). Under this row's context transition it returned the
+			-- current row's values (SUMMARIZE rows are unique), so it is written at row level to avoid context transition.
+			[H/Saw Weight]-(([H/Saw Weight]+[Defects])*[fin_yield])
+		formatString: 0.00
+		lineageTag: ad3b17f8-0583-45ee-a9f9-de06cd138213
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column cathode_run_tot
+		lineageTag: 41a34374-0e02-44cb-b329-b01a62954011
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Tracking_Account[cathode_run_tot]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Fin Loss £' = -[Fin Scrap t]*('Summarised Cuts Weight'[cathode_run_tot]-'Summarised Cuts Weight'[scrap_cost_per_tonne])
+		formatString: 0.00
+		lineageTag: 3ab1e1d5-4db0-4307-85e3-dd29c572b8ca
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Worked 36 Stnd' = if('Summarised Cuts Weight'[Summarised Cuts Wght]=0,0,'Summarised Cuts Weight'[Summarised Cuts Wght]/[36_mill_throput])
+		formatString: 0.00
+		lineageTag: de6c1c5c-69f0-4b08-b9d9-0900a3d94a8f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Delays% = .35
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 86d73c65-cec1-4519-b0e0-857160c8be93
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lookup Shift'
+		lineageTag: 324a3678-13b3-4988-90ce-3ec07935a8e5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[Lookup Shift]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column PMC
+		lineageTag: 886638a9-9260-4c8f-9a46-49901fadf4b1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Tracking_Account[PMC]
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'ABB Product Hierarchy'
+		lineageTag: 4fae9253-ba67-49d4-a1b9-e4deb5a1098b
+
+		level 'ABB Product'
+			lineageTag: 7977b368-5b9f-4494-85f2-3f3c010910a4
+			column: 'ABB Product'
+
+		level 'H/Saw Weight'
+			lineageTag: af44c1c4-1f6e-4987-b4bb-4c4095be4874
+			column: 'H/Saw Weight'
+
+	hierarchy '42_mill_Yield Hierarchy'
+		lineageTag: 03467d42-18d8-45c4-9a92-a3b521bf8613
+
+		level 42_mill_Yield
+			lineageTag: dc3ae286-c708-41d4-917d-25eaf38b79a8
+			column: 42_mill_Yield
+
+		level '42_Yield (S)'
+			lineageTag: 16bf99cf-f346-44f7-80c0-63325507eb7d
+			column: '42_Yield (S)'
+
+		level 'ABB Product'
+			lineageTag: b535ec42-a72a-4557-a551-fea2c639c8e8
+			column: 'ABB Product'
+
+	hierarchy 'H/Saw Weight Hierarchy'
+		lineageTag: 3c0448f5-fd28-4a7e-b459-8d93d54463d8
+
+		level 'H/Saw Weight'
+			lineageTag: ab8a466d-1db4-4d10-b3ce-c317ff846cde
+			column: 'H/Saw Weight'
+
+		level 'Lookup Shift'
+			lineageTag: 4e23d86c-4a53-44bd-9cfb-92878f85cf00
+			column: 'Lookup Shift'
+
+	partition 'Summarised Cuts Weight-a73a0b5d-a5b4-4de8-bee5-226458288392' = calculated
+		mode: import
+		source = SUMMARIZE(T_Tracking_Account, T_Tracking_Account[WEEK_ABB Product],T_Tracking_Account[PMC],T_Tracking_Account[ABB Product], T_Tracking_Account[Lookup Shift],T_Tracking_Account[Week ABB],T_Tracking_Account[Week],T_Tracking_Account[product],T_Tracking_Account[Product Code],T_Tracking_Account[42_mill_Yield],T_Tracking_Account[36_mill_yield],T_Tracking_Account[fin_yield],T_Tracking_Account[36_mill_throput],T_Tracking_Account[42_mill_roll_run_tot],T_Tracking_Account[scrap_cost_per_tonne],T_Tracking_Account[42_mill_roll_tarif],T_Tracking_Account[36_mill_tot],T_Tracking_Account[42_mill_run_tot],T_Tracking_Account[cathode_run_tot],"Summarised Cuts Wght",sum(T_Tracking_Account[Cuts Wgt]))
+

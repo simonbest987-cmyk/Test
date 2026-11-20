@@ -1,0 +1,60 @@
+table T_Rolling_Times
+	isHidden
+
+	lineageTag: c6660278-7e27-405e-9f54-31e9e02ef439
+
+	column Week
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: ac9005ed-ceef-4db2-8ca6-7f70126609ab
+		summarizeBy: none
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ABB Week'
+		isHidden
+		dataType: double
+		lineageTag: 6d9a18b8-2868-4284-81fd-4198dc20c5e3
+		summarizeBy: sum
+		sourceColumn: ABB Week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Rolling Time'
+		isHidden
+		dataType: double
+		lineageTag: c406e248-5748-4f1c-a640-05ccabd8c80f
+		summarizeBy: sum
+		sourceColumn: Total Rolling Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'WEEK_ABB Product'
+		isHidden
+		dataType: string
+		lineageTag: 5e45c5c1-0940-4ade-a416-24e35f82d094
+		summarizeBy: none
+		sourceColumn: WEEK_ABB Product
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition T_Rolling_Times-61621305-f474-4962-91bf-682a6f5b0c49 = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    T_Rolling_Times_Table = Source{[Item="T_Rolling_Times",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_Rolling_Times_Table,{{"Week", Int64.Type}, {"ABB Week", type number}, {"product", type text}, {"Rolling", type text}, {"Start", type datetime}, {"End", type datetime}, {"Total Rolling Time", type number}, {"ABB Product", type text}, {"WEEK_ABB Product", type text}}),
+				    #"Kept Columns" = Table.SelectColumns(#"Changed Type", {"Week", "ABB Week", "Total Rolling Time", "WEEK_ABB Product"})
+				in
+				    #"Kept Columns"
+
+	annotation PBI_ResultType = Table

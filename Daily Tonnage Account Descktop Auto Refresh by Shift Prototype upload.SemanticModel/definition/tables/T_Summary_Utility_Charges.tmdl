@@ -1,0 +1,188 @@
+table T_Summary_Utility_Charges
+	lineageTag: f4f1f5ed-70f9-4108-8248-0305be005157
+
+	column 'Area_Energy Bill'
+		dataType: string
+		lineageTag: 10600864-22aa-4f2b-b3fc-d6c21a42e99f
+		summarizeBy: none
+		sourceColumn: Area_Energy Bill
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gas Energy kwh '
+		dataType: int64
+		formatString: 0
+		lineageTag: 42dc0cf0-0967-411a-9669-aafb95546885
+		summarizeBy: none
+		sourceColumn: "Gas Energy kwh "
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gas Cost'
+		dataType: double
+		lineageTag: 28a0acb3-8505-418f-acf0-a18bf57abac1
+		summarizeBy: none
+		sourceColumn: Gas Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Gas Standing Charge'
+		dataType: double
+		lineageTag: cacea4d4-363d-4575-a68f-754a0ca338b2
+		summarizeBy: none
+		sourceColumn: Gas Standing Charge
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Gas Total Costs'
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 232f5893-ae55-4d7e-bc65-012ab2d2b7d2
+		summarizeBy: none
+		sourceColumn: Gas Total Costs
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gas SAP'
+		dataType: double
+		lineageTag: 22135b69-16a9-42ad-90f3-b2efbdcab162
+		summarizeBy: none
+		sourceColumn: Gas SAP
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Gas Difference'
+		dataType: double
+		lineageTag: 12e1320d-2998-4824-a335-a96a56ce6c10
+		summarizeBy: none
+		sourceColumn: Gas Difference
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Gas CCL'
+		dataType: int64
+		formatString: 0
+		lineageTag: b7f101ea-5658-4e97-8090-459491cf3b83
+		summarizeBy: none
+		sourceColumn: Gas CCL
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gas £/KWH'
+		dataType: double
+		lineageTag: a149139d-db9c-4593-9a1d-08c117641bb9
+		summarizeBy: none
+		sourceColumn: Gas £/KWH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Gas Energy GJ'
+		dataType: double
+		lineageTag: c4321cb9-b338-460e-9910-3e7ed6ccefa9
+		summarizeBy: none
+		sourceColumn: Gas Energy GJ
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Gas £/GJ'
+		dataType: double
+		lineageTag: 1c06c3e2-f890-45e2-b90c-5d59722cc86c
+		summarizeBy: none
+		sourceColumn: Gas £/GJ
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Elec Energy kwh '
+		dataType: double
+		lineageTag: 9d4b058c-fc51-432f-8a26-f40056be8127
+		summarizeBy: none
+		sourceColumn: "Elec Energy kwh "
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Elec Cost'
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 892c4858-e972-485e-bd2f-6206ac129ee7
+		summarizeBy: none
+		sourceColumn: Elec Cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Elec SAP'
+		dataType: double
+		lineageTag: 2e36f7b3-bee1-4e4b-b39d-8d1c9740c067
+		summarizeBy: none
+		sourceColumn: Elec SAP
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Elec Difference'
+		dataType: int64
+		formatString: 0
+		lineageTag: a622ed7a-ded6-4b47-817d-6178c034dad3
+		summarizeBy: none
+		sourceColumn: Elec Difference
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Elec CCL'
+		dataType: double
+		lineageTag: 173ec435-1728-4931-ab0c-9ab8320eb34b
+		summarizeBy: none
+		sourceColumn: Elec CCL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Elec £/KWH'
+		dataType: double
+		lineageTag: d41f1747-9346-4db9-b097-07da39f9b313
+		summarizeBy: none
+		sourceColumn: Elec £/KWH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Elec £/GJ'
+		dataType: double
+		lineageTag: 1360d3f2-fc97-493e-9239-f4f1fe351a97
+		summarizeBy: none
+		sourceColumn: Elec £/GJ
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition T_Summary_Utility_Charges = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    T_Summary_Utility_Charges_Table = Source{[Item="T_Summary_Utility_Charges",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_Summary_Utility_Charges_Table,{{"Area_Energy Bill", type text}, {"Gas Energy kwh ", Int64.Type}, {"Gas Cost", type number}, {"Gas Standing Charge", type number}, {"Gas Total Costs", type number}, {"Gas SAP", type number}, {"Gas Difference", type number}, {"Gas CCL", Int64.Type}, {"Gas £/KWH", type number}, {"Gas Energy GJ", type number}, {"Gas £/GJ", type number}, {"Elec Energy kwh ", type number}, {"Elec Cost", type number}, {"Elec SAP", type number}, {"Elec Difference", Int64.Type}, {"Elec CCL", type number}, {"Elec £/KWH", type number}, {"Elec £/GJ", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Exception
+

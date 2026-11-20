@@ -1,0 +1,184 @@
+table Extra_Processing
+	isHidden
+
+	lineageTag: b53a8ebb-76b9-4533-90e7-9430f16983c6
+
+	column Area
+		isHidden
+		dataType: string
+		lineageTag: 00912324-3814-4958-b621-ef94a85c7947
+		summarizeBy: none
+		sourceColumn: Area
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Product Code'
+		isHidden
+		dataType: int64
+		formatString: 0.00
+		lineageTag: 8d7068d1-a0b9-490a-ad29-404935e0dfb9
+		summarizeBy: count
+		sourceColumn: Product Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tonnes
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: d7bb72fc-2796-4cb5-b93c-7d0d52d3cce7
+		summarizeBy: sum
+		sourceColumn: Tonnes
+
+		annotation SummarizationSetBy = Automatic
+
+	column tpr
+		isHidden
+		dataType: double
+		lineageTag: 7db730ea-c5da-4397-a58a-dc459b0f99d9
+		summarizeBy: sum
+		sourceColumn: tpr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Time' = 'Extra_Processing'[Tonnes]/'Extra_Processing'[tpr]
+		isHidden
+		lineageTag: 1594eee2-9b91-4b52-9c20-f8bc3a7059e1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Processed1' = if(Extra_Processing[Area]="Cold Saw",LOOKUPVALUE(Product_Costs[cold saw %process],Product_Costs[Product Code],'Extra_Processing'[Product Code]),if(Extra_Processing[Area]="Crane Rail",LOOKUPVALUE(Product_Costs[crane rail %process],Product_Costs[Product Code],'Extra_Processing'[Product Code]),if(Extra_Processing[Area]="Cathodes",LOOKUPVALUE(Product_Costs[cathode %processed],Product_Costs[Product Code],'Extra_Processing'[Product Code]),if(Extra_Processing[Area]="Darlington",LOOKUPVALUE(Product_Costs[darlo %process],Product_Costs[Product Code],'Extra_Processing'[Product Code]),if(Extra_Processing[Area]="Sidepress",LOOKUPVALUE(Product_Costs[restraight %process],Product_Costs[Product Code],'Extra_Processing'[Product Code]))))))
+		isHidden
+		lineageTag: ee6944c0-0144-4b74-8cff-f468abdf8303
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Extra Process Cost' = if(Extra_Processing[Area]="Cold Saw",LOOKUPVALUE(Product_Costs[cold saw tot],Product_Costs[Product Code],'Extra_Processing'[Product Code]),if(Extra_Processing[Area]="Crane Rail",LOOKUPVALUE(Product_Costs[crane rail tot],Product_Costs[Product Code],'Extra_Processing'[Product Code]),if(Extra_Processing[Area]="Cathodes",LOOKUPVALUE(Product_Costs[cathode tot],Product_Costs[Product Code],'Extra_Processing'[Product Code]),if(Extra_Processing[Area]="Darlington",LOOKUPVALUE(Product_Costs[darlo tot],Product_Costs[Product Code],'Extra_Processing'[Product Code]),if(Extra_Processing[Area]="Sidepress",LOOKUPVALUE(Product_Costs[restraight tot],Product_Costs[Product Code],'Extra_Processing'[Product Code]))))))
+		isHidden
+		lineageTag: 6dde8a5f-1984-415d-8615-bba61ea06e54
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OSP = ([Tonnes]*[Extra Process Cost])/'Extra_Processing'[% Processed]
+		isHidden
+		lineageTag: 28635d91-49e5-4230-b315-397b1b2e0e83
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Processed' = 'Extra_Processing'[% Processed1]/100
+		isHidden
+		lineageTag: 6468cfcc-a1f9-4bb7-a6ef-a7401ce35945
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Standard Worked' =
+			-- Same values as the original nested IF over the "... Manned Hours" measures, without calling
+			-- measures (context transition). Operating_Costs has no relationships, so each was a constant per cost centre.
+			VAR _costCentre =
+				SWITCH (
+					Extra_Processing[Area],
+					"Cold Saw", 303662,
+					"Crane Rail", 303646,
+					"Cathodes", 303648,
+					"Darlington", 303666,
+					"Sidepress", 303644
+				)
+			RETURN
+				IF (
+					NOT ISBLANK ( _costCentre ),
+					SUMX ( FILTER ( Operating_Costs, Operating_Costs[Cost Centre] = _costCentre ), Operating_Costs[Manned hr] )
+				)
+		isHidden
+		lineageTag: e5f0e4f7-219a-4e90-baf3-f7ce3de05fd0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Standard Rate' =
+			-- Same values as the original nested IF over the "... Process Rate" measures, without calling
+			-- measures (context transition). Operating_Costs has no relationships, so each was a constant per cost centre.
+			VAR _costCentre =
+				SWITCH (
+					Extra_Processing[Area],
+					"Cold Saw", 303662,
+					"Crane Rail", 303646,
+					"Cathodes", 303648,
+					"Darlington", 303666,
+					"Sidepress", 303644
+				)
+			RETURN
+				IF (
+					NOT ISBLANK ( _costCentre ),
+					SUMX ( FILTER ( Operating_Costs, Operating_Costs[Cost Centre] = _costCentre ), Operating_Costs[fixed wkd hr] )
+				)
+		isHidden
+		lineageTag: d3a6bd94-c2db-424c-ada4-a4cd7550b418
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Activity = ('Extra_Processing'[Standard Worked]-'Extra_Processing'[Total Time])*'Extra_Processing'[Standard Rate]
+		isHidden
+		lineageTag: bf16290c-c1e4-49b6-952d-c3ee44a9ab00
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Daily Activity' = -Extra_Processing[Activity]/14
+		isHidden
+		formatString: 0.00
+		lineageTag: 357a9350-cb14-4d36-aa49-e398882758d1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week ABB'
+		isHidden
+		dataType: string
+		lineageTag: 886203b4-fc64-4de6-9eec-a83c1278f1fc
+		summarizeBy: none
+		sourceColumn: Week ABB
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition Extra_Processing-60c9c2a6-d95c-409a-ba54-5c7654e9f447 = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    Extra_Processing_Table = Source{[Item="Extra_Processing",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Extra_Processing_Table,{{"Area", type text}, {"Week", type number}, {"Month", Int64.Type}, {"Section", type text}, {"Product Code", Int64.Type}, {"Bars", type any}, {"Tonnes", Int64.Type}, {"tpr", type number}}),
+				    #"Kept Columns" = Table.SelectColumns(#"Changed Type", {"Area", "Product Code", "Tonnes", "tpr", "Week ABB"})
+				in
+				    #"Kept Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

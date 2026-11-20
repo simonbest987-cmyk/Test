@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v39de3cd5fec252",
+  "position": {
+    "x": 285,
+    "y": 76,
+    "z": 39000,
+    "width": 255,
+    "height": 100,
+    "tabOrder": 39000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Target Speed"
+                }
+              },
+              "queryRef": "_Measures.Target Speed",
+              "nativeQueryRef": "Target Speed"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

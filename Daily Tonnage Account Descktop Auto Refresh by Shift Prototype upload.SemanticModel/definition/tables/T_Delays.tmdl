@@ -1,0 +1,215 @@
+table T_Delays
+	lineageTag: 5675acae-54e6-4c94-8629-317916c43dd1
+
+	column Week
+		dataType: int64
+		formatString: 0
+		lineageTag: da7149dc-5253-48a0-95f5-caa87b7c5e74
+		summarizeBy: none
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ABB Week'
+		dataType: double
+		lineageTag: 8188a063-b490-4443-94db-fa53dcc706b8
+		summarizeBy: sum
+		sourceColumn: ABB Week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Start
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4e7df5d4-084b-443d-9bfa-a7f43c782547
+		summarizeBy: none
+		sourceColumn: Start
+
+		variation Variation
+			isDefault
+			relationship: af9a0f6e-3df9-4810-bce2-8e356343daa0
+			defaultHierarchy: LocalDateTable_e8fbaa9f-7511-4195-affa-789827e57019.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column End
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0027f4d6-37af-4848-9b62-91df5d991358
+		summarizeBy: none
+		sourceColumn: End
+
+		variation Variation
+			isDefault
+			relationship: 1bd025d6-0a7d-4d8b-a494-2ab716b1efbe
+			defaultHierarchy: LocalDateTable_36442eb2-e117-46eb-8731-8b92b025a49e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: 3fa32c30-c5e0-4f53-8f6a-d57df98f7369
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column prod
+		dataType: string
+		lineageTag: e505ec78-faff-46d1-86eb-2a8135ac0032
+		summarizeBy: none
+		sourceColumn: prod
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column roll
+		dataType: string
+		lineageTag: ccd9d7f6-ae29-40d9-9969-1d045dc69c9b
+		summarizeBy: none
+		sourceColumn: roll
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column area
+		dataType: string
+		lineageTag: 756adf98-b942-48c0-977e-e7fb9f96b405
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column subarea
+		dataType: string
+		lineageTag: 9093addd-79f5-4331-877c-cf6c2fa87908
+		summarizeBy: none
+		sourceColumn: subarea
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column location
+		dataType: string
+		lineageTag: 539b8c95-18dd-4b88-8abc-be78d69031eb
+		summarizeBy: none
+		sourceColumn: location
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column cause
+		dataType: string
+		lineageTag: 854b3c29-e976-43e2-a3d1-5c5091239b75
+		summarizeBy: none
+		sourceColumn: cause
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column comments
+		dataType: string
+		lineageTag: d09926a6-2c83-4c87-ab93-6f8699b64ebf
+		summarizeBy: none
+		sourceColumn: comments
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Total Delays'
+		dataType: double
+		lineageTag: bb75c1fc-0b7b-4dca-a968-43a61a83c957
+		summarizeBy: sum
+		sourceColumn: Total Delays
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'ABB Prod'
+		dataType: string
+		lineageTag: 79e4a726-8526-4dc2-9c51-394cb147f71d
+		summarizeBy: none
+		sourceColumn: ABB Prod
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'WEEK_ABB Product'
+		dataType: string
+		lineageTag: d2e465d4-759c-4cf8-bbb6-c9b5e1d9ec8b
+		summarizeBy: none
+		sourceColumn: WEEK_ABB Product
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column1
+		dataType: string
+		lineageTag: deeb4aa1-3bd2-4d4c-b099-a0230a9e0c91
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column2
+		dataType: string
+		lineageTag: 7962dd21-24b7-41e7-ad55-a90800bbd725
+		summarizeBy: none
+		sourceColumn: Column2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column3
+		dataType: string
+		lineageTag: c2f27726-ba2e-450c-b320-08e47d9f63d0
+		summarizeBy: none
+		sourceColumn: Column3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	hierarchy 'subarea Hierarchy'
+		lineageTag: e701e020-01ea-44ac-8a5b-42125bc73a7e
+
+		level subarea
+			lineageTag: 0d329c4b-f221-46d7-bf80-462a8d685024
+			column: subarea
+
+		level 'Total Delays'
+			lineageTag: 96adc7cd-ebe1-43c7-852c-d98049736f51
+			column: 'Total Delays'
+
+	partition T_Delays-fa50c37e-9963-43c0-9a10-3e4db95ce3b4 = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    T_Delays_Table = Source{[Item="T_Delays",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_Delays_Table,{{"Week", Int64.Type}, {"ABB Week", type number}, {"Start", type datetime}, {"End", type datetime}, {"type", type text}, {"prod", type text}, {"roll", type text}, {"area", type text}, {"subarea", type text}, {"location", type text}, {"cause", type text}, {"comments", type text}, {"Total Delays", type number}, {"ABB Prod", type text}, {"WEEK_ABB Product", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

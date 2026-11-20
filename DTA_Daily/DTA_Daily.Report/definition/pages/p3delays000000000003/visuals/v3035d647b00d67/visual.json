@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v3035d647b00d67",
+  "position": {
+    "x": 868,
+    "y": 76,
+    "z": 30000,
+    "width": 202,
+    "height": 100,
+    "tabOrder": 30000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Average Delay (min)"
+                }
+              },
+              "queryRef": "_Measures.Average Delay (min)",
+              "nativeQueryRef": "Average Delay (min)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

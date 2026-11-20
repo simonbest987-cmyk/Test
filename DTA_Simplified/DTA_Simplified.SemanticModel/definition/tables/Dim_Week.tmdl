@@ -1,0 +1,25 @@
+table Dim_Week
+
+	lineageTag: 6ad9c16d-0cc6-417d-8fe1-109ae2485b7d
+
+	column 'Week No'
+		dataType: int64
+		formatString: 0
+		lineageTag: 51eb6a33-1f79-401d-84d0-c0c8791ec7e9
+		summarizeBy: none
+		sourceColumn: Week No
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Week-3771f544-087c-46cf-95da-841ab9ce2e91 = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    Dim_Week_Table = Source{[Item="Unique_Week",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Dim_Week_Table,{{"Week No", Int64.Type}}),
+				    #"Kept Columns" = Table.SelectColumns(#"Changed Type", {"Week No"})
+				in
+				    #"Kept Columns"
+
+	annotation PBI_ResultType = Table

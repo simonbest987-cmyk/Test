@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v192abbbc124373",
+  "position": {
+    "x": 868,
+    "y": 76,
+    "z": 19000,
+    "width": 202,
+    "height": 100,
+    "tabOrder": 19000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Bloom Cost (£/t)"
+                }
+              },
+              "queryRef": "_Measures.Bloom Cost (£/t)",
+              "nativeQueryRef": "Bloom Cost (£/t)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

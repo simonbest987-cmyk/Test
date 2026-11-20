@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v06997671478e",
+  "position": {
+    "x": 785,
+    "y": 76,
+    "z": 6000,
+    "width": 245,
+    "height": 110,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Reconciliation Status"
+                }
+              },
+              "queryRef": "_Measures.Reconciliation Status",
+              "nativeQueryRef": "Reconciliation Status"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

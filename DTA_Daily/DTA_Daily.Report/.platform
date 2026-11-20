@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "DTA_Daily"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d76b238b-fb24-4e74-bc65-e9f609b76e24"
+  }
+}

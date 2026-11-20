@@ -1,0 +1,234 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v10c15dda579c",
+  "position": {
+    "x": 20,
+    "y": 76,
+    "z": 10000,
+    "width": 1240,
+    "height": 630,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Week"
+                    }
+                  },
+                  "Property": "Week No"
+                }
+              },
+              "queryRef": "Dim_Week.Week No",
+              "nativeQueryRef": "Week No"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Thro Yield Variance £"
+                }
+              },
+              "queryRef": "_Measures.Thro Yield Variance £",
+              "nativeQueryRef": "Thro Yield Variance £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Availability Variance £"
+                }
+              },
+              "queryRef": "_Measures.Availability Variance £",
+              "nativeQueryRef": "Availability Variance £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "42 Activity Variance £"
+                }
+              },
+              "queryRef": "_Measures.42 Activity Variance £",
+              "nativeQueryRef": "42 Activity Variance £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "36 Activity Variance £"
+                }
+              },
+              "queryRef": "_Measures.36 Activity Variance £",
+              "nativeQueryRef": "36 Activity Variance £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "36 Speed Variance £"
+                }
+              },
+              "queryRef": "_Measures.36 Speed Variance £",
+              "nativeQueryRef": "36 Speed Variance £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "42 Speed Variance £"
+                }
+              },
+              "queryRef": "_Measures.42 Speed Variance £",
+              "nativeQueryRef": "42 Speed Variance £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Outside Processing £"
+                }
+              },
+              "queryRef": "_Measures.Outside Processing £",
+              "nativeQueryRef": "Outside Processing £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Extra Processing Activity £"
+                }
+              },
+              "queryRef": "_Measures.Extra Processing Activity £",
+              "nativeQueryRef": "Extra Processing Activity £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Variance (Bridge) £"
+                }
+              },
+              "queryRef": "_Measures.Total Variance (Bridge) £",
+              "nativeQueryRef": "Total Variance (Bridge) £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "42 Mill Variance £"
+                }
+              },
+              "queryRef": "_Measures.42 Mill Variance £",
+              "nativeQueryRef": "42 Mill Variance £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "36 Mill Variance £"
+                }
+              },
+              "queryRef": "_Measures.36 Mill Variance £",
+              "nativeQueryRef": "36 Mill Variance £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Variance (Mill Accounts) £"
+                }
+              },
+              "queryRef": "_Measures.Total Variance (Mill Accounts) £",
+              "nativeQueryRef": "Total Variance (Mill Accounts) £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Unexplained Difference £"
+                }
+              },
+              "queryRef": "_Measures.Unexplained Difference £",
+              "nativeQueryRef": "Unexplained Difference £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Reconciliation Status"
+                }
+              },
+              "queryRef": "_Measures.Reconciliation Status",
+              "nativeQueryRef": "Reconciliation Status"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

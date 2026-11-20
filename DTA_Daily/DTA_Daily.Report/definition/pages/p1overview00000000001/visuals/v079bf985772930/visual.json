@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v079bf985772930",
+  "position": {
+    "x": 656,
+    "y": 76,
+    "z": 7000,
+    "width": 202,
+    "height": 100,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Production Value (£/t)"
+                }
+              },
+              "queryRef": "_Measures.Production Value (£/t)",
+              "nativeQueryRef": "Production Value (£/t)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

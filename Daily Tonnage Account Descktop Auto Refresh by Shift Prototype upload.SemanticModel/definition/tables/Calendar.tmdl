@@ -1,0 +1,1502 @@
+table Calendar
+	lineageTag: 1b0d5a3f-93be-46ce-a96f-3ffbae60a33a
+
+	measure 'Pro Rata Cuts Wght1' =
+			VAR _currentWeekProduct =
+				MAX ( 'Summarised Cuts Weight'[WEEK_ABB Product] )
+			VAR _twogroupamount =
+				CALCULATE (
+					SUM ( 'Summarised Cuts Weight'[Summarised Cuts Wght] ),
+					REMOVEFILTERS ( 'Summarised Cuts Weight' ),
+					'Summarised Cuts Weight'[WEEK_ABB Product] = _currentWeekProduct
+				)
+			VAR _singleamount =
+				SUM ( 'Summarised Cuts Weight'[Summarised Cuts Wght] )
+			RETURN
+				DIVIDE ( _singleamount, _twogroupamount )
+		formatString: 0%;-0%;0%
+		lineageTag: 16d2b2b5-3d47-4c43-90af-1939775173c1
+
+	measure 'Total Delays For Week_ABB Product x Pro Rata Cuts Wght1' =
+			
+			SUM('Summarised Cuts Weight'[Total Delays For Week_ABB Product]) * [Pro Rata Cuts Wght1]
+		formatString: 0.00
+		lineageTag: f5976be2-d75f-4361-8361-e99100b192e8
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalMultiplication"
+				}
+
+	measure 'PR Rolling' =
+			
+			SUM('Summarised Cuts Weight'[Total Rolling For Week_ABB Product]) * [Pro Rata Cuts Wght1]
+		formatString: 0.00
+		lineageTag: d5a73e0b-1c78-44e8-bf08-6888cca8cbf4
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalMultiplication"
+				}
+
+	measure 'Worked Time1' = ```
+			
+			 [PR Rolling] - [Total Delays For Week_ABB Product x Pro Rata Cuts Wght1]
+			```
+		formatString: 0.00
+		lineageTag: 15a99b94-49c9-48aa-b5c4-4cbf9458e7cb
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+	measure 'Speed (A)' =
+			
+			DIVIDE(
+				SUM('Summarised Cuts Weight'[Summarised Cuts Wght]),
+				[Worked Time1]
+			)
+		formatString: 0.00
+		lineageTag: 0a604395-1972-4940-abc4-26f138f41025
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	measure 'Availability for 303605' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Availabiity]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 7e030c14-0195-43f7-93d8-78b71e2d3a77
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+	measure 'Standard Waiting Calc' = 'Summarised Rolling'[Rolling Time Related] * 'Calendar'[Availability for 303605]
+		lineageTag: 48454c55-0193-4b30-9c09-75a39b0d1a23
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Standard manned Time Calc' =
+			
+			SUM('Summarised Cuts Weight'[Worked 36 Stnd]) + [Standard Waiting Calc]
+		formatString: 0.00
+		lineageTag: fbaf51d8-7c41-4da4-a585-881a23e7037b
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+	measure 'SOW Rate1' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[fixed wkd hr]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+		lineageTag: b0cd7dbd-5eea-4452-8cd8-dae98b356b7f
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'SOW Rate 2' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[depn wkd hr]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+		lineageTag: 696c3fc1-4f76-43f5-92df-d1b539b46e13
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'SOW Rate Total' =
+			
+			[SOW Rate1] + [SOW Rate 2]
+		lineageTag: 02197ed9-0a9e-4281-aaf3-919914cf738e
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Availability Time Delta' =
+			
+			SUM('T_Delays'[Total Delays]) - [Standard Waiting Calc]
+		lineageTag: cebc6a36-64e6-48e5-b8fc-16167a718268
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Availabiilty £' = -[Availability Time Delta]*'Calendar'[SOW Rate Total]
+		formatString: 0.00
+		lineageTag: 0e85d843-cee4-4990-b192-538e62f8b720
+
+	measure 'Daily Manned Time Total' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Daily Manned Hours]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+		formatString: 0.00
+		lineageTag: 936fa10d-0262-4652-b6ce-82d0d60ce746
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+	measure '42 Activity Rate1' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[fixed man hr]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+		lineageTag: b552fb92-63c6-4afe-aba6-fab94835fccf
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Activity Rate2' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[depn man hr]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+		lineageTag: e4c1f554-79b5-4679-bbc4-46c10030f9c0
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Activity Rate Total' =
+			
+			[42 Activity Rate1] + [42 Activity Rate2]
+		lineageTag: c3c8d94e-6ff3-4715-92ee-2ef348e64073
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Standard Manned Hours' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[Manned hr]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+		lineageTag: efc597a3-f8eb-4eaf-8ff7-1a6c96ddd8b9
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Worked Time Delta' = ([Standard Manned Hours]*[Count of Week No plus Count of Week No]) -'Summarised Rolling'[Rolling Time Related]
+		lineageTag: 7014f743-684a-49c8-883a-b65108c7f810
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Activity £' =
+			-
+			[Worked Time Delta] * [42 Activity Rate Total]
+		lineageTag: 18a2fffd-a520-43ec-8881-21784d6d65e6
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalMultiplication"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Standard Worked Hours' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[worked hour]),
+				'Operating_Costs'[Cost Centre] IN { 303605 })
+		lineageTag: e565baea-2f4b-4028-8903-8151d1a8d05b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Activity Rate1' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[fixed man hr]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+		lineageTag: d6fb7ec1-fec9-47bc-9641-6b1065936df4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Activity Rate2' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[depn man hr]),
+				'Operating_Costs'[Cost Centre] IN { 303605 }
+			)
+		lineageTag: 49e409c2-d4eb-47b9-9acc-51c20fb5aa18
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Activity Rate Total' =
+			
+			[36 Activity Rate1] + [36 Activity Rate2]
+		lineageTag: c156f213-9f6a-4108-b599-15772ca6d8df
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Activity £' =
+			-
+			[Worked Time Delta] * [36 Activity Rate Total]
+		lineageTag: b8fb5c6f-24c5-454b-8a8f-dd343a7d2e0c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Summary 36 Speed' =
+			
+			DIVIDE(
+				SUM('Summarised Cuts Weight'[Summarised Cuts Wght]),
+				[Worked Time]
+			)
+		formatString: 0.00
+		lineageTag: 58814317-93b1-4c7d-94d8-9c8eaffb334c
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	measure 'Summary 36 Speed Stnd' =
+			
+			DIVIDE(
+				SUM('Summarised Cuts Weight'[Summarised Cuts Wght]),
+				SUM('Summarised Cuts Weight'[Worked 36 Stnd])
+			)
+		formatString: 0.00
+		lineageTag: bd248669-1c23-4944-a74b-f6b1d0b2a564
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	measure '36 Speed £' =
+			-
+			[36 Speed Delta] * [SOW Rate Total]
+		formatString: 0.00
+		lineageTag: 24d01495-0bb5-4450-87df-8f3d9aa61597
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalMultiplication"
+				}
+
+	measure '36 Speed Delta' =
+			
+			-SUM('Summarised Cuts Weight'[Worked 36 Stnd]) + [Worked Time]
+		formatString: 0.00
+		lineageTag: 60a3b4eb-4d40-4d73-a682-63e5a5496fe4
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure '42 Speed Delta' =
+			
+			[Rolling Time Related] - SUM('T_Tracking_Account'[Worked 42 Stnd])
+		lineageTag: 8d2b6240-9966-424d-b433-d1befa54099c
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Speed £' =
+			-
+			[42 Speed Delta] * [42 Activity Rate Total]
+		lineageTag: 5ade7288-44f9-4b45-bc1c-feb5ca191f84
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalMultiplication"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Measure 3' = sum('Summarised Defects'[Summarised Defects])
+		lineageTag: 8a6888e5-4fea-4111-82cd-52a261858c80
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Thro Yield (A)' = ```
+			
+			[42 Yield (A)] * [36 Yield (A)] * [Fin Yield (A)]
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4330b010-63a6-4e00-8630-cc73a1d2836b
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalMultiplication"
+				}
+
+	measure 'Thro Yield (S)' = ```
+			
+			[42 Yield Stnd Calc] * [36 Yield Stnd Calc] * [Standard Fin Yield Calc]
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 89d91271-1b50-4d7b-873b-3cc39172a03b
+
+	measure 'Thro Yield £' =
+			
+			SUM('Summarised Cuts Weight'[42 Mill Loss £]) + SUM('Summarised Cuts Weight'[36 Mill Loss £])+SUM('Summarised Cuts Weight'[Fin Loss £])
+		formatString: 0.00
+		lineageTag: c9974698-cd9d-4fa6-9c3a-e6f69ab54fc6
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+	measure 'Total 42 Flexed Costs £' =
+			
+			[42 Flexed Fixed Costs for Period] + [Weekly 42 Flexed Var £]
+		formatString: 0.00
+		lineageTag: 523148fe-62d5-4ffb-a4a5-b21fbe31a427
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+	measure 'Total 42 Standard Costs £' =
+			
+			[Total 42 Flexed Costs £] + SUM('T_Tracking_Account'[Bloom Consumption])- SUM('T_Tracking_Account'[42 Scrap £])- SUM('T_Tracking_Account'[42 Scale £])+ SUM('T_Tracking_Account'[42 Roll Tariff £])
+		formatString: 0.00
+		lineageTag: 03e7f48b-5d9e-4299-aa4c-970e1a784ece
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+	measure '42 variance £' =
+			
+			SUM('T_Tracking_Account'[42 Production Value £]) - [Total 42 Standard Costs £]
+		lineageTag: da0a2186-866c-46fb-b2d5-cd88bc76e2f2
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly 42 Flexed Variable £' =
+			
+			CALCULATE(
+				SUM('Operating_Costs'[tonne var]),
+				'Operating_Costs'[Cost Centre] IN { 303221 }
+			)
+		lineageTag: afdc4d3e-00df-4054-8c20-4beecb194406
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total 36 Flexed1' =
+			
+			[36 Flexed Fixed Costs for Period] + [Weekly 36 Flexed Var £]
+		formatString: 0.00
+		lineageTag: f7205503-b5cc-4367-bdb6-83505e9f4502
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+	measure 'Total 36 Flexed £' =
+			
+			sum('T_Tracking_Account'[42 Production Value £])-SUM('T_Tracking_Account'[36 Scrap £]) - sum('T_Tracking_Account'[36 Scale £])-sum('T_Tracking_Account'[Defectives])+sum('T_Tracking_Account'[36 Test Fees £])+sum('T_Tracking_Account'[36 Roll Tariff £])+[Total 36 Flexed1]+sum('Extra_Processing'[Daily Activity])
+		formatString: 0.00
+		lineageTag: 471a5a15-6e77-4529-8a69-d4f67a7e0d5b
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+	measure '36 Variance £' =
+			
+			SUM('T_Tracking_Account'[Production Value £]) - [Total 36 Flexed £]
+		formatString: 0.00
+		lineageTag: b9fcbb6d-8f44-4e81-ad9f-25e205a88463
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Total Vairance Calc' = [Thro Yield £]+[Availabiilty £]+[42 Activity £]+[36 Activity £]+[36 Speed £]+[42 Speed £]+SUM('T_Tracking_Account'[Total OSP])+SUM('Extra_Processing'[Daily Activity])
+		formatString: 0.00
+		lineageTag: 3b59467a-330c-43ae-b37f-eb7635932b41
+
+	measure 'Total Variance Calc1' =
+			
+			[42 variance £] + [36 Variance £]
+		formatString: 0.00
+		lineageTag: c32d581a-4ea1-40c6-9b55-675f0fe5a8fb
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+	measure Difference =
+			
+			[Total Vairance Calc] - [Total Variance Calc1]
+		formatString: 0.00
+		lineageTag: 3be9d97e-69c2-4388-bb4d-f8a205bbef7b
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure '36 Speed Actual Measure' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[Cuts Wgt]),
+				SUM('T_Tracking_Account'[PR Worked Time Total])
+			)
+		lineageTag: 9e718d57-e119-420d-b9fb-06bece764a59
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '36 Speed Snd Measure' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[Cuts Wgt]),
+				SUM('T_Tracking_Account'[PR Worked Time Total Stnd])
+			)
+		lineageTag: 6153ab08-2ad2-4bee-9643-2e43ff952a30
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '42 Yield Actual Measure' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[Cuts Wgt]),
+				SUM('T_Tracking_Account'[Blm Wght])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 80c5f2b6-9c07-4b22-b0c3-734aceb2d914
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	measure '42 Yield Standard Measure' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[Standard Cuts Weight]),
+				SUM('T_Tracking_Account'[Blm Wght])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 129a8540-780a-46a8-bb51-158eb407f799
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	measure '36 Yield Actual Measure' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[Prime]),
+				SUM('T_Tracking_Account'[Cuts Wgt])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c2924c27-288f-4969-8266-a04458429199
+
+	measure '36 Yield Standard Measure' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[Standard H/saw Weight]),
+				SUM('T_Tracking_Account'[Cuts Wgt])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 67de42e4-a5b5-4531-824c-c7b743d4fa95
+
+	measure 'Fin Yield Actual Measure' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[Total Output]),
+				SUM('T_Tracking_Account'[Prime]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8a6b9222-a849-4ba5-afcf-17f7be026e6f
+
+	measure 'Availability Actual Measure' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[PR Worked Time Total]),
+				SUM('T_Tracking_Account'[PR Manned Total])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f430d2d4-e00c-406e-946a-37adf716892c
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	measure 'Bloom CPT' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[Bloom Consumption]),
+				SUM('T_Tracking_Account'[Blm Wght])
+			)
+		lineageTag: 0554fb00-eb3c-4587-a486-a938215d5578
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total CPT' =
+			
+			DIVIDE(
+				SUM('T_Tracking_Account'[Production Value £]),
+				SUM('T_Tracking_Account'[Total Output])
+			)
+		formatString: 0.00
+		lineageTag: 86dd28ae-5dad-4392-be6f-f6ba84e8b2f4
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	measure 'Count of Week No plus Count of Week No' = ```
+			
+			COUNTA('Unique_Week'[Week No]) 
+			```
+		formatString: 0
+		lineageTag: e4e52fc6-65ab-47b3-ba52-c7a82c6a8fa0
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+	measure 'Output b/(W) Stnd' =
+			
+			[Prime Output] - SUM('Summarised Cuts Weight'[Standard PrimeWeight])
+		formatString: 0.00
+		lineageTag: 4e35fe72-0a33-47d3-989f-ade5bcb2c840
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Thro Yield (B/W Stnd)' =
+			
+			[Thro Yield (a)] -[Thro Yield (S)]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 1bdae6d3-f17c-4cb7-8a5e-aeda82a0c601
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Speed B/(W) Stnd' =
+			
+			[Summary 36 Speed] - [Summary 36 Speed Stnd]
+		formatString: 0.00
+		lineageTag: 6d1dfd96-f014-46e2-9dd5-f6fced7ef8c4
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Availability Standard' = 1-.40
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b87fb6f7-a118-4a9c-ae06-676aa3f3ba17
+
+	measure 'Availability B/(W) Stnd' =
+			
+			[Avail] - [Availability Standard]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 7b8e989c-594a-48bc-9cff-67ae70603ed4
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Weekly Budget for Mill Output' =
+			
+			CALCULATE(
+				SUM('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Mill Output" }
+			)
+		lineageTag: 5549263e-deec-41bf-a850-449ea0574be7
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly Budget for Thro Yield' =
+			
+			CALCULATE(
+				AVERAGE('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Thro Yield" }
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: fb2d0052-655e-4c19-bff4-b27a1e860bd1
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+	measure 'Weekly Budget for Availability' =
+			
+			CALCULATE(
+				AVERAGE('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Availability" }
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 6e8d74c1-9639-4fc3-890a-6f50d6e817b1
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+	measure 'Weekly Budget for Speed' =
+			
+			CALCULATE(
+				AVERAGE('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Speed" }
+			)
+		lineageTag: 70fb00f6-110e-4ba9-8ea0-81a831b707b1
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weekly Budget for Mill Input' =
+			
+			CALCULATE(
+				SUM('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Mill Input" }
+			)
+		lineageTag: 2103d5bd-5401-4216-bf04-4ab25425a381
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Mill Input Weekly Std' =
+			
+			DIVIDE([Prime Output], [Thro Yield (S)])
+		formatString: 0.00
+		lineageTag: 1d2efb69-ced2-4030-b47f-a5900c7661f8
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	measure 'Mill Input B/9W) Stnd' =
+			
+			[Mill Input Weekly Std] - SUM('Summarised Cuts Weight'[Bloom Weight])
+		formatString: 0.00
+		lineageTag: 5d8b971b-4d39-46d5-b0d4-9ee55f72c6f0
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Mill Input B/9W) AP' =
+			
+			[Weekly Budget for Mill Input] - SUM('Summarised Cuts Weight'[Bloom Weight])
+		lineageTag: b6dc39c8-8a48-43d2-8582-21bb87dbd3b9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Mill Output B/(W) AP' =
+			
+			[Prime Output] - [Weekly Budget for Mill Output]
+		formatString: 0.00
+		lineageTag: c99caa25-fa84-4eea-b519-4f6f14dd4627
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Thro Yield B/W) AP' =
+			
+			[Thro Yield (A)] - [Weekly Budget for Thro Yield]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 567d9eb3-efb7-43c6-a463-8fa4da738cf5
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Availability B/(W) AP' =
+			
+			[Avail] - [Weekly Budget for Availability]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c6d8c809-fae7-464f-8296-9660505e3f32
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Speed B(W) AP' =
+			
+			[Summary 36 Speed] - [Weekly Budget for Speed]
+		formatString: 0.00
+		lineageTag: 40efb560-8829-4e66-b6f9-ee88dd2741b4
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Weekly Budget for Electrical Delay' =
+			
+			CALCULATE(
+				AVERAGE('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Electrical Avail" }
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3a56294c-7253-4535-a9e4-f9c3fe2038b2
+
+	measure 'Weekly Budget for Finishing Delay' =
+			
+			CALCULATE(
+				AVERAGE('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Finishing Avail" })
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: bd725a36-75c5-4331-9846-43c3b22a85c0
+
+	measure 'Weekly Budget for Mechanical Delay' =
+			
+			CALCULATE(
+				AVERAGE('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Mechanical  Avail" })
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 02f532ef-7687-4670-8b7e-8bfde1fb1bcf
+
+	measure 'Weekly Budget for Rolling Delay' =
+			
+			CALCULATE(
+				AVERAGE('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Rolling  Avail" })
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 7af3e698-715e-41f0-88a6-f937a2173836
+
+	measure 'Weekly Budget for Roll Change' =
+			
+			CALCULATE(
+				AVERAGE('T_Annual_Plan_Matrix'[Weekly Budget]),
+				'T_Annual_Plan_Matrix'[KPI] IN { "Roll Change  Avail" })
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9203a485-6009-49d5-b7df-ee5fd866f63b
+
+	measure 'Total Delays for Electrical' =
+			
+			CALCULATE(
+				SUM('T_Delays'[Total Delays]),
+				'T_Delays'[subarea] IN { "Electrical" }
+			)
+		lineageTag: fc56fedc-15cb-4c29-b1f6-50867fc9b6c4
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Delays for Electrical divided by Total Rolling Time' =
+			
+			DIVIDE(
+				[Total Delays for Electrical],
+				SUM('T_Rolling_Times'[Total Rolling Time])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 736243d6-5072-4093-b7c0-55fa1ceeca01
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalDivision"
+				}
+
+	measure 'Total Delays for Finishing' =
+			
+			CALCULATE(
+				SUM('T_Delays'[Total Delays]),
+				'T_Delays'[subarea] IN { "Finishing Dept" }
+			)
+		lineageTag: 09f04747-955f-486f-98bd-40c3d15e094e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Delays for Mechanical' =
+			
+			CALCULATE(
+				SUM('T_Delays'[Total Delays]),
+				'T_Delays'[subarea] IN { "Mechanical" }
+			)
+		lineageTag: f5b669f2-8705-4ed0-862b-2c1c0c23cd30
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Delays for Rolling' =
+			
+			CALCULATE(
+				SUM('T_Delays'[Total Delays]),
+				'T_Delays'[subarea] IN { "Rolling" }
+			)
+		lineageTag: a32fc1da-f0aa-4912-ab61-b677b5aff94b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Delays for Roll Change' =
+			
+			CALCULATE(
+				SUM('T_Delays'[Total Delays]),
+				'T_Delays'[subarea] IN { "Roll Change" }
+			)
+		lineageTag: 0ff8407a-256c-4309-95ea-61b50f514380
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Delays for Finishing divided by Total Rolling Time' =
+			
+			DIVIDE(
+				[Total Delays for Finishing],
+				SUM('T_Rolling_Times'[Total Rolling Time]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c46f3b86-c8ee-4f1e-9b32-67d2dfddf579
+
+	measure 'Total Delays for Mechanical divided by Total Rolling Time' =
+			
+			DIVIDE(
+				[Total Delays for Mechanical],
+				SUM('T_Rolling_Times'[Total Rolling Time]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9776c12e-2cd5-40a2-8a7d-9aef81741c07
+
+	measure 'Total Delays for Rolling divided by Total Rolling Time' =
+			
+			DIVIDE(
+				[Total Delays for Rolling],
+				SUM('T_Rolling_Times'[Total Rolling Time]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ca7ca3e2-273f-46e2-8d2a-d13a81692a4e
+
+	measure 'Total Delays for Roll Change divided by Total Rolling Time' =
+			
+			DIVIDE(
+				[Total Delays for Roll Change],
+				SUM('T_Rolling_Times'[Total Rolling Time]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: be91da94-c667-47dc-a4eb-792c34d41770
+
+	measure 'Standard Output' =
+			
+			SUM('Summarised Cuts Weight'[Bloom Weight]) * [Thro Yield (S)]
+		formatString: 0.00
+		lineageTag: d3b2ad17-8207-4788-b7e7-e04657b10815
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalMultiplication"
+				}
+
+	measure 'Prime Output minus Standard Output' =
+			
+			[Prime Output] - [Standard Output]
+		formatString: 0.00
+		lineageTag: 99e542aa-2567-459d-a0ae-ec6c0003e658
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+	measure 'Total Energy Costs' =
+			
+			SUM('T_Summary_Utility_Charges'[Elec Cost]) + SUM('T_Summary_Utility_Charges'[Gas Cost])
+		formatString: #,0.00
+		lineageTag: 9e8919e4-e62b-46d7-8bba-cddbdc4a5bb7
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalAddition"
+				}
+
+		changedProperty = FormatString
+
+	column 'Time at Saw1 Start'
+		dataType: string
+		lineageTag: 838125e1-7b6c-4c50-be8a-adc402806f25
+		summarizeBy: none
+		sourceColumn: Time at Saw1 Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Time at Saw1 End'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7abdbf4e-6311-4587-83bb-3ef4b67a31de
+		summarizeBy: none
+		sourceColumn: Time at Saw1 End
+
+		variation Variation
+			isDefault
+			relationship: 9a7a7e56-3876-4f35-8264-d43d5e091c6c
+			defaultHierarchy: LocalDateTable_e37811be-c80b-4124-8763-06ef582677bc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shift
+		dataType: string
+		lineageTag: a361dbbe-db4e-411b-92cd-fada8b440a81
+		summarizeBy: none
+		sourceColumn: Shift
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Week
+		dataType: double
+		lineageTag: cb08032d-574d-4ec6-ae15-fce10fca3b82
+		summarizeBy: sum
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3b3c7a17-70f0-4770-b341-76cbad09e60d
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 9acdc622-1edd-4d01-8bdf-460723685a5b
+			defaultHierarchy: LocalDateTable_bfc5e9ec-9609-43f1-9d52-a1c8ac156997.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Days/Nights
+		dataType: string
+		lineageTag: c113f6a9-46bf-4587-8d8e-537307c9fb25
+		summarizeBy: none
+		sourceColumn: Days/Nights
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Date_Days/Nights
+		dataType: string
+		lineageTag: 4d77254b-b6b1-4321-aa12-847c0c623e70
+		summarizeBy: none
+		sourceColumn: Date_Days/Nights
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Shift2
+		dataType: string
+		lineageTag: 71a10c6e-fe76-417c-8652-8ef06c083bed
+		summarizeBy: none
+		sourceColumn: Shift2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Week2
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e9cd223-1de9-481e-9a31-57863f63eb5f
+		summarizeBy: none
+		sourceColumn: Week2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column10
+		dataType: string
+		lineageTag: 4002f19b-797b-4db9-9688-2d37fd2cfecb
+		summarizeBy: none
+		sourceColumn: Column10
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Week No'
+		dataType: int64
+		formatString: 0
+		lineageTag: edc16f4e-94a0-44fb-8793-cb716d242ad2
+		summarizeBy: sum
+		sourceColumn: Week No
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Summarised Rolling' =
+			-- Same value as [Rolling Time Related]: no filter from a Calendar row reaches 'Summarised Rolling',
+			-- so the measure returned the grand total on every row. Written without context transition.
+			SUM ( 'Summarised Rolling'[Summarised Rolling] )
+		lineageTag: 7e6b2ce5-e0d4-4dc1-8acd-c4520285d01d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column12
+		dataType: string
+		lineageTag: 0266aa6f-e988-4b89-8a24-c36ae4604279
+		summarizeBy: none
+		sourceColumn: Column12
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Week_1
+		dataType: string
+		lineageTag: 8aaba3ca-545c-4d6f-975f-b21ada0c8cad
+		summarizeBy: none
+		sourceColumn: Week_1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column KPI
+		dataType: string
+		lineageTag: 0e5a7ae3-666d-46b2-be22-7fa1c608d121
+		summarizeBy: none
+		sourceColumn: KPI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Yearly Budget'
+		dataType: string
+		lineageTag: 31dabd5a-b22a-4f69-97fd-c510e60ebd41
+		summarizeBy: none
+		sourceColumn: Yearly Budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Weekly Budget'
+		dataType: string
+		lineageTag: 3daa8da8-f5fa-4261-bd58-904ca9844b01
+		summarizeBy: none
+		sourceColumn: Weekly Budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column17
+		dataType: string
+		lineageTag: c0323cb4-bcbc-4c1a-93dd-8f7214e3c0f1
+		summarizeBy: none
+		sourceColumn: Column17
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column18
+		dataType: string
+		lineageTag: e0863308-a45c-4130-b725-3013914dcd53
+		summarizeBy: none
+		sourceColumn: Column18
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column19
+		dataType: string
+		lineageTag: 443e6646-ee0b-4eb8-bc4e-8c93e5ac38a5
+		summarizeBy: none
+		sourceColumn: Column19
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column20
+		dataType: string
+		lineageTag: 3ea1d1fd-9b1c-4128-88ac-f61436ba44fb
+		summarizeBy: none
+		sourceColumn: Column20
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column21
+		dataType: string
+		lineageTag: f6d0b986-d06d-4607-978a-28a1146de520
+		summarizeBy: none
+		sourceColumn: Column21
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column22
+		dataType: string
+		lineageTag: 38b885f4-3e8b-4798-bcb7-054071e2f771
+		summarizeBy: none
+		sourceColumn: Column22
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column23
+		dataType: string
+		lineageTag: 90d05dbc-69e6-4d42-b884-cbab9b9d3723
+		summarizeBy: none
+		sourceColumn: Column23
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column24
+		dataType: string
+		lineageTag: bba962fd-3e25-4ab9-945c-bdb24bfacb1c
+		summarizeBy: none
+		sourceColumn: Column24
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column25
+		dataType: string
+		lineageTag: b9d57b75-d09a-4776-a465-6756adec1de2
+		summarizeBy: none
+		sourceColumn: Column25
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column26
+		dataType: string
+		lineageTag: d716c960-13b6-476c-9bfa-facc45b671a4
+		summarizeBy: none
+		sourceColumn: Column26
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column27
+		dataType: string
+		lineageTag: 00898e73-5acf-437b-9201-d61909fa9470
+		summarizeBy: none
+		sourceColumn: Column27
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column28
+		dataType: string
+		lineageTag: 9d0afbc9-80d3-4536-a34f-e07ad2db99bc
+		summarizeBy: none
+		sourceColumn: Column28
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column29
+		dataType: string
+		lineageTag: 6e2341aa-d885-44c8-a91d-4e645397ce23
+		summarizeBy: none
+		sourceColumn: Column29
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column30
+		dataType: string
+		lineageTag: 3b697389-2500-4082-ac93-8956b10ad933
+		summarizeBy: none
+		sourceColumn: Column30
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column31
+		dataType: string
+		lineageTag: 3ebe62f0-163b-4cd5-a7d6-4ce2c5ffa78f
+		summarizeBy: none
+		sourceColumn: Column31
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column32
+		dataType: string
+		lineageTag: 1ae39891-072c-4c4c-ad82-27ab2fa1e4d4
+		summarizeBy: none
+		sourceColumn: Column32
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column33
+		dataType: string
+		lineageTag: ba7b34c3-314b-455b-b9a2-3f5326e7c060
+		summarizeBy: none
+		sourceColumn: Column33
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column34
+		dataType: string
+		lineageTag: 7f4f8299-a0ad-47dd-9c85-bf00eb4e8780
+		summarizeBy: none
+		sourceColumn: Column34
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column35
+		dataType: string
+		lineageTag: 806ea014-76d1-4046-9b34-ed97a1ca50d0
+		summarizeBy: none
+		sourceColumn: Column35
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column36
+		dataType: string
+		lineageTag: 43f86005-bd2e-4afb-89ce-bd6fbfc5ac9b
+		summarizeBy: none
+		sourceColumn: Column36
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column37
+		dataType: string
+		lineageTag: 60720719-ce7d-4fbc-a99c-2f6d2ac52a95
+		summarizeBy: none
+		sourceColumn: Column37
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column38
+		dataType: string
+		lineageTag: 67fdfda9-6ce2-4d8d-adb5-be9b25dcede5
+		summarizeBy: none
+		sourceColumn: Column38
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column39
+		dataType: string
+		lineageTag: 2799d85a-2c05-4675-b176-99e1234ff85d
+		summarizeBy: none
+		sourceColumn: Column39
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column40
+		dataType: string
+		lineageTag: 9e815ee9-d883-4990-8024-49308a9c1937
+		summarizeBy: none
+		sourceColumn: Column40
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition Calendar-a55b12af-2883-4b43-8cf6-c1754faac411 = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    Calendar_Sheet = Source{[Item="Calendar",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Calendar_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Time at Saw1 Start", type text}, {"Time at Saw1 End", type datetime}, {"Shift", type text}, {"Week", type number}, {"Date", type date}, {"Days/Nights", type text}, {"Date_Days/Nights", type text}, {"Shift2", type text}, {"Week2", Int64.Type}, {"Column10", type any}, {"Week No", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

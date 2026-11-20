@@ -1,0 +1,591 @@
+table T_Tracking_Account
+	isHidden
+
+	lineageTag: fe7697c1-a903-4216-a013-75a8411859a5
+
+	column Week
+		isHidden
+		dataType: double
+		lineageTag: 3f2d4da5-2a7c-46ed-b87c-04595068983f
+		summarizeBy: sum
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Week ABB'
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f2f3f17-1a6a-4695-8cb5-be45274d40c4
+		summarizeBy: none
+		sourceColumn: Week ABB
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ABB Product'
+		isHidden
+		dataType: string
+		lineageTag: f2689bc5-f221-4d93-80c3-28809737b80b
+		summarizeBy: none
+		sourceColumn: ABB Product
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Product Code'
+		isHidden
+		dataType: string
+		lineageTag: 839874bf-3533-4e9b-bf70-c0eb6fbf4ce8
+		summarizeBy: none
+		sourceColumn: Product Code
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column product
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: ab552d4d-429e-451a-bca3-82bf59ad48d0
+		summarizeBy: sum
+		sourceColumn: product
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Blm Wght'
+		isHidden
+		dataType: double
+		lineageTag: c850a0e9-6d2c-4f04-b9eb-5a1d40729afc
+		summarizeBy: sum
+		sourceColumn: Blm Wght
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cuts Wgt'
+		isHidden
+		dataType: double
+		lineageTag: d9a3fda0-2449-4587-8c1f-65d478626f94
+		summarizeBy: sum
+		sourceColumn: Cuts Wgt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Prime
+		isHidden
+		dataType: double
+		lineageTag: 2c7d6f5f-7930-4db0-9417-ce8b93e94d1a
+		summarizeBy: sum
+		sourceColumn: Prime
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Bloom_input
+		isHidden
+		dataType: double
+		lineageTag: 6c945807-f346-4713-aa58-c3f0c33f993e
+		summarizeBy: sum
+		sourceColumn: Bloom_input
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 42_mill_throput
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: 02b285a8-4c5a-478c-a40d-72fd593e1fa6
+		summarizeBy: sum
+		sourceColumn: 42_mill_throput
+
+		annotation SummarizationSetBy = Automatic
+
+	column 42_mill_roll_run_tot
+		isHidden
+		dataType: double
+		lineageTag: 82310a02-259b-447f-8f25-d0c0f37386cb
+		summarizeBy: sum
+		sourceColumn: 42_mill_roll_run_tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 42_mill_Yield
+		isHidden
+		dataType: double
+		lineageTag: 1b2cbde5-519d-4737-9f9f-3c27da9d55de
+		summarizeBy: sum
+		sourceColumn: 42_mill_Yield
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 42_mill_Scrap
+		isHidden
+		dataType: double
+		lineageTag: 7e1e0508-9eff-41b5-895f-4f585927e815
+		summarizeBy: sum
+		sourceColumn: 42_mill_Scrap
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column scrap_cost_per_tonne
+		isHidden
+		dataType: double
+		lineageTag: 6f8e8d68-367c-4244-ab6e-4d91465f8459
+		summarizeBy: sum
+		sourceColumn: scrap_cost_per_tonne
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 42_mill_Scale
+		isHidden
+		dataType: double
+		lineageTag: 4da8e8cb-0c38-4c45-94b1-a64c9d8a071c
+		summarizeBy: sum
+		sourceColumn: 42_mill_Scale
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Scale_cost_tonne
+		isHidden
+		dataType: double
+		lineageTag: 0203d15f-400b-46ab-af60-771d1a54ba10
+		summarizeBy: sum
+		sourceColumn: Scale_cost_tonne
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 42_mill_run_tot
+		isHidden
+		dataType: double
+		lineageTag: 9285c841-ffa6-4deb-88fc-ea2f39bd3b85
+		summarizeBy: sum
+		sourceColumn: 42_mill_run_tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 42_mill_roll_tarif
+		isHidden
+		dataType: double
+		lineageTag: 317bf0a2-c8b5-4545-b65a-a0f6468066f4
+		summarizeBy: sum
+		sourceColumn: 42_mill_roll_tarif
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_throput
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: 1646edac-1a7a-4d67-b295-0ae3af5ad666
+		summarizeBy: sum
+		sourceColumn: 36_mill_throput
+
+		annotation SummarizationSetBy = Automatic
+
+	column 36_mill_tot
+		isHidden
+		dataType: double
+		lineageTag: 5838fe7a-3073-4d77-bc6e-9bc7d0e0a3b4
+		summarizeBy: sum
+		sourceColumn: 36_mill_tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_yield
+		isHidden
+		dataType: double
+		lineageTag: b1a58da2-d5da-4b91-9eca-6d7aa994c9cc
+		summarizeBy: sum
+		sourceColumn: 36_mill_yield
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_scrap
+		isHidden
+		dataType: double
+		lineageTag: 426e45dc-3862-4747-8765-9f916269b939
+		summarizeBy: sum
+		sourceColumn: 36_mill_scrap
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_scale
+		isHidden
+		dataType: double
+		lineageTag: 91c33cb2-57eb-4796-bb2f-b40f2e13b8ae
+		summarizeBy: sum
+		sourceColumn: 36_mill_scale
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 36_mill_roll_tarif
+		isHidden
+		dataType: double
+		lineageTag: 4d315903-67a6-4b7f-ac5b-29ba9b937516
+		summarizeBy: sum
+		sourceColumn: 36_mill_roll_tarif
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column test_fees
+		isHidden
+		dataType: double
+		lineageTag: 662a86a1-b849-4825-857a-8adee6fd8ea2
+		summarizeBy: sum
+		sourceColumn: test_fees
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cathode_tot
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c9552c3-677a-4139-bf8b-0067d4da82ac
+		summarizeBy: sum
+		sourceColumn: cathode_tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column cathode_run_tot
+		isHidden
+		dataType: double
+		lineageTag: 2ea3f542-5ad7-48c1-a061-dbf42aa0e1ee
+		summarizeBy: sum
+		sourceColumn: cathode_run_tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fin_yield
+		isHidden
+		dataType: double
+		lineageTag: edb0aa21-cb38-4ce5-a556-919428027779
+		summarizeBy: sum
+		sourceColumn: fin_yield
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column defect
+		isHidden
+		dataType: double
+		lineageTag: d51515bd-11ae-4167-a547-425b196e6113
+		summarizeBy: sum
+		sourceColumn: defect
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column darlo_tot
+		isHidden
+		dataType: double
+		lineageTag: ec12b1c1-1b2f-4b35-9972-c92fe54a5d78
+		summarizeBy: sum
+		sourceColumn: darlo_tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cold_saw_tot
+		isHidden
+		dataType: double
+		lineageTag: d799d8bf-c34c-4794-82e6-b17250d378e9
+		summarizeBy: sum
+		sourceColumn: cold_saw_tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column restraight_tot
+		isHidden
+		dataType: double
+		lineageTag: a5a005dc-a3ee-4759-b180-c04d57899ebc
+		summarizeBy: sum
+		sourceColumn: restraight_tot
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column crane_rail_tot
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: fcd1c786-950b-4d04-8641-dd0996a670f9
+		summarizeBy: sum
+		sourceColumn: crane_rail_tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_cost_total
+		isHidden
+		dataType: double
+		lineageTag: 8c0ce791-2f73-4c9b-8740-f91c7cd287fe
+		summarizeBy: sum
+		sourceColumn: product_cost_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column1
+		isHidden
+		dataType: double
+		formatString: 0.00
+		lineageTag: 6b6227b0-911d-4e29-a512-49e501531652
+		summarizeBy: sum
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WEEK_ABB Product'
+		isHidden
+		dataType: string
+		lineageTag: 93721fde-ec69-4684-9300-9cc0a84ec5e0
+		summarizeBy: none
+		sourceColumn: WEEK_ABB Product
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Worked 42 Stnd' = T_Tracking_Account[Blm Wght]/[42_mill_throput]
+		isHidden
+		formatString: 0.00
+		lineageTag: 53055f4d-b0fb-492e-8c91-3f6acaf10342
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Output' = T_Tracking_Account[Prime]+T_Tracking_Account[Column1]
+		isHidden
+		lineageTag: a9fef236-b34a-4e69-b3e5-56310fed99d2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Darlo Osp' = T_Tracking_Account[Total Output]*T_Tracking_Account[darlo_tot]
+		isHidden
+		lineageTag: b3c6a86f-3d7c-4cfb-b58e-61e2198e4739
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cold Saw OSP' = T_Tracking_Account[Total Output]*'T_Tracking_Account'[cold_saw_tot]
+		isHidden
+		lineageTag: 921a9334-bb9a-4781-9504-cacc5f411b8a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Sidepress OSP' = T_Tracking_Account[Total Output]*'T_Tracking_Account'[restraight_tot]
+		isHidden
+		lineageTag: 3a6fb0ac-6458-4b51-adb3-2e86af24e34f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cathode OSP' = T_Tracking_Account[Total Output]*'T_Tracking_Account'[cathode_tot]
+		isHidden
+		lineageTag: 559da438-a80c-4b43-b8e9-b796b400283b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Crane Rail OSP' = T_Tracking_Account[Total Output]*'T_Tracking_Account'[crane_rail_tot]
+		isHidden
+		lineageTag: 928f7a31-4a53-41fb-bb67-812ddf52f119
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total OSP' = T_Tracking_Account[Cathode OSP]+T_Tracking_Account[Cold Saw OSP]+T_Tracking_Account[Crane Rail OSP]+T_Tracking_Account[Darlo Osp]+T_Tracking_Account[Sidepress OSP]
+		isHidden
+		formatString: 0
+		lineageTag: c1acd02d-4f0c-4697-9665-9f249dd7f3e7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bloom Consumption' = T_Tracking_Account[Blm Wght]*T_Tracking_Account[Bloom_input]
+		isHidden
+		lineageTag: a9e94199-68fe-43be-853a-199a36a1c49c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '42 Scrap £' = (T_Tracking_Account[Cuts Wgt]*[42_mill_Scrap]*T_Tracking_Account[scrap_cost_per_tonne])+(T_Tracking_Account[Blm Wght]*T_Tracking_Account[scrap_cost_per_tonne])-(T_Tracking_Account[Cuts Wgt]*[42_mill_Yield]*T_Tracking_Account[scrap_cost_per_tonne])
+		isHidden
+		formatString: 0.00
+		lineageTag: 3ae03d1f-3b10-46af-8a4e-5fc4dd1f429a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42 Scale £' = [42_mill_Scale]*[Scale_cost_tonne]*T_Tracking_Account[Cuts Wgt]
+		isHidden
+		formatString: 0.00
+		lineageTag: c263e140-d43c-4300-b51d-90c29018c803
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42 Roll Tariff £' = [42_mill_roll_tarif]*[Cuts Wgt]
+		isHidden
+		formatString: 0.00
+		lineageTag: 88d6e331-5da3-456a-a14c-62df71fe17b8
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42 Production Value £' = T_Tracking_Account[Cuts Wgt]*('T_Tracking_Account'[42_mill_run_tot]+'T_Tracking_Account'[42_mill_roll_tarif])
+		isHidden
+		lineageTag: 6bf11525-e41b-49c9-b61f-9061d2fd6c03
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 Scrap £' = (T_Tracking_Account[Prime]*[36_mill_scrap]*T_Tracking_Account[scrap_cost_per_tonne])+(T_Tracking_Account[Cuts Wgt]*T_Tracking_Account[scrap_cost_per_tonne])-(T_Tracking_Account[Prime]*[36_mill_Yield]*T_Tracking_Account[scrap_cost_per_tonne])
+		isHidden
+		lineageTag: 2a059f96-7c2d-4909-b9eb-089c57af3b65
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 Scale £' = [36_mill_Scale]*[Scale_cost_tonne]*T_Tracking_Account[Prime]
+		isHidden
+		lineageTag: b303ceee-f2ea-4785-87a8-e43c78122598
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Defectives = ([Total Output]*T_Tracking_Account[defect]*T_Tracking_Account[scrap_cost_per_tonne])+(T_Tracking_Account[Prime]*T_Tracking_Account[scrap_cost_per_tonne])-(T_Tracking_Account[Total Output]*T_Tracking_Account[fin_yield]*T_Tracking_Account[scrap_cost_per_tonne])
+		isHidden
+		formatString: 0.00
+		lineageTag: 39f5c4ff-2d95-4575-8bd3-7afe57f101aa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36 Test Fees £' = T_Tracking_Account[Prime]*T_Tracking_Account[test_fees]
+		isHidden
+		lineageTag: 81ee2ff5-b064-4b83-b234-80be9bfea407
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '36 Roll Tariff £' = T_Tracking_Account[Prime]*T_Tracking_Account[36_mill_roll_tarif]
+		isHidden
+		formatString: 0.00
+		lineageTag: 93c5ada2-cdc1-470b-bf80-e8411ecfa271
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Production Value £' = T_Tracking_Account[Total Output]*T_Tracking_Account[product_cost_total]
+		isHidden
+		formatString: 0.00
+		lineageTag: 1c55d212-1f47-401c-9e96-3b9a235df3a2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lookup Shift' = LOOKUPVALUE(Shift_Dates[Shift2],'Shift_Dates'[Week],'T_Tracking_Account'[Week])
+		isHidden
+		lineageTag: c121f564-7952-4ccd-8fc0-a88622752657
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column PMC
+		isHidden
+		dataType: string
+		lineageTag: 593ad080-fe44-4b3c-b139-08b15f5ab3da
+		summarizeBy: none
+		sourceColumn: PMC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition T_Tracking_Account-5d194355-295b-40c0-90fa-739faf080a5c = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    T_Tracking_Account_Table = Source{[Item="T_Tracking_Account",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_Tracking_Account_Table,{{"Week", type number}, {"Week ABB", Int64.Type}, {"ABB Product", type text}, {"Product Code", type text}, {"Rolling", type text}, {"group descr", type text}, {"product", Int64.Type}, {"Cast", type text}, {"Strand", Int64.Type}, {"Cut", Int64.Type}, {"Quality", Int64.Type}, {"Sequence", Int64.Type}, {"Blm Wght", type number}, {"Piece1", type any}, {"Piece2", type any}, {"Piece3", type any}, {"Piece4", type any}, {"Part Cogged?", type text}, {"Part Cogged Reason", type text}, {"Cuts Wgt", type number}, {"Cuts1", type text}, {"Cuts2", type text}, {"Cuts3", type any}, {"Cuts4", type any}, {"Time at Saw1", type text}, {"Time at Saw2", type text}, {"Time at Saw3", type any}, {"Time at Saw4", type any}, {"Non prime", type any}, {"Saw Weight", type number}, {"Prime", type number}, {"Yield", type number}, {"PriYld", type number}, {"Cuts", Int64.Type}, {"Bloom_input", type number}, {"Billet_input", Int64.Type}, {"42_mill_throput", Int64.Type}, {"42_mill_percent_processed", Int64.Type}, {"42_mill_tot", type number}, {"42_mill_roll_run_tot", type number}, {"42_mill_Yield", type number}, {"42_mill_Scrap", type number}, {"scrap_cost_per_tonne", type number}, {"42_mill_Scale", type number}, {"Scale_cost_tonne", type number}, {"42_mill_run_tot", type number}, {"42_mill_roll_tarif", type number}, {"36_mill_throput", Int64.Type}, {"36_mill_percent_processed", Int64.Type}, {"36_mill_tot", type number}, {"36_mill_roll_run_tot", type number}, {"36_mill_yield", type number}, {"36_mill_scrap", type number}, {"36_mill_scale", type number}, {"36_mill_skull", type number}, {"36_yield_run_tot", type number}, {"36_mill_roll_tarif", type number}, {"test_fees", type number}, {"cathode_throput", Int64.Type}, {"cathode_percent_processed", Int64.Type}, {"cathode_tot", Int64.Type}, {"cathode_run_tot", type number}, {"fin_yield", type number}, {"defect", type number}, {"defect_run_tot", type number}, {"darlo_throput", Int64.Type}, {"darlo_percent_process", Int64.Type}, {"darlo_tot", type number}, {"cold_saw_throput", type number}, {"cold_saw_percent_process", type number}, {"cold_saw_tot", type number}, {"restraight_thrput", type number}, {"restraight_percent_process", Int64.Type}, {"restraight_tot", type number}, {"Total_cost_restaight_cost", type number}, {"crane_rail_thrput", Int64.Type}, {"crane_rail_percent_process", Int64.Type}, {"crane_rail_tot", Int64.Type}, {"Total_Cost", Int64.Type}, {"Windtower_thrput", Int64.Type}, {"Wind_Tower_percent_Process", Int64.Type}, {"Wind_Tower_Tot", Int64.Type}, {"Wind_tower_tot_cost", Int64.Type}, {"product_cost_total", type number}, {"Column1", type number}, {"Column2", type any}, {"Order", Int64.Type}, {"Item", Int64.Type}, {"Customer", type text}, {"Column3", type any}, {"WEEK_ABB Product", type text}}),
+				    #"Kept Columns" = Table.SelectColumns(#"Changed Type", {"Week", "Week ABB", "ABB Product", "Product Code", "product", "Blm Wght", "Cuts Wgt", "Prime", "Bloom_input", "42_mill_throput", "42_mill_roll_run_tot", "42_mill_Yield", "42_mill_Scrap", "scrap_cost_per_tonne", "42_mill_Scale", "Scale_cost_tonne", "42_mill_run_tot", "42_mill_roll_tarif", "36_mill_throput", "36_mill_tot", "36_mill_yield", "36_mill_scrap", "36_mill_scale", "36_mill_roll_tarif", "test_fees", "cathode_tot", "cathode_run_tot", "fin_yield", "defect", "darlo_tot", "cold_saw_tot", "restraight_tot", "crane_rail_tot", "product_cost_total", "Column1", "WEEK_ABB Product", "PMC"})
+				in
+				    #"Kept Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

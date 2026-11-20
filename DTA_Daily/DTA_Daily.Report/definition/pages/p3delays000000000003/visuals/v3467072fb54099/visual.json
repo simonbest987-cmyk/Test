@@ -1,0 +1,144 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v3467072fb54099",
+  "position": {
+    "x": 20,
+    "y": 458,
+    "z": 34000,
+    "width": 1050,
+    "height": 250,
+    "tabOrder": 34000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Delays"
+                    }
+                  },
+                  "Property": "Start"
+                }
+              },
+              "queryRef": "Fact_Delays.Start",
+              "nativeQueryRef": "Start"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Delays"
+                    }
+                  },
+                  "Property": "area"
+                }
+              },
+              "queryRef": "Fact_Delays.area",
+              "nativeQueryRef": "area"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Delays"
+                    }
+                  },
+                  "Property": "subarea"
+                }
+              },
+              "queryRef": "Fact_Delays.subarea",
+              "nativeQueryRef": "subarea"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Delays"
+                    }
+                  },
+                  "Property": "location"
+                }
+              },
+              "queryRef": "Fact_Delays.location",
+              "nativeQueryRef": "location"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Delays"
+                    }
+                  },
+                  "Property": "cause"
+                }
+              },
+              "queryRef": "Fact_Delays.cause",
+              "nativeQueryRef": "cause"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Delay (h)"
+                }
+              },
+              "queryRef": "_Measures.Delay (h)",
+              "nativeQueryRef": "Delay (h)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Delays"
+                    }
+                  },
+                  "Property": "comments"
+                }
+              },
+              "queryRef": "Fact_Delays.comments",
+              "nativeQueryRef": "comments"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Delay log'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

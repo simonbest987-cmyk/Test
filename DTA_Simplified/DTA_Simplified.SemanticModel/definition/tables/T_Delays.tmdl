@@ -1,0 +1,62 @@
+table T_Delays
+	isHidden
+
+	lineageTag: 5675acae-54e6-4c94-8629-317916c43dd1
+
+	column Week
+		isHidden
+		dataType: int64
+		formatString: 0
+		lineageTag: da7149dc-5253-48a0-95f5-caa87b7c5e74
+		summarizeBy: none
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Delays'
+		isHidden
+		dataType: double
+		lineageTag: bb75c1fc-0b7b-4dca-a968-43a61a83c957
+		summarizeBy: sum
+		sourceColumn: Total Delays
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'ABB Prod'
+		isHidden
+		dataType: string
+		lineageTag: 79e4a726-8526-4dc2-9c51-394cb147f71d
+		summarizeBy: none
+		sourceColumn: ABB Prod
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'WEEK_ABB Product'
+		isHidden
+		dataType: string
+		lineageTag: d2e465d4-759c-4cf8-bbb6-c9b5e1d9ec8b
+		summarizeBy: none
+		sourceColumn: WEEK_ABB Product
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition T_Delays-fa50c37e-9963-43c0-9a10-3e4db95ce3b4 = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    T_Delays_Table = Source{[Item="T_Delays",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_Delays_Table,{{"Week", Int64.Type}, {"ABB Week", type number}, {"Start", type datetime}, {"End", type datetime}, {"type", type text}, {"prod", type text}, {"roll", type text}, {"area", type text}, {"subarea", type text}, {"location", type text}, {"cause", type text}, {"comments", type text}, {"Total Delays", type number}, {"ABB Prod", type text}, {"WEEK_ABB Product", type text}}),
+				    #"Kept Columns" = Table.SelectColumns(#"Changed Type", {"Week", "Total Delays", "ABB Prod", "WEEK_ABB Product"})
+				in
+				    #"Kept Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

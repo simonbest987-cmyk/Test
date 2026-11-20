@@ -1,0 +1,142 @@
+table T_Rolling_Times
+	lineageTag: c6660278-7e27-405e-9f54-31e9e02ef439
+
+	column Week
+		dataType: int64
+		formatString: 0
+		lineageTag: ac9005ed-ceef-4db2-8ca6-7f70126609ab
+		summarizeBy: none
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ABB Week'
+		dataType: double
+		lineageTag: 6d9a18b8-2868-4284-81fd-4198dc20c5e3
+		summarizeBy: sum
+		sourceColumn: ABB Week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product
+		dataType: string
+		lineageTag: f4cd5449-71d5-4597-95c4-2f20071fff22
+		summarizeBy: none
+		sourceColumn: product
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Rolling
+		dataType: string
+		lineageTag: ecb4799a-a18e-4912-acd3-29f8404459ce
+		summarizeBy: none
+		sourceColumn: Rolling
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Start
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d8492cf2-495f-4063-94a6-fe55a22d0fb0
+		summarizeBy: none
+		sourceColumn: Start
+
+		variation Variation
+			isDefault
+			relationship: caeb459e-8445-45b6-914a-4ea5b0ad0bb9
+			defaultHierarchy: LocalDateTable_a7568368-a952-4cad-bc19-65c2e788329d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column End
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 549ee186-c62f-4803-b72d-6d52df7088c4
+		summarizeBy: none
+		sourceColumn: End
+
+		variation Variation
+			isDefault
+			relationship: d4e2fee6-bdb2-4b75-89c6-0d7f8899d8f6
+			defaultHierarchy: LocalDateTable_5e3b50de-5284-471b-93d6-303e3a0d6f5a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Rolling Time'
+		dataType: double
+		lineageTag: c406e248-5748-4f1c-a640-05ccabd8c80f
+		summarizeBy: sum
+		sourceColumn: Total Rolling Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'ABB Product'
+		dataType: string
+		lineageTag: 2d53e66e-b161-45e9-afa2-a3f15f771b77
+		summarizeBy: none
+		sourceColumn: ABB Product
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'WEEK_ABB Product'
+		dataType: string
+		lineageTag: 5e45c5c1-0940-4ade-a416-24e35f82d094
+		summarizeBy: none
+		sourceColumn: WEEK_ABB Product
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column1
+		dataType: string
+		lineageTag: d9f31121-8a46-4af1-bb4d-689ce41492ae
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column2
+		dataType: string
+		lineageTag: e400121c-51e8-4482-a610-df014e710d5d
+		summarizeBy: none
+		sourceColumn: Column2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column3
+		dataType: string
+		lineageTag: 87ffe846-11b0-4aa9-89c7-2e2ca6a2b4d0
+		summarizeBy: none
+		sourceColumn: Column3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition T_Rolling_Times-61621305-f474-4962-91bf-682a6f5b0c49 = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    T_Rolling_Times_Table = Source{[Item="T_Rolling_Times",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_Rolling_Times_Table,{{"Week", Int64.Type}, {"ABB Week", type number}, {"product", type text}, {"Rolling", type text}, {"Start", type datetime}, {"End", type datetime}, {"Total Rolling Time", type number}, {"ABB Product", type text}, {"WEEK_ABB Product", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,109 @@
+/// Folder holding the daily_tonnage_account*.xlsx exports. Either a local/OneDrive folder (C:\...) or the full SharePoint folder URL (https://.../Shared Documents/<folder>/).
+expression ExportFolderPath = "C:\PBI\DTA_Exports\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 735dd69e-4879-4087-a3b3-30e808a2cbd1
+
+	annotation PBI_ResultType = Text
+
+/// SharePoint site that holds the export folder. Only used when ExportFolderPath starts with https://.
+expression SharePointSiteUrl = "https://britishsteelltd.sharepoint.com/sites/NorthernMill-Finance" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 1ed32aaf-a5b6-4b24-ad93-48e24591979c
+
+	annotation PBI_ResultType = Text
+
+/// One row per daily export file in the folder (not loaded).
+expression DTA_ExportFiles =
+		let
+		    IsSharePoint = Text.StartsWith(ExportFolderPath, "http", Comparer.OrdinalIgnoreCase),
+		    AllFiles =
+		        if IsSharePoint then
+		            Table.SelectRows(
+		                SharePoint.Files(SharePointSiteUrl, [ApiVersion = 15]),
+		                each Text.StartsWith([Folder Path], ExportFolderPath, Comparer.OrdinalIgnoreCase)
+		            )
+		        else
+		            Folder.Files(ExportFolderPath),
+		    Exports = Table.SelectRows(
+		        AllFiles,
+		        each Text.Lower([Extension]) = ".xlsx"
+		            and Text.Contains(Text.Lower([Name]), "daily_tonnage_account")
+		            and not Text.StartsWith([Name], "~$")
+		    ),
+		    WithWorkbook = Table.AddColumn(Exports, "Workbook", each Excel.Workbook([Content], true, true)),
+		    Kept = Table.SelectColumns(WithWorkbook, {"Name", "Date modified", "Workbook"})
+		in
+		    Kept
+	lineageTag: 8b5a936e-ef8b-461a-b4dc-1ee25e04c8b2
+
+	annotation PBI_ResultType = Table
+
+/// Appends one sheet (matched by name prefix) from every export file, tagging each row with its source file.
+expression fnExportSheet =
+		(sheetPrefix as text) as table =>
+		let
+		    Sheets = Table.ExpandTableColumn(DTA_ExportFiles, "Workbook", {"Name", "Data", "Kind"}, {"Sheet", "Data", "Kind"}),
+		    Selected = Table.SelectRows(Sheets, each [Kind] = "Sheet" and Text.StartsWith([Sheet], sheetPrefix)),
+		    Tagged = Table.AddColumn(
+		        Selected,
+		        "Tagged",
+		        (r) => Table.AddColumn(
+		            Table.AddColumn(r[Data], "Source File", each r[Name], type text),
+		            "Source File Modified", each r[#"Date modified"], type datetime
+		        )
+		    ),
+		    Combined = Table.Combine(Tagged[Tagged])
+		in
+		    Combined
+	lineageTag: 085e2814-3cda-4a11-b439-bd1b81f6ae7f
+
+	annotation PBI_ResultType = Function
+
+/// Converts export timestamps ("yyyy-MM-dd HH:mm:ss", optionally followed by text such as " Shift C") to datetime.
+expression fnToDateTime =
+		(v as any) as nullable datetime =>
+		    if v = null then null
+		    else if Value.Is(v, type datetime) then v
+		    else if Value.Is(v, type date) then DateTime.From(v)
+		    else if Value.Is(v, type number) then DateTime.From(v)
+		    else
+		        let
+		            t = Text.Trim(Text.From(v))
+		        in
+		            if t = "" then null
+		            else try DateTime.FromText(Text.Start(t, 19), [Format = "yyyy-MM-dd HH:mm:ss", Culture = "en-GB"])
+		                otherwise DateTime.FromText(t, "en-GB")
+	lineageTag: 699a3a19-71d9-471c-b0c0-011b4a63e69d
+
+	annotation PBI_ResultType = Function
+
+/// Splits Start/End intervals at the 07:00 operational-day boundary and adds Operational Date and Hours.
+expression fnSplitByOperationalDay =
+		(source as table, startColumn as text, endColumn as text) as table =>
+		let
+		    // Operational day = 07:00 to 07:00. An interval crossing 07:00 is split so each part is counted on its own day.
+		    DayBoundary = #duration(0, 7, 0, 0),
+		    OneDay = #duration(1, 0, 0, 0),
+		    OpDate = (dt as datetime) as date => Date.From(dt - DayBoundary),
+		    NextBoundary = (dt as datetime) as datetime => DateTime.From(OpDate(dt)) + DayBoundary + OneDay,
+		    Segments = (s as nullable datetime, e as nullable datetime) as table =>
+		        if s = null then
+		            #table(type table [#"Operational Date" = date, #"Segment Start" = datetime, #"Segment End" = datetime, Hours = number], {{null, null, null, null}})
+		        else if e = null or e <= s then
+		            #table(type table [#"Operational Date" = date, #"Segment Start" = datetime, #"Segment End" = datetime, Hours = number], {{OpDate(s), s, e, if e = null then null else 0}})
+		        else
+		            Table.FromRecords(
+		                List.Generate(
+		                    () => [a = s, b = List.Min({e, NextBoundary(s)})],
+		                    each [a] < e,
+		                    each [a = [b], b = List.Min({e, [b] + OneDay})],
+		                    each [#"Operational Date" = OpDate([a]), #"Segment Start" = [a], #"Segment End" = [b], Hours = Duration.TotalHours([b] - [a])]
+		                ),
+		                type table [#"Operational Date" = date, #"Segment Start" = datetime, #"Segment End" = datetime, Hours = number]
+		            ),
+		    WithSegments = Table.AddColumn(source, "Segments", (r) => Segments(Record.Field(r, startColumn), Record.Field(r, endColumn))),
+		    Expanded = Table.ExpandTableColumn(WithSegments, "Segments", {"Operational Date", "Segment Start", "Segment End", "Hours"})
+		in
+		    Expanded
+	lineageTag: ee6d434f-cb78-4f70-ba15-a61af60ab368
+
+	annotation PBI_ResultType = Function
+

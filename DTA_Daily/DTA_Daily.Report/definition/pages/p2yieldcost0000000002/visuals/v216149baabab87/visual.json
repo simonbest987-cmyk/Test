@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v216149baabab87",
+  "position": {
+    "x": 20,
+    "y": 446,
+    "z": 21000,
+    "width": 520,
+    "height": 262,
+    "tabOrder": 21000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "36 Scrap £"
+                }
+              },
+              "queryRef": "_Measures.36 Scrap £",
+              "nativeQueryRef": "36 Scrap £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "42 Scrap £"
+                }
+              },
+              "queryRef": "_Measures.42 Scrap £",
+              "nativeQueryRef": "42 Scrap £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "OSP £"
+                }
+              },
+              "queryRef": "_Measures.OSP £",
+              "nativeQueryRef": "OSP £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "42 Scale £"
+                }
+              },
+              "queryRef": "_Measures.42 Scale £",
+              "nativeQueryRef": "42 Scale £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "36 Scale £"
+                }
+              },
+              "queryRef": "_Measures.36 Scale £",
+              "nativeQueryRef": "36 Scale £"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cost drivers: scrap, scale and outside processing (£)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

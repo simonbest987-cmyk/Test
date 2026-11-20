@@ -1,0 +1,55 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["SourceWorkbookUrl","DTA_Workbook","Shift_Dates","T_Delays","T_Rolling_Times","T_Tracking_Account","Unique_Week","Calendar","Operating_Costs","Product_Costs","Extra_Processing","Sorting_Bank","External_Scrap","T_Annual_Plan_Matrix","Gas_Charges","Electric_Charges","T_Summary_Utility_Charges","T_Hotsaw_Scrap"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Shift_Dates
+ref table DateTableTemplate_bf9ca40d-b165-4d30-9c93-738c6ebdd775
+ref table LocalDateTable_2d82c15b-823f-49de-958d-68ed8b61652e
+ref table LocalDateTable_b970f468-dce5-4466-b142-6c5ad008ec5f
+ref table T_Delays
+ref table LocalDateTable_e8fbaa9f-7511-4195-affa-789827e57019
+ref table LocalDateTable_36442eb2-e117-46eb-8731-8b92b025a49e
+ref table T_Rolling_Times
+ref table LocalDateTable_a7568368-a952-4cad-bc19-65c2e788329d
+ref table LocalDateTable_5e3b50de-5284-471b-93d6-303e3a0d6f5a
+ref table T_Tracking_Account
+ref table Unique_Week
+ref table Calendar
+ref table LocalDateTable_e37811be-c80b-4124-8763-06ef582677bc
+ref table LocalDateTable_bfc5e9ec-9609-43f1-9d52-a1c8ac156997
+ref table 'Summarised Delays'
+ref table 'Summarised Rolling'
+ref table 'Summarised Cuts Weight'
+ref table 'Summarised Blm Weight'
+ref table 'Summarised Prime Weight'
+ref table 'Summarised Defects'
+ref table Operating_Costs
+ref table Product_Costs
+ref table Extra_Processing
+ref table 'Summarised Cuts Weight Total'
+ref table Sorting_Bank
+ref table LocalDateTable_83c2235e-5cd9-4e51-8247-715bc8791e66
+ref table External_Scrap
+ref table LocalDateTable_a8ce5673-4e29-42b1-ba42-6897d8c52b3c
+ref table T_Annual_Plan_Matrix
+ref table Gas_Charges
+ref table LocalDateTable_247ef67a-ad27-4c9a-8795-b46db0c28275
+ref table LocalDateTable_c3206507-4762-489d-a27f-664d4ee3e4bb
+ref table LocalDateTable_c734e465-d928-434b-ac18-2ff40799111a
+ref table Electric_Charges
+ref table T_Summary_Utility_Charges
+ref table T_Hotsaw_Scrap
+ref table LocalDateTable_39049293-1258-4270-8c4d-2ddaf63060c0
+
+ref cultureInfo en-US
+

@@ -1,0 +1,187 @@
+table Fact_Delays
+	lineageTag: 26c4ac06-ad71-4670-a3a6-9ecdccea3e2d
+
+	column 'Delay ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 320aa213-2de7-4f82-ba81-f6ad2e2cea83
+		summarizeBy: none
+		sourceColumn: Delay ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Start
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: c7694d42-18b4-4e24-bae2-6ba54fc26876
+		summarizeBy: none
+		sourceColumn: Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column End
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: cc404eda-3620-4e60-8b94-db1a10a73e75
+		summarizeBy: none
+		sourceColumn: End
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: a1d35867-3158-44a6-b5ff-8d899347b883
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column prod
+		dataType: string
+		isHidden
+		lineageTag: b26a994a-6e82-4842-8879-59c5296086fd
+		summarizeBy: none
+		sourceColumn: prod
+
+		annotation SummarizationSetBy = Automatic
+
+	column roll
+		dataType: string
+		lineageTag: 32314078-2a59-4d67-9ca9-854aa05d9c63
+		summarizeBy: none
+		sourceColumn: roll
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: ec477a5b-8d30-4af0-a931-b28a34de68a3
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column subarea
+		dataType: string
+		lineageTag: 8f010473-9732-4030-a45d-0f54adaa9186
+		summarizeBy: none
+		sourceColumn: subarea
+
+		annotation SummarizationSetBy = Automatic
+
+	column location
+		dataType: string
+		lineageTag: d6e6acba-6fbe-4b9f-a9f0-8eaedcb12c67
+		summarizeBy: none
+		sourceColumn: location
+
+		annotation SummarizationSetBy = Automatic
+
+	column cause
+		dataType: string
+		lineageTag: b1ba4d19-b790-4479-b33e-305b354123b4
+		summarizeBy: none
+		sourceColumn: cause
+
+		annotation SummarizationSetBy = Automatic
+
+	column comments
+		dataType: string
+		lineageTag: 4378e626-d5e2-4ac4-b981-620d29bf76c2
+		summarizeBy: none
+		sourceColumn: comments
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Key'
+		dataType: string
+		isHidden
+		lineageTag: 46edaa59-f0af-4932-9db0-6c2f964751b3
+		summarizeBy: none
+		sourceColumn: Product Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Source File'
+		dataType: string
+		isHidden
+		lineageTag: 793ee004-5c43-4428-84ed-a739fe3e7674
+		summarizeBy: none
+		sourceColumn: Source File
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Source File Modified'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 9a7df600-2c7b-45b8-8c8e-d0b5c7e4569b
+		summarizeBy: none
+		sourceColumn: Source File Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Operational Date'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy
+		lineageTag: 58dc63eb-2725-4261-a025-627782242a5f
+		summarizeBy: none
+		sourceColumn: Operational Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Segment Start'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 0a3276be-0515-481b-99d0-f34d81c362e0
+		summarizeBy: none
+		sourceColumn: Segment Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Segment End'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 833e9c13-da4a-48d3-adb3-b38c9872f435
+		summarizeBy: none
+		sourceColumn: Segment End
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hours
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: 1df97fe5-2e9c-4fb3-a571-32397a4b2794
+		summarizeBy: none
+		sourceColumn: Hours
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Delays = m
+		mode: import
+		source =
+				let
+				    Source = fnExportSheet("Delays"),
+				    Kept = Table.SelectColumns(Source, {"Start", "End", "type", "prod", "roll", "area", "subarea", "location", "cause", "comments", "Source File", "Source File Modified"}, MissingField.UseNull),
+				    Times = Table.TransformColumns(Kept, {{"Start", fnToDateTime, type nullable datetime}, {"End", fnToDateTime, type nullable datetime}}),
+				    Typed = Table.TransformColumnTypes(Times, {{"type", type text}, {"prod", type text}, {"roll", type text}, {"area", type text}, {"subarea", type text}, {"location", type text}, {"cause", type text}, {"comments", type text}}, "en-GB"),
+				    Valid = Table.SelectRows(Typed, each [Start] <> null),
+				    // Each export repeats the week to date; keep one row per event, taking the latest file (most up-to-date End)
+				    Latest = Table.Buffer(Table.Sort(Valid, {{"Source File Modified", Order.Descending}, {"End", Order.Descending}})),
+				    Dedup = Table.Distinct(Latest, {"Start", "prod", "area", "location"}),
+				    Ordered = Table.Sort(Dedup, {{"Start", Order.Ascending}}),
+				    WithId = Table.AddIndexColumn(Ordered, "Delay ID", 1, 1, Int64.Type),
+				    ProductKey = Table.AddColumn(WithId, "Product Key", each if [prod] = null then null else Text.TrimEnd([prod]), type nullable text),
+				    Split = fnSplitByOperationalDay(ProductKey, "Start", "End"),
+				    Final = Table.TransformColumnTypes(Split, {{"Operational Date", type date}, {"Segment Start", type datetime}, {"Segment End", type datetime}, {"Hours", type number}})
+				in
+				    Final
+
+	annotation PBI_ResultType = Table

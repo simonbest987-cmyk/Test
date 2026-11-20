@@ -1,0 +1,432 @@
+table Fact_Bars
+	isHidden
+	lineageTag: c1cd1aa6-47e1-457a-b603-78e3500f2ace
+
+	column 'Product Key'
+		dataType: string
+		isHidden
+		lineageTag: 782d0168-5dee-4577-b52a-b6c7ca589802
+		summarizeBy: none
+		sourceColumn: Product Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Code'
+		dataType: string
+		lineageTag: 1bac68c2-b758-4440-86eb-2e13b4e956a8
+		summarizeBy: none
+		sourceColumn: Product Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rolling
+		dataType: string
+		lineageTag: b335e689-18e1-4104-b180-0585885b9007
+		summarizeBy: none
+		sourceColumn: Rolling
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'group descr'
+		dataType: string
+		lineageTag: cb415e1f-7c9f-4838-a049-a5f96c8defd1
+		summarizeBy: none
+		sourceColumn: group descr
+
+		annotation SummarizationSetBy = Automatic
+
+	column product
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bc3eb51f-4129-4567-8f5b-a9f764cacabf
+		summarizeBy: none
+		sourceColumn: product
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cast
+		dataType: string
+		lineageTag: e2f81c12-f3cf-4b71-88fd-89e0dca95afd
+		summarizeBy: none
+		sourceColumn: Cast
+
+		annotation SummarizationSetBy = Automatic
+
+	column Piece1
+		dataType: string
+		isHidden
+		lineageTag: 9dc899e5-6f9d-44ab-95bd-55712e9643d1
+		summarizeBy: none
+		sourceColumn: Piece1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quality
+		dataType: int64
+		formatString: 0
+		lineageTag: 81402a45-5b18-41ca-9317-d59888332ec5
+		summarizeBy: none
+		sourceColumn: Quality
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Saw Time'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 9567aab4-c7c3-49b6-844e-d94bd4f752ee
+		summarizeBy: none
+		sourceColumn: Saw Time
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Shift as recorded at saw 1 (e.g. "Shift C").
+	column Shift
+		dataType: string
+		lineageTag: c3b995da-34bc-46ef-913c-9695b28d6916
+		summarizeBy: none
+		sourceColumn: Shift
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Operational Date'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy
+		lineageTag: 9b2eb5ab-07a1-4c7b-b4b2-dc681f9c5c0e
+		summarizeBy: none
+		sourceColumn: Operational Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Blm Wght'
+		dataType: double
+		isHidden
+		formatString: #,0.000
+		lineageTag: c03739fc-74d7-4cf1-9ce7-84107194a1da
+		summarizeBy: none
+		sourceColumn: Blm Wght
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cuts Wgt'
+		dataType: double
+		isHidden
+		formatString: #,0.000
+		lineageTag: f668ff2a-fe2b-4997-852f-2472c593887b
+		summarizeBy: none
+		sourceColumn: Cuts Wgt
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prime
+		dataType: double
+		isHidden
+		formatString: #,0.000
+		lineageTag: f4464695-4a62-44aa-baa3-4210285f4b07
+		summarizeBy: none
+		sourceColumn: Prime
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuts
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e7680a7d-3b66-42b3-b421-dacf1499240b
+		summarizeBy: none
+		sourceColumn: Cuts
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		dataType: int64
+		formatString: 0
+		lineageTag: f3f5f6f3-8e6a-43a2-8a51-90c2594760e2
+		summarizeBy: none
+		sourceColumn: Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer
+		dataType: string
+		lineageTag: fa210f1b-2872-4fa8-bfec-9bed08d5aaac
+		summarizeBy: none
+		sourceColumn: Customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bloom_input
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 1fe0c67b-8b92-4971-8589-5bc3daef82af
+		summarizeBy: none
+		sourceColumn: Bloom_input
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42_mill_throput'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 23f46b30-974d-4a27-87e7-a37cba1b8861
+		summarizeBy: none
+		sourceColumn: 42_mill_throput
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42_mill_Yield'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 3ef1bdab-f7f1-4441-bd4c-c42a1e2d4bc2
+		summarizeBy: none
+		sourceColumn: 42_mill_Yield
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42_mill_Scrap'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 1e971098-3cfd-479f-9d78-034b9095e609
+		summarizeBy: none
+		sourceColumn: 42_mill_Scrap
+
+		annotation SummarizationSetBy = Automatic
+
+	column scrap_cost_per_tonne
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 3080f028-5e1f-457a-8fdf-cc396b7628ab
+		summarizeBy: none
+		sourceColumn: scrap_cost_per_tonne
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42_mill_Scale'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 67863d09-573e-44e0-ab68-38e0b174aa00
+		summarizeBy: none
+		sourceColumn: 42_mill_Scale
+
+		annotation SummarizationSetBy = Automatic
+
+	column Scale_cost_tonne
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: b1a5d0ec-6330-446d-b908-248bdb188d1e
+		summarizeBy: none
+		sourceColumn: Scale_cost_tonne
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42_mill_run_tot'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 125a4947-6305-43ce-8d9a-e324656e682b
+		summarizeBy: none
+		sourceColumn: 42_mill_run_tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column '42_mill_roll_tarif'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 75b948bc-e942-4db7-9980-b71fddd7707a
+		summarizeBy: none
+		sourceColumn: 42_mill_roll_tarif
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36_mill_throput'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: ca6da0d5-1b14-4f80-b08e-a0db987df4da
+		summarizeBy: none
+		sourceColumn: 36_mill_throput
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36_mill_yield'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: e34461eb-83db-4d4f-a1f7-148cd8ba3e17
+		summarizeBy: none
+		sourceColumn: 36_mill_yield
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36_mill_scrap'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 7e846e05-19c8-49f8-9d48-2e523787d2d3
+		summarizeBy: none
+		sourceColumn: 36_mill_scrap
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36_mill_scale'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: fc9caf39-d807-4308-b6e0-139f50ccfcec
+		summarizeBy: none
+		sourceColumn: 36_mill_scale
+
+		annotation SummarizationSetBy = Automatic
+
+	column '36_mill_roll_tarif'
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 6a0d1c00-922e-40cc-9369-65daf50aacec
+		summarizeBy: none
+		sourceColumn: 36_mill_roll_tarif
+
+		annotation SummarizationSetBy = Automatic
+
+	column test_fees
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 2b38a15c-a8c1-48cb-aa13-7629521ad09a
+		summarizeBy: none
+		sourceColumn: test_fees
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_cost_total
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 1f8a3848-87de-4907-8d8a-815afbb59dfe
+		summarizeBy: none
+		sourceColumn: product_cost_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column darlo_tot
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: e28c81f9-734d-492c-bc71-a954d83ab32b
+		summarizeBy: none
+		sourceColumn: darlo_tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column cold_saw_tot
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 478535fe-287d-4c74-9ca6-7ec565b3f6be
+		summarizeBy: none
+		sourceColumn: cold_saw_tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column restraight_tot
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 99ccfc82-70ed-4093-8be6-76108c24caab
+		summarizeBy: none
+		sourceColumn: restraight_tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column cathode_tot
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: e5f546d1-88ef-4c9b-b974-119579d6de71
+		summarizeBy: none
+		sourceColumn: cathode_tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column crane_rail_tot
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: e39d54da-4b04-4fdc-9202-2ee506b238e4
+		summarizeBy: none
+		sourceColumn: crane_rail_tot
+
+		annotation SummarizationSetBy = Automatic
+
+	column defect
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 2661c5dd-107f-41ac-aecd-ec1adf5d18e4
+		summarizeBy: none
+		sourceColumn: defect
+
+		annotation SummarizationSetBy = Automatic
+
+	column fin_yield
+		dataType: double
+		isHidden
+		formatString: #,0.0000
+		lineageTag: 0afc888e-4150-4332-9cdf-a82321787eb4
+		summarizeBy: none
+		sourceColumn: fin_yield
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Source File'
+		dataType: string
+		isHidden
+		lineageTag: de0633c4-86c5-4fb0-808c-3f4665793137
+		summarizeBy: none
+		sourceColumn: Source File
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Source File Modified'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: beebac7a-d3dc-4b5b-8f00-3fd02714c2ce
+		summarizeBy: none
+		sourceColumn: Source File Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Bars = m
+		mode: import
+		source =
+				let
+				    Source = fnExportSheet("Tonnage Account"),
+				    // The export ends with a totals row that has no Product Code
+				    Bars = Table.SelectRows(Source, each [Product Code] <> null and Text.Trim(Text.From([Product Code])) <> ""),
+				    SawTime = Table.AddColumn(Bars, "Saw Time", each fnToDateTime([Time at Saw1]), type nullable datetime),
+				    Shift = Table.AddColumn(SawTime, "Shift", each
+				        let t = if [Time at Saw1] = null then "" else Text.From([Time at Saw1])
+				        in if Text.Length(t) > 20 then Text.Trim(Text.Range(t, 20)) else null, type nullable text),
+				    // Operational day boundary is 07:00
+				    OpDate = Table.AddColumn(Shift, "Operational Date", each if [Saw Time] = null then null else Date.From([Saw Time] - #duration(0, 7, 0, 0)), type nullable date),
+				    ProductKey = Table.AddColumn(OpDate, "Product Key", each Text.TrimEnd(Text.From([Product Code])), type text),
+				    Kept = Table.SelectColumns(ProductKey, {"Product Key", "Product Code", "Rolling", "group descr", "product", "Cast", "Piece1", "Quality", "Saw Time", "Shift", "Operational Date", "Blm Wght", "Cuts Wgt", "Prime", "Cuts", "Order", "Customer", "Bloom_input", "42_mill_throput", "42_mill_Yield", "42_mill_Scrap", "scrap_cost_per_tonne", "42_mill_Scale", "Scale_cost_tonne", "42_mill_run_tot", "42_mill_roll_tarif", "36_mill_throput", "36_mill_yield", "36_mill_scrap", "36_mill_scale", "36_mill_roll_tarif", "test_fees", "product_cost_total", "darlo_tot", "cold_saw_tot", "restraight_tot", "cathode_tot", "crane_rail_tot", "defect", "fin_yield", "Source File", "Source File Modified"}, MissingField.UseNull),
+				    Typed = Table.TransformColumnTypes(Kept, {{"Product Code", type text}, {"Rolling", type text}, {"group descr", type text}, {"product", Int64.Type}, {"Cast", type text}, {"Piece1", type text}, {"Quality", Int64.Type}, {"Shift", type text}, {"Blm Wght", type number}, {"Cuts Wgt", type number}, {"Prime", type number}, {"Cuts", Int64.Type}, {"Order", Int64.Type}, {"Customer", type text}, {"Bloom_input", type number}, {"42_mill_throput", type number}, {"42_mill_Yield", type number}, {"42_mill_Scrap", type number}, {"scrap_cost_per_tonne", type number}, {"42_mill_Scale", type number}, {"Scale_cost_tonne", type number}, {"42_mill_run_tot", type number}, {"42_mill_roll_tarif", type number}, {"36_mill_throput", type number}, {"36_mill_yield", type number}, {"36_mill_scrap", type number}, {"36_mill_scale", type number}, {"36_mill_roll_tarif", type number}, {"test_fees", type number}, {"product_cost_total", type number}, {"darlo_tot", type number}, {"cold_saw_tot", type number}, {"restraight_tot", type number}, {"cathode_tot", type number}, {"crane_rail_tot", type number}, {"defect", type number}, {"fin_yield", type number}, {"Source File", type text}}, "en-GB"),
+				    // A bar re-exported in a later file is kept once (latest file wins)
+				    Latest = Table.Buffer(Table.Sort(Typed, {{"Source File Modified", Order.Descending}})),
+				    Dedup = Table.Distinct(Latest, {"Cast", "Piece1", "Saw Time"})
+				in
+				    Dedup
+
+	annotation PBI_ResultType = Table

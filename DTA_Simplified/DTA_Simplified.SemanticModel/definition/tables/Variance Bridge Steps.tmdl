@@ -1,0 +1,38 @@
+/// Row labels for the variance bridge visuals.
+table 'Variance Bridge Steps'
+	lineageTag: db39b1da-a3c0-4a59-9b35-44d94950b763
+
+	column 'Step No'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9de7a6e1-bd8b-4857-9ae3-83accae03d9c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step No]
+
+	column Step
+		dataType: string
+		lineageTag: 293bc38f-44e1-47ac-85da-dc5f194fd16d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step]
+		sortByColumn: 'Step No'
+
+	partition 'Variance Bridge Steps' = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Step No", INTEGER,
+				    "Step", STRING,
+				    {
+				        { 1, "Thro Yield" },
+				        { 2, "Availability" },
+				        { 3, "42 Activity" },
+				        { 4, "36 Activity" },
+				        { 5, "36 Speed" },
+				        { 6, "42 Speed" },
+				        { 7, "Outside Processing" },
+				        { 8, "Extra Processing Activity" }
+				    }
+				)

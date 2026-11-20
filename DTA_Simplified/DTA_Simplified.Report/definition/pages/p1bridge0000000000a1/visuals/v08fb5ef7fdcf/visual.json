@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v08fb5ef7fdcf",
+  "position": {
+    "x": 20,
+    "y": 506,
+    "z": 8000,
+    "width": 1020,
+    "height": 200,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Variance Bridge Steps"
+                    }
+                  },
+                  "Property": "Step"
+                }
+              },
+              "queryRef": "Variance Bridge Steps.Step",
+              "nativeQueryRef": "Step"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Bridge Step £"
+                }
+              },
+              "queryRef": "_Measures.Bridge Step £",
+              "nativeQueryRef": "Bridge Step £"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

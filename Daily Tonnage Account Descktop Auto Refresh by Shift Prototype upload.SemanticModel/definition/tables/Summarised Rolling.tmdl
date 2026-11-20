@@ -1,0 +1,53 @@
+table 'Summarised Rolling'
+	lineageTag: dad95827-580e-40c9-a7e7-66da19ab1315
+
+	measure 'Rolling Time Related' =
+			SUM ( 'Summarised Rolling'[Summarised Rolling] )
+		lineageTag: 3a3c7a74-9043-4125-9add-1038603c3c60
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'WEEK_ABB Product'
+		lineageTag: 933ccf4e-d607-465c-ade5-bbb2ec2156b4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: T_Rolling_Times[WEEK_ABB Product]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Week
+		formatString: 0
+		lineageTag: 2c9348db-75e3-46e9-8df2-7668ecb462eb
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Rolling_Times[Week]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Summarised Rolling'
+		formatString: 0.00
+		lineageTag: 979f5b92-f5fe-461e-8d33-e1b8a3f97c9c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Summarised Rolling]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ABB Week'
+		lineageTag: e5c97ed5-b184-4c33-acda-7842d643cddf
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: T_Rolling_Times[ABB Week]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Summarised Rolling-e4bc0f2d-36e5-4668-b6f8-83bab9e84c6b' = calculated
+		mode: import
+		source =
+				SUMMARIZE(T_Rolling_Times,T_Rolling_Times[WEEK_ABB Product],T_Rolling_Times[Week],T_Rolling_Times[ABB Week],"Summarised Rolling",sum(T_Rolling_Times[Total Rolling Time])
+				)
+

@@ -1,0 +1,48 @@
+table Dim_Product
+	lineageTag: ad5d395b-66c1-4fce-b314-ae59e672c62d
+
+	column 'Product Key'
+		dataType: string
+		lineageTag: e99125c1-f65f-48c8-94b3-9da4a5398f63
+		summarizeBy: none
+		sourceColumn: Product Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Group'
+		dataType: string
+		lineageTag: e44d0ec8-f143-4954-9657-e1cdabe65051
+		summarizeBy: none
+		sourceColumn: Product Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: b71b6563-87b2-4257-b257-09e42ebd808a
+		summarizeBy: none
+		sourceColumn: Product Number
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Product = m
+		mode: import
+		source =
+				let
+				    AllKeys = List.Combine({Fact_Bars[Product Key], Fact_Delays[Product Key], Fact_RollingTimes[Product Key], Fact_Speed[Product Key]}),
+				    Keys = List.Distinct(List.Select(AllKeys, each _ <> null and _ <> ""), Comparer.OrdinalIgnoreCase),
+				    Base = Table.FromList(Keys, Splitter.SplitByNothing(), type table [#"Product Key" = text]),
+				    // Product attributes as shown on the most recent bar of each product (unchanged from the export)
+				    LatestBar = Table.Distinct(
+				        Table.Buffer(Table.Sort(Table.SelectColumns(Fact_Bars, {"Product Key", "group descr", "product", "Saw Time"}), {{"Saw Time", Order.Descending}})),
+				        {"Product Key"}
+				    ),
+				    Joined = Table.NestedJoin(Base, {"Product Key"}, LatestBar, {"Product Key"}, "Bar", JoinKind.LeftOuter),
+				    Expanded = Table.ExpandTableColumn(Joined, "Bar", {"group descr", "product"}, {"Product Group", "Product Number"}),
+				    Typed = Table.TransformColumnTypes(Expanded, {{"Product Group", type text}, {"Product Number", Int64.Type}}),
+				    Sorted = Table.Sort(Typed, {{"Product Key", Order.Ascending}})
+				in
+				    Sorted
+
+	annotation PBI_ResultType = Table

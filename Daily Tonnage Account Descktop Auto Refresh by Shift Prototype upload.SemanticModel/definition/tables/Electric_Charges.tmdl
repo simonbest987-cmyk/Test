@@ -1,0 +1,273 @@
+table Electric_Charges
+	lineageTag: d42acf4c-a683-4c8e-9ffc-731797c9f44e
+
+	column 'Energy Bill'
+		dataType: string
+		lineageTag: b1cf1aca-006a-4d0e-9e4a-58f0a84fe8b9
+		summarizeBy: none
+		sourceColumn: Energy Bill
+
+		annotation SummarizationSetBy = Automatic
+
+	column Energy
+		dataType: double
+		lineageTag: 896fd18a-6c15-4318-8c51-0c55c9ee79af
+		summarizeBy: sum
+		sourceColumn: Energy
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Distribution Use of System'
+		dataType: int64
+		formatString: 0
+		lineageTag: 262b8462-227a-442c-b6d1-1ef709a65e4a
+		summarizeBy: sum
+		sourceColumn: Distribution Use of System
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Balancing Use of System'
+		dataType: double
+		lineageTag: 37b44172-1273-4266-aafe-4e4e6bf6b26a
+		summarizeBy: sum
+		sourceColumn: Balancing Use of System
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Capacity Mechanism'
+		dataType: double
+		lineageTag: e726a885-b333-4bcc-bb3c-8fc8860f020a
+		summarizeBy: sum
+		sourceColumn: Capacity Mechanism
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Renewable Obligation'
+		dataType: double
+		lineageTag: 602d5d4a-0b9f-4a88-9b5c-8a1ab7f8b8f9
+		summarizeBy: sum
+		sourceColumn: Renewable Obligation
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Feed In Tariff'
+		dataType: double
+		lineageTag: 2289e966-9d7f-4698-ad64-9f4345a263c9
+		summarizeBy: sum
+		sourceColumn: Feed In Tariff
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contracts for Difference'
+		dataType: double
+		lineageTag: 11b165b4-6460-4992-bd71-75d733e57ebb
+		summarizeBy: sum
+		sourceColumn: Contracts for Difference
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Climate Change Levy'
+		dataType: double
+		lineageTag: bf41cdda-c12c-4fa3-b449-b53866b68203
+		summarizeBy: sum
+		sourceColumn: Climate Change Levy
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column1
+		dataType: int64
+		formatString: 0
+		lineageTag: b557a2f4-0c22-4853-bb29-5012ca6c89ad
+		summarizeBy: sum
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Distribution Use of System2'
+		dataType: double
+		lineageTag: 14948d1c-b76a-4594-b9b4-7bd16a1466c9
+		summarizeBy: sum
+		sourceColumn: Distribution Use of System2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Transmission Use of System'
+		dataType: double
+		lineageTag: ab5ad15b-6f33-482d-a2df-b6597c31a072
+		summarizeBy: sum
+		sourceColumn: Transmission Use of System
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Settlement and Agent '
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a8bb178-45e4-4531-bde2-498b25de46b2
+		summarizeBy: sum
+		sourceColumn: "Settlement and Agent "
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column3
+		dataType: int64
+		formatString: 0
+		lineageTag: e0c7c239-9597-422e-8df7-47e59573cac5
+		summarizeBy: sum
+		sourceColumn: Column3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Variable Sub-total '
+		dataType: double
+		lineageTag: 36e8cff5-0422-46ca-8315-bb0f39c1c2b4
+		summarizeBy: sum
+		sourceColumn: "Variable Sub-total "
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Fixed Sub-total'
+		dataType: double
+		lineageTag: 754a2b05-c547-4c9f-808c-a7004d56d799
+		summarizeBy: sum
+		sourceColumn: Fixed Sub-total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total
+		dataType: double
+		lineageTag: b285823b-7c64-418f-af3e-74f377ca0e7e
+		summarizeBy: sum
+		sourceColumn: Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column4
+		dataType: int64
+		formatString: 0
+		lineageTag: 093534cc-2dfa-4c40-819e-543f52562669
+		summarizeBy: sum
+		sourceColumn: Column4
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Consumption @ Meter (Clock)'
+		dataType: double
+		lineageTag: 2c5c4c2a-7e25-41e4-8100-a37320655446
+		summarizeBy: sum
+		sourceColumn: Consumption @ Meter (Clock)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Variable @ Meter (Clock)'
+		dataType: double
+		lineageTag: 7ae918cb-f081-4d4d-a5df-84a298f7616f
+		summarizeBy: sum
+		sourceColumn: Variable @ Meter (Clock)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Fixed @ Meter (Clock)'
+		dataType: double
+		lineageTag: bc9f42c2-3550-42ca-95a6-91049d4011cc
+		summarizeBy: sum
+		sourceColumn: Fixed @ Meter (Clock)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column5
+		dataType: int64
+		formatString: 0
+		lineageTag: 73e7d38b-4099-4ce3-a838-5e54844683ea
+		summarizeBy: sum
+		sourceColumn: Column5
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Variable @ Meter (Clock)6'
+		dataType: double
+		lineageTag: e45de664-ef3e-4c79-8d36-6707d40f7ff2
+		summarizeBy: sum
+		sourceColumn: Variable @ Meter (Clock)6
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Variable @ Meter (Clock)7'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5cf19e74-6490-4bbe-a5f4-0c7bafdda2de
+		summarizeBy: sum
+		sourceColumn: Variable @ Meter (Clock)7
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Variable @ Meter (Clock)8'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ee033eb-0127-45be-9c35-a3033ab58a65
+		summarizeBy: sum
+		sourceColumn: Variable @ Meter (Clock)8
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total (exVAT)'
+		dataType: double
+		lineageTag: 4c3ddc1d-7699-4073-9063-6c558c817834
+		summarizeBy: sum
+		sourceColumn: Total (exVAT)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Area_Energy Bill'
+		dataType: string
+		lineageTag: 015d2378-5d69-4d2f-8555-6ca1e05a6415
+		summarizeBy: none
+		sourceColumn: Area_Energy Bill
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Electric_Charges = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    Electric_Charges_Table = Source{[Item="Electric_Charges",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Electric_Charges_Table,{{"Energy Bill", type text}, {"Energy", type number}, {"Distribution Use of System", Int64.Type}, {"Balancing Use of System", type number}, {"Capacity Mechanism", type number}, {"Renewable Obligation", type number}, {"Feed In Tariff", type number}, {"Contracts for Difference", type number}, {"Climate Change Levy", type number}, {"Column1", Int64.Type}, {"Distribution Use of System2", type number}, {"Transmission Use of System", type number}, {"Settlement and Agent ", Int64.Type}, {"Column3", Int64.Type}, {"Variable Sub-total ", type number}, {"Fixed Sub-total", type number}, {"Total", type number}, {"Column4", Int64.Type}, {"Consumption @ Meter (Clock)", type number}, {"Variable @ Meter (Clock)", type number}, {"Fixed @ Meter (Clock)", type number}, {"Column5", Int64.Type}, {"Variable @ Meter (Clock)6", type number}, {"Variable @ Meter (Clock)7", Int64.Type}, {"Variable @ Meter (Clock)8", Int64.Type}, {"Total (exVAT)", type number}, {"Area_Energy Bill", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

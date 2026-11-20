@@ -1,0 +1,100 @@
+table T_Hotsaw_Scrap
+	lineageTag: 00653248-cdfc-4cf5-b3b3-1341d88829c4
+
+	column TIME
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c21e1f76-e1b5-4918-842f-5f55b73ec6c2
+		summarizeBy: none
+		sourceColumn: TIME
+
+		variation Variation
+			isDefault
+			relationship: f4eb4583-66e5-4dc6-878f-06d887f4afaa
+			defaultHierarchy: LocalDateTable_39049293-1258-4270-8c4d-2ddaf63060c0.'Date Hierarchy'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column BAR
+		dataType: string
+		lineageTag: be3cbe65-f82d-4556-98f7-dc18ec620123
+		summarizeBy: none
+		sourceColumn: BAR
+
+		annotation SummarizationSetBy = Automatic
+
+	column ' ODERED LENGTH'
+		dataType: int64
+		formatString: 0
+		lineageTag: 09e958cc-cbc0-45ea-8ce4-8f9cee3abaa6
+		summarizeBy: sum
+		sourceColumn: " ODERED LENGTH"
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'BAR LENGTH'
+		dataType: int64
+		formatString: 0
+		lineageTag: a2f07b37-800c-4e15-a804-9c715f69e502
+		summarizeBy: sum
+		sourceColumn: BAR LENGTH
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT
+		dataType: string
+		lineageTag: c524649d-1f79-4f00-895e-bb036dce59db
+		summarizeBy: none
+		sourceColumn: PRODUCT
+
+		annotation SummarizationSetBy = Automatic
+
+	column ROLLING
+		dataType: string
+		lineageTag: 37af8119-280b-4bc7-875d-14fdc6a04481
+		summarizeBy: none
+		sourceColumn: ROLLING
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SCRAP REASON'
+		dataType: string
+		lineageTag: 1deb40a9-29f7-4ddf-95d2-8431b2d2ea63
+		summarizeBy: none
+		sourceColumn: SCRAP REASON
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week No'
+		dataType: string
+		lineageTag: 9cfc5063-4184-46c1-a938-6e6a7b7f8c0c
+		summarizeBy: none
+		sourceColumn: Week No
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weight
+		dataType: double
+		formatString: 0.000
+		lineageTag: 1f070d4f-e668-48f5-ba1f-2fbea2d44a8b
+		summarizeBy: sum
+		sourceColumn: Weight
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_Hotsaw_Scrap = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    T_Hotsaw_Scrap_Table = Source{[Item="T_Hotsaw_Scrap",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_Hotsaw_Scrap_Table,{{"TIME", type datetime}, {"BAR", type text}, {" ODERED LENGTH", Int64.Type}, {"BAR LENGTH", Int64.Type}, {"PRODUCT", type text}, {"ROLLING", type text}, {"SCRAP REASON", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

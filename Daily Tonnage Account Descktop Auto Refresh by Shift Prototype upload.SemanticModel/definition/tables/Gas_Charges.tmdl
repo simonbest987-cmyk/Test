@@ -1,0 +1,261 @@
+table Gas_Charges
+	lineageTag: c315184a-ba2c-434f-aa60-4e088bb00356
+
+	column 'Energy Bill'
+		dataType: string
+		lineageTag: bdd36200-7737-4982-aa95-8e432d7d753f
+		summarizeBy: none
+		sourceColumn: Energy Bill
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Type'
+		dataType: string
+		lineageTag: 5e73a420-6327-451e-a4ac-a3e5b3bc41d8
+		summarizeBy: none
+		sourceColumn: Invoice Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Number'
+		dataType: string
+		lineageTag: 014b8181-6ea9-4d36-9a92-b301d6a4ef08
+		summarizeBy: none
+		sourceColumn: Invoice Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8fa0c47c-5d73-436a-a1d7-362bddc0499b
+		summarizeBy: none
+		sourceColumn: Invoice Date
+
+		variation Variation
+			isDefault
+			relationship: f3af0449-6054-4942-831a-0d7a38b991a4
+			defaultHierarchy: LocalDateTable_247ef67a-ad27-4c9a-8795-b46db0c28275.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 86645c73-0dde-45ad-bb6c-1628490f8295
+		summarizeBy: none
+		sourceColumn: Start Date
+
+		variation Variation
+			isDefault
+			relationship: 811b3fa4-d64f-4a50-b397-e75f6e6ff89d
+			defaultHierarchy: LocalDateTable_c3206507-4762-489d-a27f-664d4ee3e4bb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 91225f26-b6b2-441c-9907-371647231fc4
+		summarizeBy: none
+		sourceColumn: End Date
+
+		variation Variation
+			isDefault
+			relationship: 524dfd84-ae19-4ec5-ae73-377c5080beaf
+			defaultHierarchy: LocalDateTable_c734e465-d928-434b-ac18-2ff40799111a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Meter Point'
+		dataType: int64
+		formatString: 0
+		lineageTag: 52ea9aa9-3579-4873-9e1f-1dfe1b66babd
+		summarizeBy: sum
+		sourceColumn: Meter Point
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Site Ref Number'
+		dataType: string
+		lineageTag: bf1c3594-0094-49b6-b9e3-cb5bc7392187
+		summarizeBy: none
+		sourceColumn: Site Ref Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Energy kwh '
+		dataType: int64
+		formatString: 0
+		lineageTag: 173d37cc-87bc-4c92-839d-03d86746d857
+		summarizeBy: sum
+		sourceColumn: "Energy kwh "
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Price £ / MWH'
+		dataType: double
+		lineageTag: 1cb07aa3-0d61-44ad-a43a-57cb782f2b89
+		summarizeBy: sum
+		sourceColumn: Unit Price £ / MWH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Gas Cost'
+		dataType: double
+		lineageTag: 06c6a13f-2b3a-4c41-b3ef-62d92bad2618
+		summarizeBy: sum
+		sourceColumn: Gas Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Standing Charge'
+		dataType: double
+		lineageTag: 4984d097-d350-452c-8523-f86400639d45
+		summarizeBy: sum
+		sourceColumn: Standing Charge
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'SC VAT'
+		dataType: double
+		lineageTag: 3785887d-a129-4166-ace6-496ca70f43dd
+		summarizeBy: sum
+		sourceColumn: SC VAT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Commercial VAT Content'
+		dataType: double
+		lineageTag: f1d8166b-f24e-43b9-8809-c51d030150f1
+		summarizeBy: sum
+		sourceColumn: Commercial VAT Content
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Domestic VAT Content'
+		dataType: double
+		lineageTag: b0c6f34b-62f3-4714-8fe6-559f28e49ac2
+		summarizeBy: sum
+		sourceColumn: Domestic VAT Content
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CCL
+		dataType: int64
+		formatString: 0
+		lineageTag: e4976785-0f97-4858-968e-3690312ed7a9
+		summarizeBy: sum
+		sourceColumn: CCL
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CCL Com VAT'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f3791a0-f918-4850-b447-addfc4537ab1
+		summarizeBy: sum
+		sourceColumn: CCL Com VAT
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total
+		dataType: double
+		lineageTag: f4d8fd7f-d0a5-4e14-a07d-bbaabbfe868e
+		summarizeBy: sum
+		sourceColumn: Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Area
+		dataType: string
+		lineageTag: def60820-a7a8-4815-9770-142bd7564463
+		summarizeBy: none
+		sourceColumn: Area
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Energy GJ'
+		dataType: double
+		lineageTag: 8ce52671-821b-4a17-8d80-8f16ffde90b2
+		summarizeBy: sum
+		sourceColumn: Energy GJ
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Charged Tonnes'
+		dataType: double
+		lineageTag: 2999b59d-04e0-49ff-b437-eea3dd54e149
+		summarizeBy: sum
+		sourceColumn: Charged Tonnes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column KWH/t
+		dataType: double
+		lineageTag: ce2a6cc4-d371-46b9-bb72-e62dc157ce47
+		summarizeBy: sum
+		sourceColumn: KWH/t
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GJ/t
+		dataType: double
+		lineageTag: a193c290-bca7-4b73-a38b-eacec5c7909b
+		summarizeBy: sum
+		sourceColumn: GJ/t
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Unit Price £/GJ'
+		dataType: double
+		lineageTag: 3f7e9e33-b87c-48c6-a3f5-670fc3b3eb86
+		summarizeBy: sum
+		sourceColumn: Unit Price £/GJ
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Area_Energy Bill'
+		dataType: string
+		lineageTag: 4e3ce155-bfc2-40ac-ba1b-666e875658ed
+		summarizeBy: none
+		sourceColumn: Area_Energy Bill
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Gas_Charges = m
+		mode: import
+		source =
+				let
+				    Source = DTA_Workbook,
+				    Gas_Charges_Table = Source{[Item="Gas_Charges",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Gas_Charges_Table,{{"Energy Bill", type text}, {"Invoice Type", type text}, {"Invoice Number", type text}, {"Invoice Date", type datetime}, {"Start Date", type datetime}, {"End Date", type datetime}, {"Meter Point", Int64.Type}, {"Site Ref Number", type text}, {"Energy kwh ", Int64.Type}, {"Unit Price £ / MWH", type number}, {"Gas Cost", type number}, {"Standing Charge", type number}, {"SC VAT", type number}, {"Commercial VAT Content", type number}, {"Domestic VAT Content", type number}, {"CCL", Int64.Type}, {"CCL Com VAT", Int64.Type}, {"Total", type number}, {"Area", type text}, {"Energy GJ", type number}, {"Charged Tonnes", type number}, {"KWH/t", type number}, {"GJ/t", type number}, {"Unit Price £/GJ", type number}, {"Area_Energy Bill", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Exception
+

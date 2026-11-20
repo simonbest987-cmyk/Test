@@ -1,0 +1,158 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v4422a475de0e10",
+  "position": {
+    "x": 20,
+    "y": 458,
+    "z": 44000,
+    "width": 1050,
+    "height": 250,
+    "tabOrder": 44000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Speed"
+                    }
+                  },
+                  "Property": "Start"
+                }
+              },
+              "queryRef": "Fact_Speed.Start",
+              "nativeQueryRef": "Start"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Speed"
+                    }
+                  },
+                  "Property": "roll"
+                }
+              },
+              "queryRef": "Fact_Speed.roll",
+              "nativeQueryRef": "roll"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Speed"
+                    }
+                  },
+                  "Property": "reason"
+                }
+              },
+              "queryRef": "Fact_Speed.reason",
+              "nativeQueryRef": "reason"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Actual Speed"
+                }
+              },
+              "queryRef": "_Measures.Actual Speed",
+              "nativeQueryRef": "Actual Speed"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Target Speed"
+                }
+              },
+              "queryRef": "_Measures.Target Speed",
+              "nativeQueryRef": "Target Speed"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Speed Var"
+                }
+              },
+              "queryRef": "_Measures.Speed Var",
+              "nativeQueryRef": "Speed Var"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Speed Logged (h)"
+                }
+              },
+              "queryRef": "_Measures.Speed Logged (h)",
+              "nativeQueryRef": "Speed Logged (h)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Speed"
+                    }
+                  },
+                  "Property": "comments"
+                }
+              },
+              "queryRef": "Fact_Speed.comments",
+              "nativeQueryRef": "comments"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Speed log'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
