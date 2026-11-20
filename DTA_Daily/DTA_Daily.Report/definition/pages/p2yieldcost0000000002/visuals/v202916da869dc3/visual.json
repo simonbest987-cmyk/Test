@@ -1,0 +1,200 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v202916da869dc3",
+  "position": {
+    "x": 20,
+    "y": 186,
+    "z": 20000,
+    "width": 1050,
+    "height": 250,
+    "tabOrder": 20000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Product"
+                    }
+                  },
+                  "Property": "Product Key"
+                }
+              },
+              "queryRef": "Dim_Product.Product Key",
+              "nativeQueryRef": "Product Key"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Bars Rolled"
+                }
+              },
+              "queryRef": "_Measures.Bars Rolled",
+              "nativeQueryRef": "Bars Rolled"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Bloom (t)"
+                }
+              },
+              "queryRef": "_Measures.Bloom (t)",
+              "nativeQueryRef": "Bloom (t)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Cut (t)"
+                }
+              },
+              "queryRef": "_Measures.Cut (t)",
+              "nativeQueryRef": "Cut (t)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Prime (t)"
+                }
+              },
+              "queryRef": "_Measures.Prime (t)",
+              "nativeQueryRef": "Prime (t)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "42 Mill Yield %"
+                }
+              },
+              "queryRef": "_Measures.42 Mill Yield %",
+              "nativeQueryRef": "42 Mill Yield %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "42 Mill Yield Std %"
+                }
+              },
+              "queryRef": "_Measures.42 Mill Yield Std %",
+              "nativeQueryRef": "42 Mill Yield Std %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "36 Mill Yield %"
+                }
+              },
+              "queryRef": "_Measures.36 Mill Yield %",
+              "nativeQueryRef": "36 Mill Yield %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "36 Mill Yield Std %"
+                }
+              },
+              "queryRef": "_Measures.36 Mill Yield Std %",
+              "nativeQueryRef": "36 Mill Yield Std %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Production Value £"
+                }
+              },
+              "queryRef": "_Measures.Production Value £",
+              "nativeQueryRef": "Production Value £"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Production Value (£/t)"
+                }
+              },
+              "queryRef": "_Measures.Production Value (£/t)",
+              "nativeQueryRef": "Production Value (£/t)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'By product'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

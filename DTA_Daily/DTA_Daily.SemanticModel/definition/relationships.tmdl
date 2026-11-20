@@ -1,0 +1,31 @@
+relationship c09ead66-abf0-489f-93a8-4d970aa0620d
+	fromColumn: Fact_Bars.'Operational Date'
+	toColumn: Dim_Date.Date
+
+relationship fe793010-df64-427f-9394-61c5226288d2
+	fromColumn: Fact_Delays.'Operational Date'
+	toColumn: Dim_Date.Date
+
+relationship ae5664c3-f21e-4db7-8edf-97d66f88bcde
+	fromColumn: Fact_RollingTimes.'Operational Date'
+	toColumn: Dim_Date.Date
+
+relationship cffb2e94-8998-4bd8-b860-77c3d02ea686
+	fromColumn: Fact_Speed.'Operational Date'
+	toColumn: Dim_Date.Date
+
+relationship 86faba97-fabf-4eb4-8081-5b83a5a1daac
+	fromColumn: Fact_Bars.'Product Key'
+	toColumn: Dim_Product.'Product Key'
+
+relationship 9b16892f-1556-4900-ae7d-1edaa082d455
+	fromColumn: Fact_Delays.'Product Key'
+	toColumn: Dim_Product.'Product Key'
+
+relationship 8b14d3c7-e76b-4263-b766-85973e24176c
+	fromColumn: Fact_RollingTimes.'Product Key'
+	toColumn: Dim_Product.'Product Key'
+
+relationship e9b08b1d-744b-44ab-8b0e-d0c498cf5c78
+	fromColumn: Fact_Speed.'Product Key'
+	toColumn: Dim_Product.'Product Key'

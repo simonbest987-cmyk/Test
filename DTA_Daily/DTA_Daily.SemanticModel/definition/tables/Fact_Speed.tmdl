@@ -1,0 +1,164 @@
+table Fact_Speed
+	lineageTag: 67b6423f-8c0c-4495-b35c-04237c5b2945
+
+	column Start
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: f67fb48c-c14a-4eb2-8de1-6927c61b2463
+		summarizeBy: none
+		sourceColumn: Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column End
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 66a5ff33-e4fa-4bbf-b375-a2c10fb3cd51
+		summarizeBy: none
+		sourceColumn: End
+
+		annotation SummarizationSetBy = Automatic
+
+	column prod
+		dataType: string
+		isHidden
+		lineageTag: 934bfdb5-6547-46d2-8e26-fb848fc96e43
+		summarizeBy: none
+		sourceColumn: prod
+
+		annotation SummarizationSetBy = Automatic
+
+	column roll
+		dataType: string
+		lineageTag: 08ae9f46-6a52-4982-943f-a69aee3f7b24
+		summarizeBy: none
+		sourceColumn: roll
+
+		annotation SummarizationSetBy = Automatic
+
+	column speed
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: 9cd8903a-be4f-4ce2-8e18-45b5c0788788
+		summarizeBy: none
+		sourceColumn: speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column target_speed
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: b11a5377-c1bb-41a2-82d5-35262eb36e6f
+		summarizeBy: none
+		sourceColumn: target_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason
+		dataType: string
+		lineageTag: 75635785-d0d8-47d5-a7a3-a9203014510e
+		summarizeBy: none
+		sourceColumn: reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column comments
+		dataType: string
+		lineageTag: e2614c28-13e1-4d31-b59c-86dfd77df304
+		summarizeBy: none
+		sourceColumn: comments
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Key'
+		dataType: string
+		isHidden
+		lineageTag: da1148ec-709f-42d3-baa0-eb3c23f34e2f
+		summarizeBy: none
+		sourceColumn: Product Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Source File'
+		dataType: string
+		isHidden
+		lineageTag: 3c63ea20-43e9-459e-8c84-2152abfd695b
+		summarizeBy: none
+		sourceColumn: Source File
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Source File Modified'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: ccb7323f-6d75-4c74-ade6-3963dcfea87b
+		summarizeBy: none
+		sourceColumn: Source File Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Operational Date'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy
+		lineageTag: ea2a244c-4b88-4328-b6e3-a3f295194ae8
+		summarizeBy: none
+		sourceColumn: Operational Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Segment Start'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 77c83993-f6e3-4d47-a4fe-06b7fc38aeba
+		summarizeBy: none
+		sourceColumn: Segment Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Segment End'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 1ea37cba-2f59-4cc7-aaaf-6c80f7b46ae6
+		summarizeBy: none
+		sourceColumn: Segment End
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hours
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: cecd4491-979f-4b3f-a220-0850ee21ac4e
+		summarizeBy: none
+		sourceColumn: Hours
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Speed = m
+		mode: import
+		source =
+				let
+				    Source = fnExportSheet("Speed Feedback"),
+				    Kept = Table.SelectColumns(Source, {"Start", "End", "prod", "roll", "speed", "target_speed", "reason", "comments", "Source File", "Source File Modified"}, MissingField.UseNull),
+				    Times = Table.TransformColumns(Kept, {{"Start", fnToDateTime, type nullable datetime}, {"End", fnToDateTime, type nullable datetime}}),
+				    Typed = Table.TransformColumnTypes(Times, {{"prod", type text}, {"roll", type text}, {"reason", type text}, {"comments", type text}, {"speed", type number}, {"target_speed", type number}}, "en-GB"),
+				    Valid = Table.SelectRows(Typed, each [Start] <> null),
+				    // Each export repeats the week to date; keep one row per event, taking the latest file (most up-to-date End)
+				    Latest = Table.Buffer(Table.Sort(Valid, {{"Source File Modified", Order.Descending}, {"End", Order.Descending}})),
+				    Dedup = Table.Distinct(Latest, {"Start", "prod", "roll"}),
+				    Ordered = Table.Sort(Dedup, {{"Start", Order.Ascending}}),
+				    ProductKey = Table.AddColumn(Ordered, "Product Key", each if [prod] = null then null else Text.TrimEnd([prod]), type nullable text),
+				    Split = fnSplitByOperationalDay(ProductKey, "Start", "End"),
+				    Final = Table.TransformColumnTypes(Split, {{"Operational Date", type date}, {"Segment Start", type datetime}, {"Segment End", type datetime}, {"Hours", type number}})
+				in
+				    Final
+
+	annotation PBI_ResultType = Table

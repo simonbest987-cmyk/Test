@@ -1,0 +1,419 @@
+table _Measures
+	lineageTag: f93dfc42-6451-4018-b033-1097472ae19b
+
+	/// Number of bars recorded at saw 1.
+	measure 'Bars Rolled' =
+			COUNTROWS ( Fact_Bars )
+		formatString: #,0
+		displayFolder: 1 Production
+		lineageTag: 91ad0128-f4b7-4081-822a-c93ca899cabe
+
+	/// Bloom input tonnes (Blm Wght).
+	measure 'Bloom (t)' =
+			SUM ( Fact_Bars[Blm Wght] )
+		formatString: #,0.0
+		displayFolder: 1 Production
+		lineageTag: a3fe6e94-cc8b-430e-8ed5-eab339f46568
+
+	/// Cut tonnes after the 42 mill (Cuts Wgt).
+	measure 'Cut (t)' =
+			SUM ( Fact_Bars[Cuts Wgt] )
+		formatString: #,0.0
+		displayFolder: 1 Production
+		lineageTag: a665ca95-3b68-4570-b593-dfcab0ba620f
+
+	/// Prime output tonnes. Equals the model's Total Output, as the export has no defects column.
+	measure 'Prime (t)' =
+			SUM ( Fact_Bars[Prime] )
+		formatString: #,0.0
+		displayFolder: 1 Production
+		lineageTag: 385ef0d3-931c-40fd-9315-8b2f267aa8ed
+
+	/// Cut ÷ Bloom (model: 42 Yield Actual Measure).
+	measure '42 Mill Yield %' =
+			DIVIDE ( [Cut (t)], [Bloom (t)] )
+		formatString: 0.0%
+		displayFolder: 2 Yield
+		lineageTag: fedf1d52-9e26-47eb-bc03-60b07875563d
+
+	/// Standard cuts (Bloom ÷ 42_mill_Yield) ÷ Bloom (model: 42 Yield Standard Measure).
+	measure '42 Mill Yield Std %' =
+			DIVIDE (
+			    SUMX ( Fact_Bars, DIVIDE ( Fact_Bars[Blm Wght], Fact_Bars[42_mill_Yield] ) ),
+			    [Bloom (t)]
+			)
+		formatString: 0.0%
+		displayFolder: 2 Yield
+		lineageTag: 8e11c4e0-cc38-4c4b-868e-9a8b032e50d1
+
+	/// Actual minus standard, in percentage points.
+	measure '42 Mill Yield Var (pts)' =
+			[42 Mill Yield %] - [42 Mill Yield Std %]
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 2 Yield
+		lineageTag: efbc4349-fa4f-498d-accb-7e1936c9ad1a
+
+	/// Prime ÷ Cut (model: 36 Yield Actual Measure).
+	measure '36 Mill Yield %' =
+			DIVIDE ( [Prime (t)], [Cut (t)] )
+		formatString: 0.0%
+		displayFolder: 2 Yield
+		lineageTag: 0c7dd7e5-5274-4cd1-bd86-72f124cc3eed
+
+	/// Standard prime (Cut ÷ 36_mill_yield) ÷ Cut (model: 36 Yield Standard Measure).
+	measure '36 Mill Yield Std %' =
+			DIVIDE (
+			    SUMX ( Fact_Bars, DIVIDE ( Fact_Bars[Cuts Wgt], Fact_Bars[36_mill_yield] ) ),
+			    [Cut (t)]
+			)
+		formatString: 0.0%
+		displayFolder: 2 Yield
+		lineageTag: d90f80b4-9c34-4951-a332-f18dc9e585cb
+
+	/// Actual minus standard, in percentage points.
+	measure '36 Mill Yield Var (pts)' =
+			[36 Mill Yield %] - [36 Mill Yield Std %]
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 2 Yield
+		lineageTag: 6cbdfe81-d20c-4e7a-af24-703785784bbf
+
+	/// Prime ÷ Bloom (= 42 × 36 mill yield). Finishing yield is not in the export.
+	measure 'Mill Through Yield %' =
+			DIVIDE ( [Prime (t)], [Bloom (t)] )
+		formatString: 0.0%
+		displayFolder: 2 Yield
+		lineageTag: eaba6b9d-19af-45ad-94aa-51e0220c0b58
+
+	/// 42 × 36 standard yield.
+	measure 'Mill Through Yield Std %' =
+			[42 Mill Yield Std %] * [36 Mill Yield Std %]
+		formatString: 0.0%
+		displayFolder: 2 Yield
+		lineageTag: 9a3407bf-f722-4f96-a5e7-0cfecd9c0cf9
+
+	/// Actual minus standard, in percentage points.
+	measure 'Mill Through Yield Var (pts)' =
+			[Mill Through Yield %] - [Mill Through Yield Std %]
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 2 Yield
+		lineageTag: c31ab9db-3ff1-4c5a-a832-981a335ea526
+
+	/// Blm Wght × Bloom_input (model column: Bloom Consumption).
+	measure 'Bloom Consumption £' =
+			SUMX ( Fact_Bars, Fact_Bars[Blm Wght] * Fact_Bars[Bloom_input] )
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: 3 Cost
+		lineageTag: 94099b6c-be25-447b-bbba-d1791a6a3701
+
+	/// Cuts Wgt × (42_mill_run_tot + 42_mill_roll_tarif) (model column: 42 Production Value £).
+	measure '42 Production Value £' =
+			SUMX (
+			    Fact_Bars,
+			    Fact_Bars[Cuts Wgt] * ( Fact_Bars[42_mill_run_tot] + Fact_Bars[42_mill_roll_tarif] )
+			)
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: 3 Cost
+		lineageTag: 3b6f3926-7ba2-4f05-8fa3-7b14dab610bc
+
+	/// Prime × product_cost_total (model column: Production Value £).
+	measure 'Production Value £' =
+			SUMX ( Fact_Bars, Fact_Bars[Prime] * Fact_Bars[product_cost_total] )
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: 3 Cost
+		lineageTag: bd960b68-f463-4ca7-bf03-12f6dbb33493
+
+	/// Same formula as the model column 42 Scrap £.
+	measure '42 Scrap £' =
+			SUMX (
+			    Fact_Bars,
+			    ( Fact_Bars[Cuts Wgt] * Fact_Bars[42_mill_Scrap] * Fact_Bars[scrap_cost_per_tonne] )
+			        + ( Fact_Bars[Blm Wght] * Fact_Bars[scrap_cost_per_tonne] )
+			        - ( Fact_Bars[Cuts Wgt] * Fact_Bars[42_mill_Yield] * Fact_Bars[scrap_cost_per_tonne] )
+			)
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: 3 Cost
+		lineageTag: 9a7ab0e7-81a6-4d33-afd5-7e6e218ce893
+
+	/// Same formula as the model column 42 Scale £.
+	measure '42 Scale £' =
+			SUMX ( Fact_Bars, Fact_Bars[42_mill_Scale] * Fact_Bars[Scale_cost_tonne] * Fact_Bars[Cuts Wgt] )
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: 3 Cost
+		lineageTag: c476a939-c8fa-4388-b633-bbc2df352d12
+
+	/// Same formula as the model column 36 Scrap £.
+	measure '36 Scrap £' =
+			SUMX (
+			    Fact_Bars,
+			    ( Fact_Bars[Prime] * Fact_Bars[36_mill_scrap] * Fact_Bars[scrap_cost_per_tonne] )
+			        + ( Fact_Bars[Cuts Wgt] * Fact_Bars[scrap_cost_per_tonne] )
+			        - ( Fact_Bars[Prime] * Fact_Bars[36_mill_yield] * Fact_Bars[scrap_cost_per_tonne] )
+			)
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: 3 Cost
+		lineageTag: 60d2b2fb-3e6a-40fb-b71f-0d7f33a6b213
+
+	/// Same formula as the model column 36 Scale £.
+	measure '36 Scale £' =
+			SUMX ( Fact_Bars, Fact_Bars[36_mill_scale] * Fact_Bars[Scale_cost_tonne] * Fact_Bars[Prime] )
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: 3 Cost
+		lineageTag: 645b49f7-8460-4890-b8e7-efb36f07bf2b
+
+	/// Outside processing: Prime × (Darlington + cold saw + sidepress + cathode + crane rail) (model column: Total OSP).
+	measure 'OSP £' =
+			SUMX (
+			    Fact_Bars,
+			    Fact_Bars[Prime]
+			        * ( Fact_Bars[darlo_tot] + Fact_Bars[cold_saw_tot] + Fact_Bars[restraight_tot] + Fact_Bars[cathode_tot] + Fact_Bars[crane_rail_tot] )
+			)
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: 3 Cost
+		lineageTag: b286e582-47ae-4f2e-89c4-d911b219a412
+
+	/// Total scrap and scale cost.
+	measure 'Scrap & Scale £' =
+			[42 Scrap £] + [42 Scale £] + [36 Scrap £] + [36 Scale £]
+		formatString: \£#,0;-\£#,0;\£#,0
+		displayFolder: 3 Cost
+		lineageTag: fd40a35d-3e8d-4267-8b7d-5e2a7c4eeedf
+
+	/// Bloom consumption £ per bloom tonne (model: Bloom CPT).
+	measure 'Bloom Cost (£/t)' =
+			DIVIDE ( [Bloom Consumption £], [Bloom (t)] )
+		formatString: \£#,0.00;-\£#,0.00;\£#,0.00
+		displayFolder: 3 Cost
+		lineageTag: 377133cd-e2c0-4f74-a9c7-870ecff2e260
+
+	/// Production value £ per prime tonne (model: Total CPT).
+	measure 'Production Value (£/t)' =
+			DIVIDE ( [Production Value £], [Prime (t)] )
+		formatString: \£#,0.00;-\£#,0.00;\£#,0.00
+		displayFolder: 3 Cost
+		lineageTag: 4fd8144c-eee0-42a7-a0e7-df9b7f908c23
+
+	/// Rolling hours, split at 07:00 by operational day.
+	measure 'Rolling (h)' =
+			SUM ( Fact_RollingTimes[Hours] )
+		formatString: #,0.0
+		displayFolder: 4 Time & Delays
+		lineageTag: c1d99c1f-8947-4157-886b-85767286bd43
+
+	/// Delay hours, split at 07:00 by operational day.
+	measure 'Delay (h)' =
+			SUM ( Fact_Delays[Hours] )
+		formatString: #,0.0
+		displayFolder: 4 Time & Delays
+		lineageTag: b15be7e5-1912-414d-bd16-b823de04cc33
+
+	/// Delay time as hours:minutes text.
+	measure 'Delay (hh:mm)' =
+			VAR _minutes = ROUND ( [Delay (h)] * 60, 0 )
+			RETURN
+			    IF ( NOT ISBLANK ( [Delay (h)] ), FORMAT ( INT ( _minutes / 60 ), "0" ) & ":" & FORMAT ( MOD ( _minutes, 60 ), "00" ) )
+		displayFolder: 4 Time & Delays
+		lineageTag: 32756d77-de3b-40ff-83aa-0442aec536ea
+
+	/// Number of delay events (a delay crossing 07:00 counts once per day it touches).
+	measure 'Delay Events' =
+			DISTINCTCOUNT ( Fact_Delays[Delay ID] )
+		formatString: #,0
+		displayFolder: 4 Time & Delays
+		lineageTag: 5feaa243-f6cb-47d4-8b5e-bda3b13b0f14
+
+	/// Average minutes per delay event.
+	measure 'Average Delay (min)' =
+			DIVIDE ( [Delay (h)] * 60, [Delay Events] )
+		formatString: #,0
+		displayFolder: 4 Time & Delays
+		lineageTag: e748a454-8592-4a01-8de7-54cb094e38bf
+
+	/// Rolling minus delay hours (model: Worked Time).
+	measure 'Worked (h)' =
+			[Rolling (h)] - [Delay (h)]
+		formatString: #,0.0
+		displayFolder: 4 Time & Delays
+		lineageTag: 44b3fff2-862d-4c7f-8af7-7afb443e7394
+
+	/// Worked ÷ Rolling hours (model: Avail).
+	measure 'Availability %' =
+			DIVIDE ( [Worked (h)], [Rolling (h)] )
+		formatString: 0.0%
+		displayFolder: 4 Time & Delays
+		lineageTag: 40f58da5-319a-4857-89b0-862db22f4000
+
+	/// Delay ÷ Rolling hours (model: Total Delays … divided by Total Rolling Time).
+	measure 'Delay % of Rolling' =
+			DIVIDE ( [Delay (h)], [Rolling (h)] )
+		formatString: 0.0%
+		displayFolder: 4 Time & Delays
+		lineageTag: f696185e-72fb-4cc0-ae0a-eb4f0bd0ba49
+
+	/// Bloom ÷ 42 mill standard throughput (model column: Worked 42 Stnd).
+	measure '42 Standard (h)' =
+			SUMX ( Fact_Bars, DIVIDE ( Fact_Bars[Blm Wght], Fact_Bars[42_mill_throput] ) )
+		formatString: #,0.0
+		displayFolder: 4 Time & Delays
+		lineageTag: 0bac7d17-6642-49c4-867f-eb06c76e194e
+
+	/// Cut ÷ 36 mill standard throughput (model column: PR Worked Time Total Stnd).
+	measure '36 Standard (h)' =
+			SUMX ( Fact_Bars, DIVIDE ( Fact_Bars[Cuts Wgt], Fact_Bars[36_mill_throput] ) )
+		formatString: #,0.0
+		displayFolder: 4 Time & Delays
+		lineageTag: 004c4283-cf45-4921-b095-021b1f475f7b
+
+	/// Hours covered by speed feedback.
+	measure 'Speed Logged (h)' =
+			SUM ( Fact_Speed[Hours] )
+		formatString: #,0.0
+		displayFolder: 5 Speed
+		lineageTag: fe6ba8bd-fc60-463c-94ee-c2b3574c5a34
+
+	/// Time-weighted average speed, in the units recorded in the export.
+	measure 'Actual Speed' =
+			DIVIDE ( SUMX ( Fact_Speed, Fact_Speed[Hours] * Fact_Speed[speed] ), [Speed Logged (h)] )
+		formatString: #,0.0
+		displayFolder: 5 Speed
+		lineageTag: 381a75d0-1653-441d-89b3-774aad40689a
+
+	/// Time-weighted average target speed.
+	measure 'Target Speed' =
+			DIVIDE ( SUMX ( Fact_Speed, Fact_Speed[Hours] * Fact_Speed[target_speed] ), [Speed Logged (h)] )
+		formatString: #,0.0
+		displayFolder: 5 Speed
+		lineageTag: 8dc7c9bf-39c0-4a22-b548-bcc5886ca726
+
+	/// Actual minus target speed.
+	measure 'Speed Var' =
+			[Actual Speed] - [Target Speed]
+		formatString: +#,0.0;-#,0.0;0.0
+		displayFolder: 5 Speed
+		lineageTag: 01292f22-940c-4a5e-b5f7-b0392eb308a8
+
+	/// Speed variance as a % of target.
+	measure 'Speed Var %' =
+			DIVIDE ( [Speed Var], [Target Speed] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 5 Speed
+		lineageTag: d7369206-297e-4cef-b460-1ddfdaefb561
+
+	/// Prime (t) for the same days one week earlier.
+	measure 'Prime (t) Prev Week' =
+			CALCULATE ( [Prime (t)], DATEADD ( Dim_Date[Date], -7, DAY ) )
+		formatString: #,0.0
+		displayFolder: 6 Previous Week
+		lineageTag: 49461430-3730-4cd9-80c6-d7d420e586bb
+
+	/// Change versus previous week.
+	measure 'Prime (t) vs Prev Week' =
+			VAR _prev = [Prime (t) Prev Week]
+			RETURN
+			    IF ( NOT ISBLANK ( _prev ), [Prime (t)] - _prev )
+		formatString: +#,0.0;-#,0.0;#,0.0
+		displayFolder: 6 Previous Week
+		lineageTag: 3c4fab1c-a592-4086-bffc-31c2083bf71c
+
+	/// Change versus previous week, %.
+	measure 'Prime (t) vs Prev Week %' =
+			VAR _prev = [Prime (t) Prev Week]
+			RETURN
+			    DIVIDE ( [Prime (t)] - _prev, _prev )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 6 Previous Week
+		lineageTag: 143b7d5b-fa93-4f1c-af58-13c031a91d53
+
+	/// Availability % for the same days one week earlier.
+	measure 'Availability % Prev Week' =
+			CALCULATE ( [Availability %], DATEADD ( Dim_Date[Date], -7, DAY ) )
+		formatString: 0.0%
+		displayFolder: 6 Previous Week
+		lineageTag: 3575923a-574a-4e83-94d6-03ce8039d4c1
+
+	/// Change versus previous week, in percentage points.
+	measure 'Availability % vs Prev Week (pts)' =
+			VAR _prev = [Availability % Prev Week]
+			RETURN
+			    IF ( NOT ISBLANK ( _prev ), [Availability %] - _prev )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 6 Previous Week
+		lineageTag: 5c313e54-5773-4d55-a45a-74ec765172ab
+
+	/// Delay (h) for the same days one week earlier.
+	measure 'Delay (h) Prev Week' =
+			CALCULATE ( [Delay (h)], DATEADD ( Dim_Date[Date], -7, DAY ) )
+		formatString: #,0.0
+		displayFolder: 6 Previous Week
+		lineageTag: 235557f8-3bf1-479a-9a87-444f4e7f756d
+
+	/// Change versus previous week.
+	measure 'Delay (h) vs Prev Week' =
+			VAR _prev = [Delay (h) Prev Week]
+			RETURN
+			    IF ( NOT ISBLANK ( _prev ), [Delay (h)] - _prev )
+		formatString: +#,0.0;-#,0.0;#,0.0
+		displayFolder: 6 Previous Week
+		lineageTag: 6db5e069-a466-4e98-b9b4-4dc48b2f81ce
+
+	/// Change versus previous week, %.
+	measure 'Delay (h) vs Prev Week %' =
+			VAR _prev = [Delay (h) Prev Week]
+			RETURN
+			    DIVIDE ( [Delay (h)] - _prev, _prev )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 6 Previous Week
+		lineageTag: 182b2a72-4bcf-4e3b-967d-f75ad0f76372
+
+	/// Production Value (£/t) for the same days one week earlier.
+	measure 'Production Value (£/t) Prev Week' =
+			CALCULATE ( [Production Value (£/t)], DATEADD ( Dim_Date[Date], -7, DAY ) )
+		formatString: \£#,0.00;-\£#,0.00;\£#,0.00
+		displayFolder: 6 Previous Week
+		lineageTag: 650fe899-7708-4d09-8400-9cc49622c75a
+
+	/// Change versus previous week.
+	measure 'Production Value (£/t) vs Prev Week' =
+			VAR _prev = [Production Value (£/t) Prev Week]
+			RETURN
+			    IF ( NOT ISBLANK ( _prev ), [Production Value (£/t)] - _prev )
+		formatString: \£#,0.00
+		displayFolder: 6 Previous Week
+		lineageTag: 03d7eda8-496e-4da8-9fb2-57a54d8dc2b1
+
+	/// Change versus previous week, %.
+	measure 'Production Value (£/t) vs Prev Week %' =
+			VAR _prev = [Production Value (£/t) Prev Week]
+			RETURN
+			    DIVIDE ( [Production Value (£/t)] - _prev, _prev )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 6 Previous Week
+		lineageTag: f53c4e35-f135-4c6f-85c6-2a8e40d70920
+
+	/// Mill Through Yield % for the same days one week earlier.
+	measure 'Mill Through Yield % Prev Week' =
+			CALCULATE ( [Mill Through Yield %], DATEADD ( Dim_Date[Date], -7, DAY ) )
+		formatString: 0.0%
+		displayFolder: 6 Previous Week
+		lineageTag: a91d4ebd-abcf-484a-918b-2bc46ae5aa6a
+
+	/// Change versus previous week, in percentage points.
+	measure 'Mill Through Yield % vs Prev Week (pts)' =
+			VAR _prev = [Mill Through Yield % Prev Week]
+			RETURN
+			    IF ( NOT ISBLANK ( _prev ), [Mill Through Yield %] - _prev )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 6 Previous Week
+		lineageTag: 88743b1f-08c5-4206-872a-faa8906d1829
+
+	column Value
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 87d7708a-6bda-422a-8d47-22ff2634a764
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+	partition _Measures = calculated
+		mode: import
+		source = { 0 }

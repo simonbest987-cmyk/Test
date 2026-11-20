@@ -1,0 +1,129 @@
+table Fact_RollingTimes
+	isHidden
+	lineageTag: 9723bd5b-12aa-46cb-a1e2-74da03d4644e
+
+	column product
+		dataType: string
+		isHidden
+		lineageTag: 84e2f6f6-fe86-4d4c-b47b-bc1cc303215e
+		summarizeBy: none
+		sourceColumn: product
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rolling
+		dataType: string
+		lineageTag: a20280e7-873e-454e-bbd2-2c4685076f3f
+		summarizeBy: none
+		sourceColumn: Rolling
+
+		annotation SummarizationSetBy = Automatic
+
+	column Start
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 4e9bac94-035b-464d-b8a3-88e6f38c7d27
+		summarizeBy: none
+		sourceColumn: Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column End
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 68fa0205-2a9b-4a7b-8a31-5e9c92d25398
+		summarizeBy: none
+		sourceColumn: End
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Key'
+		dataType: string
+		isHidden
+		lineageTag: 96a47982-01aa-4808-8021-86e4ef6c490c
+		summarizeBy: none
+		sourceColumn: Product Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Source File'
+		dataType: string
+		isHidden
+		lineageTag: f27b0802-ed55-45fa-949c-e0f14ef3b63f
+		summarizeBy: none
+		sourceColumn: Source File
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Source File Modified'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: c99f4166-d84a-4fe7-9d40-37b7be26dc9b
+		summarizeBy: none
+		sourceColumn: Source File Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Operational Date'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy
+		lineageTag: f9e4f21b-dbe5-485d-86ea-1700c91be76c
+		summarizeBy: none
+		sourceColumn: Operational Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Segment Start'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 77c446e2-2259-409a-92dd-37217e30210f
+		summarizeBy: none
+		sourceColumn: Segment Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Segment End'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: c1d077e9-1b7b-48f4-a284-6153ea18c18c
+		summarizeBy: none
+		sourceColumn: Segment End
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hours
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: 5ebcebae-5861-4412-829d-d1d1d3990e3c
+		summarizeBy: none
+		sourceColumn: Hours
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_RollingTimes = m
+		mode: import
+		source =
+				let
+				    Source = fnExportSheet("Rolling Times"),
+				    Kept = Table.SelectColumns(Source, {"product", "Rolling", "Start", "End", "Source File", "Source File Modified"}, MissingField.UseNull),
+				    Times = Table.TransformColumns(Kept, {{"Start", fnToDateTime, type nullable datetime}, {"End", fnToDateTime, type nullable datetime}}),
+				    Typed = Table.TransformColumnTypes(Times, {{"product", type text}, {"Rolling", type text}}, "en-GB"),
+				    Valid = Table.SelectRows(Typed, each [Start] <> null),
+				    // Each export repeats the week to date; keep one row per event, taking the latest file (most up-to-date End)
+				    Latest = Table.Buffer(Table.Sort(Valid, {{"Source File Modified", Order.Descending}, {"End", Order.Descending}})),
+				    Dedup = Table.Distinct(Latest, {"product", "Rolling", "Start"}),
+				    Ordered = Table.Sort(Dedup, {{"Start", Order.Ascending}}),
+				    ProductKey = Table.AddColumn(Ordered, "Product Key", each if [product] = null then null else Text.TrimEnd([product]), type nullable text),
+				    Split = fnSplitByOperationalDay(ProductKey, "Start", "End"),
+				    Final = Table.TransformColumnTypes(Split, {{"Operational Date", type date}, {"Segment Start", type datetime}, {"Segment End", type datetime}, {"Hours", type number}})
+				in
+				    Final
+
+	annotation PBI_ResultType = Table

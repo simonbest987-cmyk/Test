@@ -1,2 +1,4 @@
 **/.pbi/localSettings.json
 **/.pbi/cache.abf
+# Data exports (business data) must not be committed to this public repo
+*.xlsx

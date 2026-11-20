@@ -1,0 +1,112 @@
+table Dim_Date
+	dataCategory: Time
+	lineageTag: 93a756c9-38aa-4ac7-853c-81f9deea1a22
+
+	/// Operational date: runs 07:00 to 07:00, so a 06:59 event belongs to the previous day.
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: dd/mm/yyyy
+		lineageTag: 6e807285-5f41-40fd-9a26-a00b370db9dd
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Financial week start (Sunday). Weeks run Sunday to Saturday.
+	column 'Week Commencing'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: c0d90b4e-71b4-454e-a227-ee9f4bcccfe5
+		summarizeBy: none
+		sourceColumn: Week Commencing
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Week Ending'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 7651f5a8-56c4-4e7c-a209-59cfa979bae5
+		summarizeBy: none
+		sourceColumn: Week Ending
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Financial week label, e.g. "w/c 15 Nov 2026".
+	column Week
+		dataType: string
+		lineageTag: 3b6d04eb-6b03-4025-a2e2-b2741a1c93c7
+		summarizeBy: none
+		sourceColumn: Week
+		sortByColumn: 'Week Commencing'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: string
+		lineageTag: 6c5b2727-aa4f-4ff0-a32b-0e240a39a4bf
+		summarizeBy: none
+		sourceColumn: Day
+		sortByColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week No'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cf8e9d7f-9b3c-454d-b1a0-322cb2fd58a8
+		summarizeBy: none
+		sourceColumn: Day of Week No
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calendar Month Start'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy
+		lineageTag: 14bec31e-025c-4208-b586-0b7101d57c93
+		summarizeBy: none
+		sourceColumn: Calendar Month Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Calendar month (not the financial period).
+	column 'Calendar Month'
+		dataType: string
+		lineageTag: 216093e5-0d83-4962-83e0-f9e4df95e718
+		summarizeBy: none
+		sourceColumn: Calendar Month
+		sortByColumn: 'Calendar Month Start'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Date = m
+		mode: import
+		source =
+				let
+				    AllDates = List.RemoveNulls(List.Combine({Fact_Bars[Operational Date], Fact_Delays[Operational Date], Fact_RollingTimes[Operational Date], Fact_Speed[Operational Date]})),
+				    // Whole financial weeks (Sunday to Saturday) covering every operational date in the data
+				    FirstDate = Date.StartOfWeek(List.Min(AllDates), Day.Sunday),
+				    LastDate = Date.EndOfWeek(List.Max(AllDates), Day.Sunday),
+				    Dates = List.Dates(FirstDate, Duration.Days(LastDate - FirstDate) + 1, #duration(1, 0, 0, 0)),
+				    Base = Table.FromList(Dates, Splitter.SplitByNothing(), type table [Date = date]),
+				    WeekCommencing = Table.AddColumn(Base, "Week Commencing", each Date.StartOfWeek([Date], Day.Sunday), type date),
+				    WeekEnding = Table.AddColumn(WeekCommencing, "Week Ending", each Date.EndOfWeek([Date], Day.Sunday), type date),
+				    WeekLabel = Table.AddColumn(WeekEnding, "Week", each "w/c " & Date.ToText([Week Commencing], [Format = "dd MMM yyyy", Culture = "en-GB"]), type text),
+				    DayLabel = Table.AddColumn(WeekLabel, "Day", each Date.ToText([Date], [Format = "ddd dd MMM", Culture = "en-GB"]), type text),
+				    DayOfWeek = Table.AddColumn(DayLabel, "Day of Week No", each Date.DayOfWeek([Date], Day.Sunday) + 1, Int64.Type),
+				    MonthStart = Table.AddColumn(DayOfWeek, "Calendar Month Start", each Date.StartOfMonth([Date]), type date),
+				    MonthLabel = Table.AddColumn(MonthStart, "Calendar Month", each Date.ToText([Date], [Format = "MMM yyyy", Culture = "en-GB"]), type text)
+				in
+				    MonthLabel
+
+	annotation PBI_ResultType = Table

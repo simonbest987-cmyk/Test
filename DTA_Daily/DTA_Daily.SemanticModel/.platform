@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "DTA_Daily"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ec30861c-1634-4973-81e8-0daabb583bf3"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v179eb185a6f7ca",
+  "position": {
+    "x": 444,
+    "y": 76,
+    "z": 17000,
+    "width": 202,
+    "height": 100,
+    "tabOrder": 17000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "36 Mill Yield %"
+                }
+              },
+              "queryRef": "_Measures.36 Mill Yield %",
+              "nativeQueryRef": "36 Mill Yield %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
